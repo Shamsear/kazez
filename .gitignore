@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds
+dist/
+*/dist/
+.vite/
+*/.vite/
+
+# Database dumps and temporary binaries
+*.sql
+*.tmp
+*.log
+
+# Workspace & Agent metadata
+.agent/
+.agents/
+.claude/
+.codex/
+agent/
+scratch/
+skills-lock.json
+capture_spec.cjs
+fixed_hero_tag.png
+
+# System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
