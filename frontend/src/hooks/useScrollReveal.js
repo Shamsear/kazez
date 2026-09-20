@@ -1,34 +1,31 @@
-import { useEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { reveal, rise, leave, morph } from 'cube-motion';
 
 export { rise, leave, morph, reveal };
 
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 /**
  * useScrollReveal powered by cube-motion (Web Animations API)
- * Automatically hides elements and rises them as they scroll into view (10% viewport inset, 640ms, 12px lift, 70ms stagger).
+ * Immediately sets initial state before first paint (via useLayoutEffect) to eliminate any FOUC flash.
  */
 export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
     let cleanup = null;
-
-    // Small delay so React completes rendering view/DOM changes
-    const timer = setTimeout(() => {
-      try {
-        const elements = document.querySelectorAll(selector);
-        if (elements.length > 0) {
-          cleanup = reveal(elements, {
-            stagger: 70
-          });
-        }
-      } catch (err) {
-        console.warn('cube-motion reveal initialization error:', err);
+    try {
+      const elements = document.querySelectorAll(selector);
+      if (elements.length > 0) {
+        cleanup = reveal(elements, {
+          stagger: 70
+        });
       }
-    }, 60);
+    } catch (err) {
+      console.warn('cube-motion reveal error:', err);
+    }
 
     return () => {
-      clearTimeout(timer);
       if (typeof cleanup === 'function') {
         cleanup();
       }
