@@ -4,42 +4,42 @@
    ════════════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Color Architecture: Deep Obsidian & Raw Machined Alloys */
-  --kz-obsidian: #080808;
-  --kz-panel: #111111;
-  --kz-panel-elevated: #181818;
-  --kz-panel-glass: rgba(18, 18, 18, 0.85);
+  /* Color Architecture: Titanium Slate & Machined Studio Alloys */
+  --kz-obsidian: #12151c;
+  --kz-panel: #1b2028;
+  --kz-panel-elevated: #242b36;
+  --kz-panel-glass: rgba(22, 27, 35, 0.88);
   
-  /* Hairline Precision Borders */
-  --kz-border: rgba(255, 255, 255, 0.09);
-  --kz-border-light: rgba(255, 255, 255, 0.16);
+  /* Hairline Precision Borders with enhanced contrast */
+  --kz-border: rgba(255, 255, 255, 0.14);
+  --kz-border-light: rgba(255, 255, 255, 0.22);
   --kz-border-active: #cc001b;
-  --kz-border-hover: rgba(255, 255, 255, 0.3);
+  --kz-border-hover: rgba(255, 255, 255, 0.38);
 
   /* Performance Accent — Tachometer Red (WCAG AA Contrast Tuned >= 4.5:1) */
   --kz-racing-red: #cc001b;
   --kz-racing-red-hover: #b50017;
-  --kz-racing-red-soft: rgba(204, 0, 27, 0.12);
-  --kz-racing-red-glow: rgba(0, 0, 0, 0.4);
+  --kz-racing-red-soft: rgba(204, 0, 27, 0.14);
+  --kz-racing-red-glow: rgba(204, 0, 27, 0.25);
 
   /* Semantic & Component Aliases */
-  --kz-bg: #080808;
-  --kz-surface: #111111;
-  --kz-card-bg: #111111;
-  --kz-card-border: rgba(255, 255, 255, 0.09);
+  --kz-bg: #12151c;
+  --kz-surface: #1b2028;
+  --kz-card-bg: #1b2028;
+  --kz-card-border: rgba(255, 255, 255, 0.14);
   --kz-text: #ffffff;
   --kz-red: #cc001b;
   
   /* Metallic Accents */
-  --kz-chrome-silver: #f0eee9;
-  --kz-metal-mid: #9c9890;
-  --kz-metal-dark: #3a3834;
+  --kz-chrome-silver: #f1f5f9;
+  --kz-metal-mid: #94a3b8;
+  --kz-metal-dark: #2d3440;
   
-  /* Typography & Readability (All WCAG AA Compliant >= 4.5:1) */
+  /* Typography & Readability (Elevated Slate-Grays for Zero Eye Strain) */
   --kz-text-white: #ffffff;
-  --kz-text-secondary: rgba(255, 255, 255, 0.78);
-  --kz-text-muted: #9c9890;
-  --kz-text-dim: #88847c;
+  --kz-text-secondary: #e2e8f0;
+  --kz-text-muted: #94a3b8;
+  --kz-text-dim: #808ea0;
 
   /* Fonts & Weights (Distinctive Luxury Tech & Precision Engineering) */
   --kz-font-display: "Epilogue", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -60,7 +60,7 @@
   --kz-radius-pill: 999px;
 
   /* Focus & Accessibility */
-  --kz-focus-ring: 0 0 0 2px #080808, 0 0 0 3px #ffffff;
+  --kz-focus-ring: 0 0 0 2px #12151c, 0 0 0 3px #ffffff;
 
   /* Transitions & Motion Choreography */
   --kz-transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
