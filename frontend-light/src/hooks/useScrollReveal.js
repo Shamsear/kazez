@@ -51,7 +51,9 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
   useEffect(() => {
     initVelocityTracker();
 
-    const rafId = requestAnimationFrame(() => {
+    let observer = null;
+
+    const timer = setTimeout(() => {
       const elements = document.querySelectorAll(selector);
       if (!elements.length) return;
 
@@ -60,16 +62,16 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
         return;
       }
 
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               // Speed up animation dynamically according to scroll velocity:
-              // Velocity <= 0.4 px/ms -> normal (~560ms, delayMult 1.0)
-              // Velocity >= 2.0 px/ms -> fast pop (~140ms, delayMult 0.05)
-              const factor = Math.min(Math.max((scrollVelocity - 0.4) / 1.6, 0), 1);
-              const durationMs = Math.round(560 - factor * 420); // 560ms -> 140ms
-              const delayMultiplier = +(1 - factor * 0.95).toFixed(2); // 1.0 -> 0.05
+              // Velocity <= 0.3 px/ms -> normal (~620ms, delayMult 1.0)
+              // Velocity >= 1.8 px/ms -> fast pop (~180ms, delayMult 0.1)
+              const factor = Math.min(Math.max((scrollVelocity - 0.3) / 1.5, 0), 1);
+              const durationMs = Math.round(620 - factor * 440); // 620ms -> 180ms
+              const delayMultiplier = +(1 - factor * 0.9).toFixed(2); // 1.0 -> 0.1
 
               entry.target.style.setProperty('--kz-reveal-dur', `${durationMs}ms`);
               entry.target.style.setProperty('--kz-reveal-delay-mult', `${delayMultiplier}`);
@@ -85,7 +87,11 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
             }
           });
         },
-        { threshold: 0.02, rootMargin: '0px 0px 40px 0px' }
+        {
+          threshold: 0.1,
+          // Negative bottom margin ensures animation triggers ONLY when element is at least 60px inside the visible viewport
+          rootMargin: '0px 0px -60px 0px'
+        }
       );
 
       elements.forEach((el) => {
@@ -93,10 +99,13 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
           observer.observe(el);
         }
       });
-    });
+    }, 50);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      clearTimeout(timer);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [selector, ...deps]);
 };
