@@ -916,23 +916,30 @@ html.lenis body {
 }
 
 .kz-hero-thumbs {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   margin-top: 14px;
+  width: 100%;
 }
 
 .kz-hero-thumb-btn {
-  flex: 1;
+  width: 100%;
   aspect-ratio: 1;
   background: #FFFFFF;
   border: 1px solid var(--kz-border);
-  border-radius: var(--kz-radius-md);
-  padding: 8px;
+  border-radius: 12px;
+  padding: 6px;
   cursor: pointer;
-  transition: border-color var(--kz-transition-fast), box-shadow var(--kz-transition-fast), transform var(--kz-transition-fast);
+  transition: all 180ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.kz-hero-thumb-btn:hover {
+  border-color: #94A3B8;
+  transform: translateY(-1px);
 }
 
 .kz-hero-thumb-btn img {
@@ -944,6 +951,71 @@ html.lenis body {
 .kz-hero-thumb-btn.active {
   border-color: var(--kz-text-primary);
   box-shadow: 0 0 0 2px var(--kz-text-primary);
+}
+
+/* Hero Quick Edition Switcher (Full-Width Segmented Plinth) */
+.kz-hero-edition-switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+.kz-hero-edition-btn {
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  font-family: var(--kz-font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--kz-border);
+  background: #FFFFFF;
+  color: var(--kz-text-secondary);
+}
+
+.kz-hero-edition-btn:hover {
+  background: var(--kz-surface-subtle);
+  border-color: #94A3B8;
+  color: var(--kz-text-primary);
+}
+
+.kz-hero-edition-btn.active.kz-edition-black {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+}
+
+.kz-hero-edition-btn.active.kz-edition-silver {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 50%, #E2E8F0 100%);
+  color: #0F172A;
+  border-color: #94A3B8;
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.28);
+}
+
+.kz-hero-edition-btn .kz-edition-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 200ms ease;
+}
+
+.kz-hero-edition-btn.kz-edition-black .kz-edition-dot {
+  background: #38BDF8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+}
+
+.kz-hero-edition-btn.kz-edition-silver .kz-edition-dot {
+  background: #94A3B8;
+  box-shadow: 0 0 6px rgba(148, 163, 184, 0.8);
 }
 
 @media (max-width: 650px) {

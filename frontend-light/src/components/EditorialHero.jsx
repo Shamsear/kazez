@@ -126,25 +126,26 @@ export const EditorialHero = ({ onSelectEdition, onExploreEditions }) => {
                 <div className="kz-hero-edition-switcher">
                   <button
                     type="button"
-                    className={`kz-btn kz-btn-sm ${activeEditionIndex === 0 ? 'kz-btn-primary' : 'kz-btn-secondary'}`}
-                    style={{ flex: 1 }}
+                    className={`kz-hero-edition-btn kz-edition-black ${activeEditionIndex === 0 ? 'active' : ''}`}
                     onClick={() => {
                       setActiveEditionIndex(0);
                       setActiveThumbIndex(0);
                     }}
                   >
-                    ● {isRtl ? 'الإصدار الأسود' : 'Black Edition'}
+                    <span className="kz-edition-dot" />
+                    <span>{isRtl ? 'الإصدار الأسود' : 'Black Edition'}</span>
                   </button>
+
                   <button
                     type="button"
-                    className={`kz-btn kz-btn-sm ${activeEditionIndex === 1 ? 'kz-btn-primary' : 'kz-btn-secondary'}`}
-                    style={{ flex: 1 }}
+                    className={`kz-hero-edition-btn kz-edition-silver ${activeEditionIndex === 1 ? 'active' : ''}`}
                     onClick={() => {
                       setActiveEditionIndex(1);
                       setActiveThumbIndex(0);
                     }}
                   >
-                    ○ {isRtl ? 'الإصدار الفضي' : 'Silver Edition'}
+                    <span className="kz-edition-dot" />
+                    <span>{isRtl ? 'الإصدار الفضي' : 'Silver Edition'}</span>
                   </button>
                 </div>
               </div>
