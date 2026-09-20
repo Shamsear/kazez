@@ -2,13 +2,11 @@ import React from 'react';
 import { ShoppingBag, Eye } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PriceTag } from './PriceTag';
 
 export const ProductCard = ({ product, index = 0, onSelectProduct }) => {
   const { t, isRtl } = useLanguage();
   const { addToCart, openCart } = useCart();
-  useScrollReveal('.kz-product-card');
 
   const isSilver = product.slug === 'kazez-silver';
   const editionTitle = isSilver ? t.nav.silverEdition : t.nav.blackEdition;

@@ -8,7 +8,7 @@ const revealedSet = new WeakSet();
 
 /**
  * useScrollReveal powered by cube-motion (Web Animations API)
- * Ensures elements reveal exactly ONCE and never re-hide or flicker on scroll/re-renders.
+ * Ensures elements reveal smoothly with cube-motion and stay permanently visible.
  */
 export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
   useEffect(() => {
@@ -24,6 +24,7 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
 
     if (!('IntersectionObserver' in window)) {
       elementsToObserve.forEach((el) => {
+        el.style.removeProperty('opacity');
         el.style.opacity = '1';
         el.classList.add('kz-revealed', 'visible');
         revealedSet.add(el);
@@ -31,9 +32,11 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
       return;
     }
 
-    // Hide only fresh, unrevealed elements
+    // Hide only fresh, unrevealed elements before observing
     elementsToObserve.forEach((el) => {
-      el.style.opacity = '0';
+      if (!revealedSet.has(el)) {
+        el.style.opacity = '0';
+      }
     });
 
     let staggerIdx = 0;
@@ -48,6 +51,12 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
             el.classList.add('kz-revealed', 'visible');
             io.unobserve(el);
 
+            // CRITICAL: Remove inline opacity: 0 before running rise()
+            // cube-motion's rise uses fill: 'backwards', so the underlying style MUST be opacity: 1
+            // so the element stays permanently visible when the animation completes.
+            el.style.removeProperty('opacity');
+            el.style.opacity = '1';
+
             const delay = staggerIdx * 60;
             staggerIdx++;
             clearTimeout(staggerTimer);
@@ -61,14 +70,17 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
               animations.forEach((anim) => {
                 anim.finished.then(
                   () => {
+                    el.style.removeProperty('opacity');
                     el.style.opacity = '1';
                   },
                   () => {
+                    el.style.removeProperty('opacity');
                     el.style.opacity = '1';
                   }
                 );
               });
             } catch (err) {
+              el.style.removeProperty('opacity');
               el.style.opacity = '1';
             }
           }
@@ -76,9 +88,9 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
       },
       {
         root: null,
-        // Inset 8% from bottom so animation starts clearly inside viewport
-        rootMargin: `0px 0px -${Math.max(40, Math.round(window.innerHeight * 0.08))}px 0px`,
-        threshold: 0.05
+        // Inset from bottom so animation triggers gracefully when entering viewport
+        rootMargin: `0px 0px -${Math.max(30, Math.round(window.innerHeight * 0.06))}px 0px`,
+        threshold: 0.02
       }
     );
 
@@ -91,7 +103,7 @@ export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
     return () => {
       io.disconnect();
       clearTimeout(staggerTimer);
-      // Cleanly unobserve without resetting opacity of already revealed elements
     };
   }, [selector, ...deps]);
 };
+
