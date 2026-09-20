@@ -24,15 +24,21 @@ export const MinimalNavbar = ({ activeView, setActiveView }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
-      setIsScrolled(scrollY > 24);
+      const scrollY = window.lenis ? window.lenis.scroll : (window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0);
+      setIsScrolled(scrollY > 18);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    if (window.lenis) {
+      window.lenis.on('scroll', handleScroll);
+    }
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (window.lenis) {
+        window.lenis.off('scroll', handleScroll);
+      }
     };
   }, []);
 
