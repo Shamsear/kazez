@@ -246,8 +246,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: var(--kz-nav-height);
-  background: #080808;
+  background: rgba(18, 21, 28, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--kz-border);
   z-index: 1000;
   transition: background var(--kz-transition-fast);
