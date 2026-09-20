@@ -1588,27 +1588,27 @@
   }
 }
 
-/* Gallery Theme Black - Stealth Tactical Stage */
+/* Gallery Theme Black - Stealth Tactical Stage with Studio Illumination */
 .kz-gallery-container.theme-black {
-  border: 1.5px solid rgba(204, 0, 27, 0.24);
-  background: radial-gradient(ellipse at 50% 45%, rgba(204, 0, 27, 0.09) 0%, rgba(14, 14, 14, 0.97) 75%);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: radial-gradient(ellipse at 50% 45%, rgba(59, 70, 86, 0.55) 0%, rgba(30, 36, 48, 0.78) 48%, rgba(18, 21, 28, 0.98) 100%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 .kz-gallery-container.theme-black .kz-thumb-btn.active {
   border-color: var(--kz-racing-red);
-  background: rgba(204, 0, 27, 0.12);
-  box-shadow: none;
+  background: rgba(204, 0, 27, 0.16);
+  box-shadow: 0 0 12px rgba(204, 0, 27, 0.3);
 }
 
 /* Gallery Theme Silver - Platinum Specular Stage */
 .kz-gallery-container.theme-silver {
-  border: 1.5px solid rgba(226, 232, 240, 0.35);
-  background: radial-gradient(ellipse at 50% 45%, rgba(248, 250, 252, 0.18) 0%, rgba(16, 18, 22, 0.97) 75%);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(226, 232, 240, 0.35);
+  background: radial-gradient(ellipse at 50% 45%, rgba(248, 250, 252, 0.22) 0%, rgba(26, 32, 42, 0.95) 75%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 .kz-gallery-container.theme-silver .kz-thumb-btn.active {
   border-color: #e2e8f0;
-  background: rgba(226, 232, 240, 0.15);
+  background: rgba(226, 232, 240, 0.18);
   box-shadow: none;
 }
 

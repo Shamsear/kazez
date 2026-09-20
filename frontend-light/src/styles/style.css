@@ -653,7 +653,7 @@ html.lenis body {
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1100;
+  z-index: 1200;
   pointer-events: none;
   transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
               opacity 240ms ease,
