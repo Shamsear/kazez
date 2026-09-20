@@ -8,7 +8,7 @@ export const Footer = ({ onNavigate }) => {
   const { t, isRtl } = useLanguage();
 
   return (
-    <footer style={{ background: '#050505', borderTop: '1px solid var(--kz-border)', color: 'var(--kz-text-muted)' }}>
+    <footer style={{ background: 'var(--kz-obsidian)', borderTop: '1px solid var(--kz-border)', color: 'var(--kz-text-muted)' }}>
       {/* Upper Value Assurance Strip */}
       <div className="kz-footer-assurance-strip">
         <div className="kz-container">
@@ -206,7 +206,7 @@ export const Footer = ({ onNavigate }) => {
       </div>
 
       {/* Copyright Bar & Legal Compliance Links */}
-      <div style={{ borderTop: '1px solid var(--kz-border)', background: '#030303' }}>
+      <div style={{ borderTop: '1px solid var(--kz-border)', background: 'var(--kz-panel)' }}>
         <div className="kz-container" style={{
           padding: '24px clamp(16px, 3vw, 32px)',
           display: 'flex',
