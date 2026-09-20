@@ -1,101 +1,37 @@
 import { useEffect } from 'react';
+import { reveal, rise, leave, morph } from 'cube-motion';
 
-// Global velocity tracker shared across all reveal instances
-let scrollVelocity = 0; // px/ms
-let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-let lastScrollTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
-let decayTimer = null;
-let isListenerActive = false;
-const observedElements = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
+export { rise, leave, morph, reveal };
 
-function initVelocityTracker() {
-  if (isListenerActive || typeof window === 'undefined') return;
-  isListenerActive = true;
-
-  const onScroll = () => {
-    const now = performance.now();
-    const elapsed = lastScrollTime ? now - lastScrollTime : 0;
-
-    const currentY = window.scrollY;
-    const dy = Math.abs(currentY - lastScrollY);
-
-    // If starting a fresh gesture after being idle (> 260ms), compute impulse velocity based on physical onset time (~25ms)
-    let instantVel;
-    if (!lastScrollTime || elapsed > 260) {
-      instantVel = dy / 25;
-      scrollVelocity = instantVel;
-    } else {
-      const dt = Math.max(elapsed, 16); // Clamp to minimum 1 frame (16ms)
-      instantVel = dy / dt; // pixels per millisecond
-      // Exponential moving average for smooth, responsive velocity tracking
-      scrollVelocity = scrollVelocity * 0.35 + instantVel * 0.65;
-    }
-
-    lastScrollY = currentY;
-    lastScrollTime = now;
-
-    // Calculate dynamic speed factor: 1.0 (normal) up to 3.5 (high-speed flick)
-    const speedFactor = Math.min(Math.max(1 + (scrollVelocity - 0.5) * 0.8, 1), 3.5);
-    document.documentElement.style.setProperty('--kz-scroll-speed', speedFactor.toFixed(2));
-
-    clearTimeout(decayTimer);
-    decayTimer = setTimeout(() => {
-      scrollVelocity = 0;
-      document.documentElement.style.setProperty('--kz-scroll-speed', '1');
-    }, 240);
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
-
+/**
+ * useScrollReveal powered by cube-motion (Web Animations API)
+ * Automatically hides elements and rises them as they scroll into view (10% viewport inset, 640ms, 12px lift, 70ms stagger).
+ */
 export const useScrollReveal = (selector = '.kz-reveal', deps = []) => {
   useEffect(() => {
-    initVelocityTracker();
+    if (typeof window === 'undefined') return;
 
-    const elements = document.querySelectorAll(selector);
-    if (!elements.length) return;
+    let cleanup = null;
 
-    if (!('IntersectionObserver' in window)) {
-      elements.forEach((el) => el.classList.add('visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Speed up animation dynamically according to scroll velocity:
-            // Velocity <= 0.4 px/ms -> normal (~560ms, delayMult 1.0)
-            // Velocity >= 2.0 px/ms -> fast pop (~140ms, delayMult 0.05)
-            const factor = Math.min(Math.max((scrollVelocity - 0.4) / 1.6, 0), 1);
-            const durationMs = Math.round(560 - factor * 420); // 560ms -> 140ms
-            const delayMultiplier = +(1 - factor * 0.95).toFixed(2); // 1.0 -> 0.05
-
-            entry.target.style.setProperty('--kz-reveal-dur', `${durationMs}ms`);
-            entry.target.style.setProperty('--kz-reveal-delay-mult', `${delayMultiplier}`);
-
-            if (factor > 0.4) {
-              entry.target.classList.add('velocity-fast');
-            } else if (factor > 0.12) {
-              entry.target.classList.add('velocity-medium');
-            }
-
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.02, rootMargin: '0px 0px 40px 0px' }
-    );
-
-    elements.forEach((el) => {
-      if (!el.classList.contains('visible')) {
-        observer.observe(el);
+    // Small delay so React completes rendering view/DOM changes
+    const timer = setTimeout(() => {
+      try {
+        const elements = document.querySelectorAll(selector);
+        if (elements.length > 0) {
+          cleanup = reveal(elements, {
+            stagger: 70
+          });
+        }
+      } catch (err) {
+        console.warn('cube-motion reveal initialization error:', err);
       }
-    });
+    }, 60);
 
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
+      clearTimeout(timer);
+      if (typeof cleanup === 'function') {
+        cleanup();
+      }
     };
   }, [selector, ...deps]);
 };
