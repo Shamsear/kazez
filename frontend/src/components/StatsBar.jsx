@@ -1,10 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { useScrollReveal } from '../hooks/useScrollReveal';
-
 export const StatsBar = () => {
   const { t } = useLanguage();
-  useScrollReveal('.kz-stat-tile');
 
   return (
     <div className="kz-stats-strip">
