@@ -1812,13 +1812,20 @@ html.lenis body {
    ----------------------------------------------------------------------------- */
 .kz-sticky-bar-wrapper {
   position: fixed;
-  bottom: 86px; /* Floats cleanly above the bottom floating navigation dock on mobile/tablet */
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px)); /* Floats cleanly above the bottom floating navigation dock on mobile/tablet */
   left: 0;
   right: 0;
   width: 100%;
-  pointer-events: none;
-  z-index: 930;
-  transition: bottom 300ms ease;
+  pointer-events: none !important;
+  visibility: hidden;
+  z-index: 1080;
+  transition: bottom 300ms ease, opacity 240ms ease, visibility 240ms ease;
+  opacity: 0;
+}
+
+.kz-sticky-bar-wrapper.visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (min-width: 1024px) {
@@ -1833,10 +1840,11 @@ html.lenis body {
   max-width: var(--kz-max-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
   display: flex;
   justify-content: flex-end;
+  pointer-events: none !important;
 }
 
 @media (min-width: 768px) {
@@ -1859,23 +1867,25 @@ html.lenis body {
 }
 
 .kz-sticky-buy-bar {
-  pointer-events: auto;
+  pointer-events: none !important;
+  visibility: hidden;
   width: 100%;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--kz-border);
-  border-radius: 22px; /* Device screen corner curve */
+  border-radius: 20px; /* Device screen corner curve */
   box-shadow: 0 16px 42px -6px rgba(15, 23, 42, 0.16), 0 2px 8px -1px rgba(15, 23, 42, 0.04);
   padding: 8px 10px 8px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  transform: translateY(140%);
+  transform: translateY(120%);
   opacity: 0;
   transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
               opacity 240ms ease,
+              visibility 240ms ease,
               width 400ms cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 320ms ease;
   will-change: transform, opacity, width;
@@ -1887,6 +1897,8 @@ html.lenis body {
 }
 
 .kz-sticky-bar-wrapper.visible .kz-sticky-buy-bar {
+  pointer-events: auto !important;
+  visibility: visible !important;
   transform: translateY(0);
   opacity: 1;
 }
