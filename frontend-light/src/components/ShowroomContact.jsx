@@ -91,6 +91,24 @@ export const ShowroomContact = () => {
                   <p style={{ fontSize: '0.86rem', color: 'var(--kz-text-secondary)', lineHeight: '1.5' }}>
                     Salwa Road Commercial Corridor, Zone 55, Doha, State of Qatar
                   </p>
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                    <a
+                      href="https://maps.google.com/?q=Salwa+Road+Doha+Qatar"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', padding: '4px 10px', borderRadius: 'var(--kz-radius-pill)', border: '1px solid var(--kz-border)', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-primary)', textDecoration: 'none', fontWeight: 600 }}
+                    >
+                      <Compass size={12} color="var(--kz-crimson)" /> {isRtl ? 'خرائط جوجل ↗' : 'Google Maps ↗'}
+                    </a>
+                    <a
+                      href="http://maps.apple.com/?q=Salwa+Road+Doha+Qatar"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', padding: '4px 10px', borderRadius: 'var(--kz-radius-pill)', border: '1px solid var(--kz-border)', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-primary)', textDecoration: 'none', fontWeight: 600 }}
+                    >
+                      <Compass size={12} color="var(--kz-crimson)" /> {isRtl ? 'خرائط أبل ↗' : 'Apple Maps ↗'}
+                    </a>
+                  </div>
                 </div>
               </div>
 

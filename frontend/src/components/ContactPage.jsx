@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, MessageSquare, CheckCircle2, ChevronRight, ChevronLeft } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, MessageSquare, CheckCircle2, ChevronRight, ChevronLeft, Compass } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const ContactPage = () => {
@@ -70,6 +70,24 @@ export const ContactPage = () => {
                     <div style={{ fontWeight: 500, fontSize: '14px', marginBottom: '4px' }}>{isRtl ? 'الموقع والعنوان' : 'Showroom & Fitment Center'}</div>
                     <div style={{ color: 'var(--kz-text-muted)', fontSize: '14px', fontWeight: 300, lineHeight: 1.6 }}>
                       {t.contact.dohaAddress}
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                      <a
+                        href="https://maps.google.com/?q=Salwa+Road+Doha+Qatar"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', padding: '4px 10px', borderRadius: 'var(--kz-radius-pill)', border: '1px solid var(--kz-border)', background: 'rgba(255, 255, 255, 0.04)', color: 'var(--kz-text)', textDecoration: 'none', fontWeight: 500 }}
+                      >
+                        <Compass size={12} color="var(--kz-racing-red)" /> {isRtl ? 'خرائط جوجل ↗' : 'Google Maps ↗'}
+                      </a>
+                      <a
+                        href="http://maps.apple.com/?q=Salwa+Road+Doha+Qatar"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', padding: '4px 10px', borderRadius: 'var(--kz-radius-pill)', border: '1px solid var(--kz-border)', background: 'rgba(255, 255, 255, 0.04)', color: 'var(--kz-text)', textDecoration: 'none', fontWeight: 500 }}
+                      >
+                        <Compass size={12} color="var(--kz-racing-red)" /> {isRtl ? 'خرائط أبل ↗' : 'Apple Maps ↗'}
+                      </a>
                     </div>
                   </div>
                 </div>

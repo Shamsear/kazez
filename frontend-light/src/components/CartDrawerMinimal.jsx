@@ -340,16 +340,30 @@ export const CartDrawerMinimal = ({ onProceedToCheckout }) => {
               <p style={{ fontSize: '0.84rem', color: 'var(--kz-text-secondary)', maxWidth: '28ch', margin: '0 auto 20px', lineHeight: '1.5' }}>
                 {isRtl ? 'اختر إصدار كزاز (الأسود أو الفضي) لبدء التجهيز والشحن.' : 'Select a Kazez Actuator Edition to prepare direct courier dispatch.'}
               </p>
-              <button
-                type="button"
-                className="kz-btn kz-btn-primary kz-btn-sm"
-                onClick={() => {
-                  addToCart(PRODUCTS[0], 1);
-                }}
-              >
-                <Plus size={14} />
-                <span>{isRtl ? 'إضافة الإصدار الأسود (Black Edition)' : 'Quick Add Black Edition'}</span>
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '300px', margin: '0 auto' }}>
+                <button
+                  type="button"
+                  className="kz-btn kz-btn-primary kz-btn-sm"
+                  style={{ justifyContent: 'center' }}
+                  onClick={() => {
+                    addToCart(PRODUCTS[0], 1);
+                  }}
+                >
+                  <Plus size={14} />
+                  <span>{isRtl ? 'إضافة الإصدار الأسود (350 ر.ق)' : 'Add Black Edition (350 QAR)'}</span>
+                </button>
+                <button
+                  type="button"
+                  className="kz-btn kz-btn-secondary kz-btn-sm"
+                  style={{ justifyContent: 'center' }}
+                  onClick={() => {
+                    addToCart(PRODUCTS[1] || PRODUCTS[0], 1);
+                  }}
+                >
+                  <Plus size={14} />
+                  <span>{isRtl ? 'إضافة الإصدار الفضي (350 ر.ق)' : 'Add Silver Edition (350 QAR)'}</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -381,6 +395,14 @@ export const CartDrawerMinimal = ({ onProceedToCheckout }) => {
               <span>{isRtl ? 'متابعة إلى إتمام الطلب' : 'Proceed to Checkout'}</span>
               <ArrowRight size={16} />
             </button>
+
+            {/* Regional Payment Badges */}
+            <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid var(--kz-border-subtle)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Apple Pay</span>
+              <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Mada</span>
+              <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>KNET</span>
+              <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'var(--kz-surface-subtle)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Visa / Master</span>
+            </div>
           </div>
         )}
       </aside>

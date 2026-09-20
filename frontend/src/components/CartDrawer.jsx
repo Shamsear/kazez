@@ -1,7 +1,8 @@
 import React from 'react';
-import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Plus, ShieldCheck, Zap, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { PRODUCTS } from '../data/products';
 import { PriceTag } from './PriceTag';
 
 export const CartDrawer = ({ onProceedToCheckout }) => {
@@ -9,6 +10,7 @@ export const CartDrawer = ({ onProceedToCheckout }) => {
     items,
     isCartOpen,
     closeCart,
+    addToCart,
     removeFromCart,
     updateQuantity,
     clearCart,
@@ -48,10 +50,47 @@ export const CartDrawer = ({ onProceedToCheckout }) => {
         {/* Item List */}
         <div className="kz-cart-items-wrap">
           {items.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '48px 20px', color: 'var(--kz-text-muted)' }}>
-              <ShoppingBag size={40} style={{ opacity: 0.3, margin: '0 auto 12px' }} />
-              <h4 style={{ color: '#fff', fontWeight: 500, marginBottom: '6px', fontSize: '0.94rem' }}>{t.cart.emptyTitle}</h4>
-              <p style={{ fontSize: '0.82rem', fontWeight: 300 }}>{t.cart.emptySub}</p>
+            <div style={{ textAlign: 'center', padding: '36px 16px', color: 'var(--kz-text-muted)' }}>
+              <ShoppingBag size={36} style={{ opacity: 0.3, margin: '0 auto 10px' }} />
+              <h4 style={{ color: '#fff', fontWeight: 600, marginBottom: '6px', fontSize: '0.94rem' }}>{t.cart.emptyTitle}</h4>
+              <p style={{ fontSize: '0.82rem', fontWeight: 300, marginBottom: '24px' }}>{t.cart.emptySub}</p>
+
+              {/* Quick Add Recommendations */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: isRtl ? 'right' : 'left' }}>
+                <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--kz-text-muted)', fontWeight: 600 }}>
+                  {isRtl ? 'إصدارات هوائي كزاز الفاخرة' : 'Recommended Editions'}
+                </div>
+                {PRODUCTS.map((prod) => (
+                  <button
+                    key={prod.sku}
+                    type="button"
+                    onClick={() => addToCart(prod, 1)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid var(--kz-border)',
+                      borderRadius: '12px',
+                      color: '#FFFFFF',
+                      cursor: 'pointer',
+                      transition: 'all 160ms ease'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <img src={prod.images[0]} alt={prod.edition} style={{ width: '36px', height: '36px', objectFit: 'contain', borderRadius: '6px', background: 'rgba(255, 255, 255, 0.05)' }} />
+                      <div>
+                        <div style={{ fontSize: '0.84rem', fontWeight: 600 }}>{prod.edition}</div>
+                        <div style={{ fontSize: '0.74rem', color: 'var(--kz-text-muted)' }}><PriceTag amount={prod.price} size="card" /></div>
+                      </div>
+                    </div>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', background: 'var(--kz-racing-red)', padding: '5px 10px', borderRadius: 'var(--kz-radius-pill)', fontWeight: 600 }}>
+                      <Plus size={12} /> {isRtl ? 'أضف' : 'Add'}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
           ) : (
             items.map((item) => (
@@ -127,6 +166,20 @@ export const CartDrawer = ({ onProceedToCheckout }) => {
                 {isRtl ? '←' : '→'}
               </span>
             </button>
+
+            {/* Regional Payment Badges & Dispatch Trust Strip */}
+            <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Apple Pay</span>
+                <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Mada</span>
+                <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>KNET</span>
+                <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--kz-text-muted)', border: '1px solid var(--kz-border)', fontWeight: 600 }}>Visa / Master</span>
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--kz-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <ShieldCheck size={12} color="var(--kz-racing-red)" />
+                <span>{isRtl ? 'شحن سريع مؤمن وضمان استبدال مباشر لمدة عام' : 'Insured GCC Express & 1-Year Direct Warranty'}</span>
+              </div>
+            </div>
           </div>
         )}
       </aside>

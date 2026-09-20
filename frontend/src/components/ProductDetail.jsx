@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Activity, ArrowLeft, Car, Check, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, FileCheck, Layers, Maximize2, Package, Shield, ShoppingBag, Sliders, Truck, Wrench, X, Zap } from 'lucide-react';
+import { Activity, ArrowLeft, Car, Check, CheckCircle2, ChevronDown, ChevronLeft, ChevronRight, FileCheck, Layers, Maximize2, Package, Search, Shield, ShoppingBag, Sliders, Truck, Wrench, X, Zap } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -16,6 +16,7 @@ export const ProductDetail = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEditi
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('specs'); // kept for legacy reference
   const [selectedMake, setSelectedMake] = useState('all');
+  const [fitmentSearch, setFitmentSearch] = useState('');
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [openSections, setOpenSections] = useState({ specs: false, fitment: false, box: false, install: false });
   const sectionRefs = useRef({});
@@ -378,9 +379,17 @@ export const ProductDetail = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEditi
     { make: 'GMC', model: 'Sierra 1500 / AT4 / Denali', years: '2019 - 2026', type: isRtl ? 'قاعدة ألمنيوم مخصصة' : 'Custom Billet Cowl Bracket' }
   ];
 
-  const filteredVehicles = selectedMake === 'all'
-    ? vehicles
-    : vehicles.filter(v => v.make.toLowerCase() === selectedMake.toLowerCase());
+  const filteredVehicles = vehicles.filter((v) => {
+    const matchesMake = selectedMake === 'all' || v.make.toLowerCase() === selectedMake.toLowerCase();
+    const query = fitmentSearch.trim().toLowerCase();
+    if (!query) return matchesMake;
+    const matchesQuery =
+      v.make.toLowerCase().includes(query) ||
+      v.model.toLowerCase().includes(query) ||
+      v.years.toLowerCase().includes(query) ||
+      v.type.toLowerCase().includes(query);
+    return matchesMake && matchesQuery;
+  });
 
   // Box Items for Tab 3
   const boxItems = [
@@ -750,6 +759,36 @@ export const ProductDetail = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEditi
                   <CheckCircle2 size={15} color="var(--kz-racing-red)" style={{ flexShrink: 0 }} />
                   <span>{t.pdp.fitmentSubtitle}</span>
                 </p>
+
+                {/* Instant Vehicle Search Bar */}
+                <div className="kz-fitment-search-bar" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid var(--kz-border)', borderRadius: 'var(--kz-radius-pill)', padding: '6px 14px', marginBottom: '14px' }}>
+                  <Search size={14} color="var(--kz-text-muted)" style={{ flexShrink: 0 }} />
+                  <input
+                    type="text"
+                    value={fitmentSearch}
+                    onChange={(e) => setFitmentSearch(e.target.value)}
+                    placeholder={isRtl ? 'ابحث عن طراز سيارتك أو سنة الصنع (مثال: LC300, Y62, Raptor)...' : 'Search chassis model or year (e.g. LC300, Patrol, Raptor)...'}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      color: 'var(--kz-text-primary)',
+                      fontSize: '0.82rem',
+                      fontFamily: 'inherit',
+                      width: '100%'
+                    }}
+                  />
+                  {fitmentSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setFitmentSearch('')}
+                      style={{ background: 'transparent', border: 'none', color: 'var(--kz-text-muted)', cursor: 'pointer', fontSize: '11px', padding: '2px 6px' }}
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
                 <div className="kz-fitment-pills">
                   {['all', 'Toyota', 'Nissan', 'Lexus', 'Ford', 'GMC'].map((make) => (
                     <button

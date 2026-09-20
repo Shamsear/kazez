@@ -14,7 +14,9 @@ import {
   Package,
   Wrench,
   Truck,
-  Check
+  Check,
+  Car,
+  Search
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -31,14 +33,41 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedMake, setSelectedMake] = useState('all');
+  const [fitmentSearch, setFitmentSearch] = useState('');
   const [showStickyBar, setShowStickyBar] = useState(false);
   const [isFullWidth, setIsFullWidth] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
 
   const [openAccordions, setOpenAccordions] = useState({
     specs: true,
+    fitment: false,
     box: true,
     install: false
+  });
+
+  const vehicles = [
+    { make: 'Toyota', model: 'Land Cruiser LC300 / GR-Sport', years: '2022 - 2026', type: isRtl ? 'قاعدة وكالة مباشرة (A-Pillar / Fender)' : 'Direct Bolt-On (A-Pillar / Fender)' },
+    { make: 'Toyota', model: 'Land Cruiser LC200 / VXR / GXR', years: '2008 - 2021', type: isRtl ? 'قاعدة هيكل مخصصة' : 'Direct Chassis Mount' },
+    { make: 'Toyota', model: 'Land Cruiser LC70 / LC79 / LC76', years: '1984 - 2026', type: isRtl ? 'قاعدة تكتيكية للمهام الشاقة' : 'Heavy-Duty Tactical Mount' },
+    { make: 'Nissan', model: 'Patrol Y62 / NISMO / Titanium', years: '2010 - 2026', type: isRtl ? 'تثبيت مباشر على براغي الهيكل' : 'Direct OEM Bolt-On' },
+    { make: 'Nissan', model: 'Patrol Super Safari Y61', years: '1998 - 2026', type: isRtl ? 'قاعدة رالي صحراوي صلبة' : 'Desert Spec Rally Mount' },
+    { make: 'Lexus', model: 'LX600 / LX500d F-Sport', years: '2022 - 2026', type: isRtl ? 'قاعدة كروم فاخرة بدون ثقب' : 'Zero-Drill Luxury Mount' },
+    { make: 'Lexus', model: 'LX570 / Supercharger', years: '2008 - 2021', type: isRtl ? 'تثبيت متطابق مع الوكالة' : 'OEM Precision Mount' },
+    { make: 'Ford', model: 'F-150 / F-150 Raptor / Tremor', years: '2015 - 2026', type: isRtl ? 'قاعدة تثبيت زاوية الكبوت' : 'Cowl / Hood Mount' },
+    { make: 'GMC', model: 'Sierra 1500 / AT4 / Denali', years: '2019 - 2026', type: isRtl ? 'قاعدة ألمنيوم مخصصة' : 'Custom Billet Cowl Bracket' }
+  ];
+
+  const filteredVehicles = vehicles.filter((v) => {
+    const matchesMake = selectedMake === 'all' || v.make.toLowerCase() === selectedMake.toLowerCase();
+    const query = fitmentSearch.trim().toLowerCase();
+    if (!query) return matchesMake;
+    const matchesQuery =
+      v.make.toLowerCase().includes(query) ||
+      v.model.toLowerCase().includes(query) ||
+      v.years.toLowerCase().includes(query) ||
+      v.type.toLowerCase().includes(query);
+    return matchesMake && matchesQuery;
   });
 
   const actionsRowRef = useRef(null);
@@ -325,7 +354,98 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
                 )}
               </div>
 
-              {/* 2. What's in the Box */}
+              {/* 2. Chassis Fitment Guide */}
+              <div className="kz-accordion-item">
+                <button
+                  type="button"
+                  className="kz-accordion-header"
+                  onClick={() => toggleAccordion('fitment')}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Car size={18} color="var(--kz-crimson)" />
+                    <span>{isRtl ? 'دليل توافق المركبات وقواعد التثبيت' : 'Chassis Fitment Guide'}</span>
+                  </div>
+                  <ChevronDown
+                    size={16}
+                    style={{
+                      transform: openAccordions.fitment ? 'rotate(180deg)' : 'rotate(0)',
+                      transition: 'transform var(--kz-transition-fast)'
+                    }}
+                  />
+                </button>
+
+                {openAccordions.fitment && (
+                  <div className="kz-accordion-body">
+                    {/* Search & Filter */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--kz-surface-subtle)', border: '1px solid var(--kz-border)', borderRadius: 'var(--kz-radius-pill)', padding: '6px 14px', marginBottom: '12px' }}>
+                      <Search size={14} color="var(--kz-text-muted)" style={{ flexShrink: 0 }} />
+                      <input
+                        type="text"
+                        value={fitmentSearch}
+                        onChange={(e) => setFitmentSearch(e.target.value)}
+                        placeholder={isRtl ? 'ابحث عن سيارتك أو الموديل (مثال: LC300, Patrol, Raptor)...' : 'Search model or year (e.g. LC300, Patrol, Raptor)...'}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          outline: 'none',
+                          color: 'var(--kz-text-primary)',
+                          fontSize: '0.82rem',
+                          fontFamily: 'inherit',
+                          width: '100%'
+                        }}
+                      />
+                      {fitmentSearch && (
+                        <button
+                          type="button"
+                          onClick={() => setFitmentSearch('')}
+                          style={{ background: 'transparent', border: 'none', color: 'var(--kz-text-muted)', cursor: 'pointer', fontSize: '11px', padding: '2px 6px' }}
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                      {['all', 'Toyota', 'Nissan', 'Lexus', 'Ford', 'GMC'].map((make) => (
+                        <button
+                          key={make}
+                          type="button"
+                          className={`kz-filter-pill ${selectedMake === make ? 'active' : ''}`}
+                          onClick={() => setSelectedMake(make)}
+                          style={{
+                            padding: '4px 10px',
+                            borderRadius: '12px',
+                            border: '1px solid var(--kz-border)',
+                            background: selectedMake === make ? 'var(--kz-text-primary)' : 'var(--kz-surface)',
+                            color: selectedMake === make ? '#FFFFFF' : 'var(--kz-text-secondary)',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {make === 'all' ? (isRtl ? 'الكل' : 'All') : make}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px' }}>
+                      {filteredVehicles.map((veh, idx) => (
+                        <div key={idx} style={{ padding: '10px 14px', background: 'var(--kz-surface-subtle)', border: '1px solid var(--kz-border-subtle)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+                          <div>
+                            <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--kz-text-primary)' }}>{veh.make} {veh.model}</div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--kz-text-muted)' }}>{veh.years}</div>
+                          </div>
+                          <span style={{ fontSize: '0.75rem', background: '#FFFFFF', padding: '3px 8px', borderRadius: '6px', border: '1px solid var(--kz-border)', color: 'var(--kz-crimson)', fontWeight: 600 }}>
+                            {veh.type}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 3. What's in the Box */}
               <div className="kz-accordion-item">
                 <button
                   type="button"

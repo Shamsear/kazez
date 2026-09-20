@@ -6726,6 +6726,80 @@ html.kz-rtl body,
   }
 }
 
+/* ════════════════════════════════════════════════════════════════════════════════
+   HIGH-END UI/UX CRAFT REFINEMENTS (Thumbnails, Fitment Search & Sticky Island)
+   ════════════════════════════════════════════════════════════════════════════════ */
+.kz-thumb-btn,
+.kz-pdp-thumb-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--kz-border);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all var(--kz-transition-fast, 180ms ease);
+  outline: none;
+}
+
+.kz-thumb-btn:hover,
+.kz-pdp-thumb-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.kz-thumb-btn.active,
+.kz-pdp-thumb-card.active {
+  border-color: var(--kz-racing-red) !important;
+  box-shadow: 0 0 0 2px #0a0a0a, 0 0 0 4px var(--kz-racing-red) !important;
+  transform: scale(1.02);
+}
+
+.kz-sticky-bar-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 990;
+  pointer-events: none;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1), opacity 280ms ease;
+}
+
+.kz-sticky-bar-wrapper.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kz-sticky-buy-bar {
+  background: rgba(15, 15, 15, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--kz-border);
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.5);
+  border-radius: var(--kz-radius-pill);
+  padding: 8px 16px;
+  margin: 0 auto 16px auto;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .kz-sticky-buy-bar {
+    border-radius: 0;
+    margin: 0;
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)) 16px;
+  }
+}
+
+
 
 
 
