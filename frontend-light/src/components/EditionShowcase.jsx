@@ -37,7 +37,7 @@ export const EditionShowcase = ({ onSelectEdition }) => {
           {PRODUCTS.map((prod, idx) => {
             const isSilverCard = prod.sku === 'KAZEZ-SLVR';
             return (
-              <div key={prod.id} className={`kz-double-bezel kz-reveal ${isSilverCard ? 'kz-card-silver' : 'kz-card-black'}`}>
+              <div key={prod.id} className={`kz-double-bezel kz-reveal kz-delay-${idx + 1} ${isSilverCard ? 'kz-card-silver' : 'kz-card-black'}`}>
                 <div className="kz-double-bezel-inner" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                   {/* Card Header */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>

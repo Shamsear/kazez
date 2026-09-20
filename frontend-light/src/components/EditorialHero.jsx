@@ -31,7 +31,7 @@ export const EditorialHero = ({ onSelectEdition, onExploreEditions }) => {
             </p>
 
             {/* Spec Badges */}
-            <div className="kz-hero-chips">
+            <div className="kz-hero-chips kz-reveal kz-delay-1">
               <span className="kz-hero-chip">
                 <Layers size={14} color="var(--kz-crimson)" />
                 <span>{t.hero.chip4 || '6061-T6 Billet Alloy'}</span>
@@ -51,7 +51,7 @@ export const EditorialHero = ({ onSelectEdition, onExploreEditions }) => {
             </div>
 
             {/* Actions */}
-            <div className="kz-hero-actions">
+            <div className="kz-hero-actions kz-reveal kz-delay-2">
               <button
                 type="button"
                 className="kz-btn kz-btn-primary kz-btn-lg"
@@ -83,7 +83,7 @@ export const EditorialHero = ({ onSelectEdition, onExploreEditions }) => {
           </div>
 
           {/* Right Column: Double-Bezel Architectural Visual Stage */}
-          <div className="kz-reveal">
+          <div className="kz-reveal kz-delay-1">
             <div className="kz-double-bezel">
               <div className="kz-double-bezel-inner">
                 {/* Product Visual Stage */}

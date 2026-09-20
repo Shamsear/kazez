@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, MessageSquare, Send, CheckCircle2, ShieldCheck, Compass, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const ShowroomContact = () => {
   const { isRtl } = useLanguage();
+  useScrollReveal('.kz-pdp-container .kz-reveal', []);
   const [submitted, setSubmitted] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('order_inquiry');
   const [formData, setFormData] = useState({
@@ -29,7 +31,7 @@ export const ShowroomContact = () => {
     <div className="kz-pdp-container">
       <div className="kz-container">
         {/* Header */}
-        <div style={{ maxWidth: '680px', marginBottom: '48px' }}>
+        <div className="kz-reveal" style={{ maxWidth: '680px', marginBottom: '48px' }}>
           <div className="kz-tag-telemetry">
             <span className="kz-live-indicator" />
             <span>{isRtl ? 'صالة العرض والمكتب الهندسي بالدوحة' : 'DOHA SHOWROOM & CLIENT DESK'}</span>
@@ -50,7 +52,7 @@ export const ShowroomContact = () => {
         {/* Grid of Double-Bezel Cards */}
         <div className="kz-contact-grid">
           {/* Left: Showroom Location & Contact Info */}
-          <div className="kz-double-bezel">
+          <div className="kz-double-bezel kz-reveal kz-delay-1">
             <div
               className="kz-double-bezel-inner"
               style={{
@@ -169,7 +171,7 @@ export const ShowroomContact = () => {
           </div>
 
           {/* Right: Message Form */}
-          <div className="kz-double-bezel">
+          <div className="kz-double-bezel kz-reveal kz-delay-2">
             <div className="kz-double-bezel-inner">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                 <h2 style={{ fontFamily: 'var(--kz-font-display)', fontSize: '1.3rem', fontWeight: 700, margin: 0 }}>

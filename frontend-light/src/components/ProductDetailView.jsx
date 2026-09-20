@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PRODUCTS } from '../data/products';
 import { PriceTag } from './PriceTag';
 
@@ -25,6 +26,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const currentProduct = PRODUCTS.find((p) => p.sku === initialSku) || PRODUCTS[0];
   const { addToCart } = useCart();
   const { isRtl } = useLanguage();
+  useScrollReveal('.kz-pdp-container .kz-reveal', [initialSku]);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -120,7 +122,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
     <div className="kz-pdp-container">
       <div className="kz-container">
         {/* Back Navigation Bar */}
-        <div className="kz-pdp-back-bar" style={{ marginBottom: '16px' }}>
+        <div className="kz-pdp-back-bar kz-reveal" style={{ marginBottom: '16px' }}>
           <button
             type="button"
             className="kz-btn kz-btn-secondary kz-btn-sm"
@@ -134,7 +136,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
         {/* Main PDP Grid */}
         <div className={`kz-pdp-grid ${isSilver ? 'kz-pdp-edition-silver' : 'kz-pdp-edition-black'}`} ref={gridRef}>
           {/* Left Column: Visual Stage & Gallery */}
-          <div className="kz-pdp-gallery-wrap" ref={galleryRef}>
+          <div className="kz-pdp-gallery-wrap kz-reveal kz-delay-1" ref={galleryRef}>
             <div className="kz-double-bezel">
               <div className="kz-double-bezel-inner">
                 <div
@@ -191,7 +193,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
           </div>
 
           {/* Right Column: Product Details, Switcher, CTAs & Specs */}
-          <div className="kz-pdp-info-col">
+          <div className="kz-pdp-info-col kz-reveal kz-delay-2">
             {/* Title */}
             <h1 className="kz-pdp-title">{currentProduct.edition}</h1>
 
@@ -286,7 +288,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
             </div>
 
             {/* Accordions */}
-            <div className="kz-accordion-wrap">
+            <div className="kz-accordion-wrap kz-reveal kz-delay-3">
               {/* 1. Engineering Specifications */}
               <div className="kz-accordion-item">
                 <button

@@ -37,7 +37,7 @@ export const TelemetryTicker = () => {
       <div className="kz-container">
         <div className="kz-telemetry-grid">
           {metrics.map((m, idx) => (
-            <div key={idx} className="kz-telemetry-card-item">
+            <div key={idx} className={`kz-telemetry-card-item kz-reveal kz-delay-${(idx % 4) + 1}`}>
               <div className="kz-telemetry-icon-wrap">{m.icon}</div>
               <div className="kz-telemetry-content">
                 <div className="kz-telemetry-val">{m.val}</div>

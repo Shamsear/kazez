@@ -18,7 +18,7 @@ export const MinimalFooter = ({ onNavigate }) => {
     <footer className="kz-footer-minimal">
       <div className="kz-container">
         {/* VIP Dispatch Advisory Strip in Double Bezel */}
-        <div className="kz-double-bezel" style={{ marginBottom: '48px' }}>
+        <div className="kz-double-bezel kz-reveal" style={{ marginBottom: '48px' }}>
           <div
             className="kz-double-bezel-inner"
             style={{
@@ -73,7 +73,7 @@ export const MinimalFooter = ({ onNavigate }) => {
         </div>
 
         {/* Main Grid */}
-        <div className="kz-footer-grid">
+        <div className="kz-footer-grid kz-reveal kz-delay-1">
           {/* Brand Col */}
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '14px' }}>
@@ -168,7 +168,7 @@ export const MinimalFooter = ({ onNavigate }) => {
         </div>
 
         {/* Bottom Strip */}
-        <div className="kz-footer-bottom">
+        <div className="kz-footer-bottom kz-reveal kz-delay-2">
           <div>
             © {new Date().getFullYear()} KAZEZ ARCHITECTURAL STOREFRONT. ALL RIGHTS RESERVED.
           </div>
