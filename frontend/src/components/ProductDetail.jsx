@@ -309,7 +309,7 @@ export const ProductDetail = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEditi
   };
 
   const handleInstantCheckout = () => {
-    addToCart(currentProduct, quantity);
+    addToCart(currentProduct, quantity, false);
     if (onInstantCheckout) {
       onInstantCheckout(currentProduct, quantity);
     } else {

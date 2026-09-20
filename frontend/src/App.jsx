@@ -31,7 +31,7 @@ export const App = () => {
   const [activeView, setActiveView] = useState(getInitialView);
   useScrollReveal('.kz-reveal', [activeView]);
   const [completedOrder, setCompletedOrder] = useState(null);
-  const { clearCart, openCart, addToCart, items } = useCart();
+  const { clearCart, openCart, closeCart, addToCart, items } = useCart();
 
   useEffect(() => {
     if (window.location.hash === '#kz-editions') {
@@ -189,7 +189,8 @@ export const App = () => {
               onBack={() => navigateTo('home')}
               onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
               onInstantCheckout={(prod, qty) => {
-                addToCart(prod, qty);
+                addToCart(prod, qty, false);
+                closeCart();
                 navigateTo('checkout');
               }}
             />
@@ -201,7 +202,8 @@ export const App = () => {
               onBack={() => navigateTo('home')}
               onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
               onInstantCheckout={(prod, qty) => {
-                addToCart(prod, qty);
+                addToCart(prod, qty, false);
+                closeCart();
                 navigateTo('checkout');
               }}
             />

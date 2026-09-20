@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const addToCart = (product, quantity = 1) => {
+  const addToCart = (product, quantity = 1, openDrawer = true) => {
     setItems((prevItems) => {
       const existingIndex = prevItems.findIndex((item) => item.sku === product.sku);
       let updatedItems = [...prevItems];
@@ -67,8 +67,10 @@ export const CartProvider = ({ children }) => {
       return updatedItems;
     });
 
-    showToast(`Added ${product.edition || product.name} to cart`);
-    setIsCartOpen(true);
+    if (openDrawer) {
+      showToast(`Added ${product.edition || product.name} to cart`);
+      setIsCartOpen(true);
+    }
   };
 
   const removeFromCart = (sku) => {
