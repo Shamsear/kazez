@@ -1,11 +1,8 @@
 import React from 'react';
 import { Shield, Zap, Wind, Droplets } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useScrollReveal } from '../hooks/useScrollReveal';
-
 export const StoryPanels = () => {
   const { t, isRtl } = useLanguage();
-  useScrollReveal('.kz-story-row');
 
   return (
     <div className="kz-story-container">
