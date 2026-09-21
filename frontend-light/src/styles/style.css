@@ -138,12 +138,19 @@ html.lenis body {
 }
 
 /* -----------------------------------------------------------------------------
-   CUBE-MOTION (Web Animations API - 12px Lift, 640ms, 10% Inset Reveal)
+   CUBE-MOTION & RENDERING PERFORMANCE OPTIMIZATION
    ----------------------------------------------------------------------------- */
 .kz-reveal {
-  will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.kz-footer,
+.kz-engineering-lab-section,
+.kz-story-container {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 @media (prefers-reduced-motion: reduce) {

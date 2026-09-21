@@ -6799,6 +6799,23 @@ html.kz-rtl body,
   }
 }
 
+/* ════════════════════════════════════════════════════════════════════════════════
+   RENDERING ENGINE OPTIMIZATIONS (Instant First Paint & Zero Jitter)
+   ════════════════════════════════════════════════════════════════════════════════ */
+.kz-reveal {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.kz-footer,
+.kz-story-container,
+.kz-engineering-lab-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+
 
 
 
