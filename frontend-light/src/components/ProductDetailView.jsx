@@ -90,30 +90,12 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
           if (galleryRef.current) {
             const galleryRect = galleryRef.current.getBoundingClientRect();
             
-            // Expected sticky top position from CSS (navHeight 70px + 14px = 84px)
-            const computedStyle = window.getComputedStyle(galleryRef.current);
-            const stickyTop = parseFloat(computedStyle.top) || 84;
-            
-            const wasFull = isFullWidthRef.current;
-            
-            // The left gallery float has ended ONLY when:
-            // 1. The gallery has unpinned from its sticky top and scrolled up (top < stickyTop - 20)
-            // 2. AND the gallery bottom is completely above the bottom floating bar (bottom <= innerHeight - 85)
-            const floatEnded = galleryRect.top < (stickyTop - 20) && galleryRect.bottom <= (window.innerHeight - 85);
-            
-            // Float is restored when scrolling back up and either the gallery returns to its sticky top or enters the bottom area
-            const floatRestored = galleryRect.top >= (stickyTop - 8) || galleryRect.bottom > (window.innerHeight - 65);
+            // The gallery unpins and stops sticking when its bottom edge scrolls past the viewport bottom area
+            const floatEnded = galleryRect.bottom <= (window.innerHeight - 80);
 
-            let nextFull = wasFull;
-            if (!wasFull && floatEnded) {
-              nextFull = true;
-            } else if (wasFull && floatRestored) {
-              nextFull = false;
-            }
-
-            if (nextFull !== wasFull) {
-              isFullWidthRef.current = nextFull;
-              setIsFullWidth(nextFull);
+            if (floatEnded !== isFullWidthRef.current) {
+              isFullWidthRef.current = floatEnded;
+              setIsFullWidth(floatEnded);
             }
           }
           ticking = false;
