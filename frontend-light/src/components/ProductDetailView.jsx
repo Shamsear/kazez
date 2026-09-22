@@ -16,13 +16,16 @@ import {
   Truck,
   Check,
   Car,
-  Search
+  Search,
+  Play
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PRODUCTS } from '../data/products';
+import { BRACKETS } from '../data/brackets';
 import { PriceTag } from './PriceTag';
+import { VehicleBracketConfigurator } from './VehicleBracketConfigurator';
 
 export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEdition, onInstantCheckout }) => {
   const currentProduct = PRODUCTS.find((p) => p.sku === initialSku) || PRODUCTS[0];
@@ -30,9 +33,11 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const { isRtl } = useLanguage();
   useScrollReveal('.kz-pdp-container .kz-reveal', [initialSku]);
 
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeMedia, setActiveMedia] = useState(0); // 0..N for images, or 'video'
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedBracket, setSelectedBracket] = useState(BRACKETS[0]);
+  const [includeBracket, setIncludeBracket] = useState(true);
   const [selectedMake, setSelectedMake] = useState('all');
   const [fitmentSearch, setFitmentSearch] = useState('');
   const [showStickyBar, setShowStickyBar] = useState(false);
@@ -122,8 +127,37 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
 
   const handleAddToCart = () => {
     addToCart(currentProduct, quantity);
+    if (includeBracket && selectedBracket) {
+      addToCart({
+        id: selectedBracket.id,
+        sku: selectedBracket.sku,
+        name: isRtl && selectedBracket.arabicName ? selectedBracket.arabicName : selectedBracket.name,
+        edition: selectedBracket.model,
+        specs: `${selectedBracket.weight} · ${selectedBracket.thickness} · ${selectedBracket.mountType}`,
+        price: selectedBracket.price,
+        image: selectedBracket.image,
+        thumbnail: selectedBracket.image
+      }, 1);
+    }
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 2200);
+  };
+
+  const handleInstantCheckout = () => {
+    addToCart(currentProduct, quantity, false);
+    if (includeBracket && selectedBracket) {
+      addToCart({
+        id: selectedBracket.id,
+        sku: selectedBracket.sku,
+        name: isRtl && selectedBracket.arabicName ? selectedBracket.arabicName : selectedBracket.name,
+        edition: selectedBracket.model,
+        specs: `${selectedBracket.weight} · ${selectedBracket.thickness} · ${selectedBracket.mountType}`,
+        price: selectedBracket.price,
+        image: selectedBracket.image,
+        thumbnail: selectedBracket.image
+      }, 1, false);
+    }
+    onInstantCheckout(currentProduct, quantity);
   };
 
   const isSilver = currentProduct.sku === 'KAZEZ-SLVR';
@@ -152,58 +186,91 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
               <div className="kz-double-bezel-inner">
                 <div
                   className="kz-pdp-main-stage"
-                  onClick={() => setLightboxOpen(true)}
-                  title="Click to expand high-resolution view"
+                  onClick={() => activeMedia !== 'video' && setLightboxOpen(true)}
+                  title={activeMedia === 'video' ? 'Field Performance Video' : 'Click to expand high-resolution view'}
+                  style={{ cursor: activeMedia === 'video' ? 'default' : 'pointer' }}
                 >
-                  <button
-                    type="button"
-                    className="kz-pdp-zoom-btn"
-                    style={{
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      background: 'var(--kz-surface-subtle)',
-                      border: '1px solid var(--kz-border)',
-                      borderRadius: '50%',
-                      width: '34px',
-                      height: '34px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--kz-text-muted)',
-                      cursor: 'pointer',
-                      zIndex: 2
-                    }}
-                    aria-label="Zoom image"
-                  >
-                    <Maximize2 size={15} />
-                  </button>
+                  {activeMedia !== 'video' ? (
+                    <>
+                      <button
+                        type="button"
+                        className="kz-pdp-zoom-btn"
+                        style={{
+                          position: 'absolute',
+                          top: '12px',
+                          right: '12px',
+                          background: 'var(--kz-surface-subtle)',
+                          border: '1px solid var(--kz-border)',
+                          borderRadius: '50%',
+                          width: '34px',
+                          height: '34px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--kz-text-muted)',
+                          cursor: 'pointer',
+                          zIndex: 2
+                        }}
+                        aria-label="Zoom image"
+                      >
+                        <Maximize2 size={15} />
+                      </button>
 
-                  <img
-                    src={images[activeImageIndex] || images[0]}
-                    alt={`${currentProduct.name} - View ${activeImageIndex + 1}`}
-                    className="kz-pdp-main-img"
-                  />
+                      <img
+                        src={images[activeMedia] || images[0]}
+                        alt={`${currentProduct.name} - View ${typeof activeMedia === 'number' ? activeMedia + 1 : 1}`}
+                        className="kz-pdp-main-img"
+                      />
+                    </>
+                  ) : (
+                    <div className="kz-pdp-video-stage-wrap">
+                      <video
+                        src="/assets/video/kazez-video-2.mp4"
+                        controls
+                        autoPlay
+                        loop
+                        playsInline
+                        className="kz-pdp-embedded-video"
+                      />
+                    </div>
+                  )}
                 </div>
 
-                {/* Thumbnails */}
+                {/* Thumbnails (Photos + Video Slide) */}
                 <div className="kz-pdp-thumb-strip">
                   {images.map((img, idx) => (
                     <button
                       key={idx}
                       type="button"
-                      className={`kz-pdp-thumb-card ${activeImageIndex === idx ? 'active' : ''}`}
-                      onClick={() => setActiveImageIndex(idx)}
+                      className={`kz-pdp-thumb-card ${activeMedia === idx ? 'active' : ''}`}
+                      onClick={() => setActiveMedia(idx)}
+                      aria-label={`Photo view ${idx + 1}`}
                     >
                       <img src={img} alt={`Thumbnail ${idx + 1}`} />
                     </button>
                   ))}
+
+                  {/* 5th Video Thumbnail Slide */}
+                  <button
+                    type="button"
+                    className={`kz-pdp-thumb-card kz-thumb-video-card ${activeMedia === 'video' ? 'active' : ''}`}
+                    onClick={() => setActiveMedia('video')}
+                    title="Watch Field Performance Video"
+                    aria-label="Play Field Video Slide"
+                  >
+                    <div className="kz-thumb-video-poster">
+                      <img src={images[0]} alt="Field Video Thumbnail" />
+                      <span className="kz-thumb-play-badge">
+                        <Play size={11} fill="currentColor" />
+                      </span>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Product Details, Switcher, CTAs & Specs */}
+          {/* Right Column: Product Details, Switcher, Vehicle Configurator, CTAs & Specs */}
           <div className="kz-pdp-info-col kz-reveal kz-delay-2">
             {/* Title */}
             <h1 className="kz-pdp-title">{currentProduct.edition}</h1>
@@ -218,15 +285,15 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
               </span>
             </div>
 
-            <p style={{ fontSize: '0.95rem', color: 'var(--kz-text-secondary)', lineHeight: '1.7', marginBottom: '28px' }}>
+            <p style={{ fontSize: '0.95rem', color: 'var(--kz-text-secondary)', lineHeight: '1.7', marginBottom: '24px' }}>
               {currentProduct.description}
             </p>
 
             {/* Edition Switcher */}
             <div style={{ marginBottom: '10px', fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--kz-text-muted)' }}>
-              {isRtl ? 'اختر الطلاء الهندسي' : 'Select Metallurgical Finish'}
+              {isRtl ? 'اختر الطلاء الهندسي للمحرك' : 'Select Motor Finish'}
             </div>
-            <div className="kz-edition-toggle-bar">
+            <div className="kz-edition-toggle-bar" style={{ marginBottom: '24px' }}>
               <button
                 type="button"
                 className={`kz-edition-toggle-btn kz-toggle-black ${currentProduct.sku === 'KAZEZ' ? 'active' : ''}`}
@@ -244,6 +311,16 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
                 <span className="kz-toggle-edition-name">{isRtl ? 'الإصدار الفضي الكلاسيكي' : 'Silver Edition'}</span>
                 <span className="kz-toggle-edition-sub">Mirror Electroplated Chrome</span>
               </button>
+            </div>
+
+            {/* Vehicle & Mount Bracket Selector with Weight/Height/Thickness Specs */}
+            <div style={{ marginBottom: '24px' }}>
+              <VehicleBracketConfigurator
+                selectedBracket={selectedBracket}
+                onSelectBracket={(bracket) => setSelectedBracket(bracket)}
+                includeBracket={includeBracket}
+                onToggleIncludeBracket={() => setIncludeBracket(!includeBracket)}
+              />
             </div>
 
             {/* Actions: Quantity Stepper + Add to Cart + Instant Buy */}
@@ -291,7 +368,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
                 type="button"
                 className="kz-btn kz-btn-primary"
                 style={{ flex: 1.2 }}
-                onClick={() => onInstantCheckout(currentProduct, quantity)}
+                onClick={handleInstantCheckout}
               >
                 <span>{isRtl ? 'الشراء الفوري' : 'Instant Checkout'}</span>
                 <ArrowRight size={16} />

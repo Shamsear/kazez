@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { MinimalNavbar } from './components/MinimalNavbar';
 import { EditorialHero } from './components/EditorialHero';
 import { TelemetryTicker } from './components/TelemetryTicker';
+import { CinematicVideoShowcase } from './components/CinematicVideoShowcase';
 import { EditionShowcase } from './components/EditionShowcase';
+import { BracketExplorer } from './components/BracketExplorer';
 import { ProductDetailView } from './components/ProductDetailView';
 import { EngineeringLabView } from './components/EngineeringLabView';
 import { ShowroomContact } from './components/ShowroomContact';
@@ -148,7 +150,9 @@ export const App = () => {
                 }}
               />
               <TelemetryTicker />
+              <CinematicVideoShowcase />
               <EditionShowcase onSelectEdition={(slug) => navigateTo(slug)} />
+              <BracketExplorer onSelectBracketForCart={(b) => openCart()} />
             </>
           )}
 

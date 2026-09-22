@@ -12,14 +12,14 @@ export const useSmoothScroll = (activeView) => {
       return;
     }
 
-    // Initialize Lenis strictly for desktop precision mouse wheel with zero touch interception
+    // Initialize Lenis with frictionless, fluid momentum (no sudden deceleration or grabbing)
     const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.95,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
       syncTouch: false,
       infinite: false,
     });

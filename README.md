@@ -1,4 +1,4 @@
-# KAZEZ Architectural Storefront — Dark & Light Editions
+# KAZEZ Architectural Storefront
 
 High-torque motorized radio antenna actuators engineered for GCC desert terrain and extreme off-road driving.
 
@@ -6,21 +6,17 @@ High-torque motorized radio antenna actuators engineered for GCC desert terrain 
 
 ## 📁 Repository Overview
 
-This repository contains two complete storefront implementations for **Kazez Qatar**:
-
 ```
-kazez-dark-and-light/
-├── frontend/          # Kazez Dark Tactical / Carbon Edition
-├── frontend-light/    # Kazez Light Architectural / Editorial Studio Edition
+kazez/
+├── frontend-light/    # Kazez Architectural / Editorial Studio Edition
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🚀 Projects Structure
+## 🚀 Storefront Highlights (`frontend-light/`)
 
-### 1. `frontend-light/` — Architectural Light Edition (Flagship)
 - **Design Aesthetic**: Double-bezel architectural framing, frosted glassmorphic navigation capsule, metallurgical finish themes (Stealth Black anodized / Liquid Silver chrome).
 - **Core Features**:
   - Precision Product Detail Page (PDP) with high-res zoom lightbox & technical accordions
@@ -31,32 +27,17 @@ kazez-dark-and-light/
   - Bilingual Support (English / Arabic RTL) & Multi-Currency Converter (QAR, SAR, AED, USD)
 - **Stack**: React 18, Vite, Vanilla CSS Design System, Lucide Icons, Canvas Confetti
 
-### 2. `frontend/` — Tactical Dark Edition
-- **Design Aesthetic**: Carbon-textured dark mode, precision telemetry HUD, tactile switches.
-- **Core Features**:
-  - High-contrast desert combat / tactical aesthetic
-  - Direct checkout & WhatsApp concierge dispatch integration
-  - Interactive specs breakdown & technical telemetry
-- **Stack**: React 18, Vite, Vanilla CSS Design System, Lucide Icons
-
 ---
 
 ## 🛠️ Quick Start & Local Development
 
-### Running the Light Architectural Edition
+### Running the Storefront
 ```bash
 cd frontend-light
 npm install
 npm run dev
 ```
 *Access local dev server at `http://localhost:5174/` or `http://localhost:5175/`.*
-
-### Running the Dark Edition
-```bash
-cd frontend
-npm install
-npm run dev
-```
 
 ### Production Build
 ```bash
