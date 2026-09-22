@@ -4132,23 +4132,26 @@ html.lenis body {
 
 .kz-cinematic-section {
   background: var(--kz-canvas);
-  padding: 64px 0 80px 0;
+  padding: 56px 0 72px 0;
   position: relative;
 }
 
 .kz-video-theater-bezel {
   width: 100%;
-  max-width: 1040px;
+  max-width: 100%;
   margin: 0 auto;
-  box-shadow: 0 24px 64px -16px rgba(15, 23, 42, 0.18);
-  border-radius: 28px;
+  box-shadow: 0 20px 56px -12px rgba(15, 23, 42, 0.16), 0 4px 16px rgba(15, 23, 42, 0.04);
+  border-radius: 26px;
+  background: #FFFFFF;
+  padding: 6px;
 }
 
 .kz-video-theater-inner {
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   background: #000000;
   padding: 0;
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .kz-video-theater-stage {
@@ -4167,27 +4170,30 @@ html.lenis body {
   cursor: pointer;
 }
 
-.kz-theater-top-badge {
+/* Floating Top HUD Overlay */
+.kz-theater-top-hud {
   position: absolute;
-  top: 18px;
-  left: 18px;
-  display: inline-flex;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(15, 23, 42, 0.68);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--kz-radius-pill);
+  justify-content: space-between;
+  gap: 12px;
   z-index: 10;
   pointer-events: none;
 }
 
-[dir="rtl"] .kz-theater-top-badge,
-.kz-rtl .kz-theater-top-badge {
-  left: auto;
-  right: 18px;
+.kz-theater-top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--kz-radius-pill);
 }
 
 .kz-rec-pulse {
@@ -4212,18 +4218,46 @@ html.lenis body {
   letter-spacing: 0.06em;
 }
 
+.kz-theater-top-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .kz-theater-top-chips {
+    display: none;
+  }
+}
+
+.kz-hud-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--kz-radius-pill);
+  font-family: var(--kz-font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
 /* Floating Liquid Glass Control Bar */
 .kz-theater-controls-bar {
   position: absolute;
-  bottom: 18px;
-  left: 18px;
-  right: 18px;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 8px 14px;
-  background: rgba(15, 23, 42, 0.68);
+  background: rgba(15, 23, 42, 0.72);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -4251,7 +4285,7 @@ html.lenis body {
 }
 
 .kz-theater-btn {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--kz-radius-pill);
   color: #FFFFFF;
@@ -4268,7 +4302,7 @@ html.lenis body {
 }
 
 .kz-theater-btn:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.28);
   transform: scale(1.04);
 }
 
@@ -4282,17 +4316,23 @@ html.lenis body {
   font-size: 0.74rem;
 }
 
+@media (max-width: 480px) {
+  .kz-btn-text-hide-sm {
+    display: none;
+  }
+}
+
 .kz-theater-play-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.42);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   cursor: pointer;
   z-index: 8;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
 }
 
 .kz-theater-play-pill {

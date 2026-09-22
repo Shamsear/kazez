@@ -23,7 +23,6 @@ export const CinematicVideoShowcase = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play().catch(() => {
-        // Autoplay may be constrained without user interaction
         setIsPlaying(false);
       });
     }
@@ -74,7 +73,7 @@ export const CinematicVideoShowcase = () => {
           </p>
         </div>
 
-        {/* Double-Bezel Architectural Widescreen Theater */}
+        {/* Full-Width Double-Bezel Architectural Widescreen Theater */}
         <div className="kz-reveal kz-delay-1">
           <div 
             className="kz-double-bezel kz-video-theater-bezel"
@@ -83,7 +82,7 @@ export const CinematicVideoShowcase = () => {
           >
             <div className="kz-double-bezel-inner kz-video-theater-inner">
               <div className="kz-video-theater-stage">
-                {/* Widescreen Video Player */}
+                {/* Widescreen Video Element */}
                 <video
                   ref={videoRef}
                   src="/assets/video/kazez-video-2.mp4"
@@ -95,12 +94,25 @@ export const CinematicVideoShowcase = () => {
                   onClick={togglePlay}
                 />
 
-                {/* Ambient Top Tag */}
-                <div className="kz-theater-top-badge">
-                  <span className="kz-rec-pulse" />
-                  <span className="kz-theater-tag-text">
-                    {isRtl ? 'توثيق ميداني حي // قطر' : 'FIELD CAPTURE // QATAR'}
-                  </span>
+                {/* Floating Top Telemetry HUD */}
+                <div className="kz-theater-top-hud">
+                  <div className="kz-theater-top-badge">
+                    <span className="kz-rec-pulse" />
+                    <span className="kz-theater-tag-text">
+                      {isRtl ? 'توثيق ميداني حي // سيلين - قطر' : 'LIVE FIELD CAPTURE // SEALINE DUNES'}
+                    </span>
+                  </div>
+
+                  <div className="kz-theater-top-chips">
+                    <span className="kz-hud-chip">
+                      <Zap size={12} color="#EF4444" />
+                      <span>45 Nm Powertrain</span>
+                    </span>
+                    <span className="kz-hud-chip">
+                      <ShieldCheck size={12} color="#10B981" />
+                      <span>IP67 Hermetic</span>
+                    </span>
+                  </div>
                 </div>
 
                 {/* Floating Liquid Glass Control Bar */}
@@ -114,6 +126,7 @@ export const CinematicVideoShowcase = () => {
                       title={isPlaying ? 'Pause' : 'Play'}
                     >
                       {isPlaying ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
+                      <span className="kz-btn-text-hide-sm">{isPlaying ? (isRtl ? 'إيقاف' : 'Pause') : (isRtl ? 'تشغيل' : 'Play')}</span>
                     </button>
 
                     <button
@@ -125,7 +138,7 @@ export const CinematicVideoShowcase = () => {
                     >
                       {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                       <span className="kz-audio-label">
-                        {isMuted ? (isRtl ? 'تشغيل الصوت' : 'Unmute') : (isRtl ? 'مكتوم' : 'Audio On')}
+                        {isMuted ? (isRtl ? 'تشغيل الصوت' : 'Unmute Audio') : (isRtl ? 'كتم الصوت' : 'Mute Audio')}
                       </span>
                     </button>
                   </div>
@@ -139,11 +152,12 @@ export const CinematicVideoShowcase = () => {
                       title="Fullscreen"
                     >
                       <Maximize size={15} />
+                      <span className="kz-btn-text-hide-sm">{isRtl ? 'ملء الشاشة' : 'Fullscreen'}</span>
                     </button>
                   </div>
                 </div>
 
-                {/* Play Button Overlay if Paused */}
+                {/* Big Center Play Button Overlay if Paused */}
                 {!isPlaying && (
                   <button 
                     type="button" 
@@ -152,35 +166,31 @@ export const CinematicVideoShowcase = () => {
                     aria-label="Play Video"
                   >
                     <div className="kz-theater-play-pill">
-                      <Play size={24} fill="currentColor" />
+                      <Play size={28} fill="currentColor" />
                     </div>
                   </button>
                 )}
               </div>
 
-              {/* Bottom Field Telemetry Strip */}
+              {/* Bottom Telemetry Caption Bar */}
               <div className="kz-theater-footer-strip">
                 <div className="kz-theater-caption">
-                  <Compass size={16} color="var(--kz-crimson)" />
+                  <Compass size={15} color="var(--kz-crimson)" />
                   <span>
                     {isRtl
-                      ? 'موقع الاختبار: كثبان سيلين وخور العديد — سرعة الرياح: 45 عقدة — ثبات تام للهوائي'
-                      : 'Testing Locus: Sealine & Inland Sea Dunes · Desert Turbulence: 45 kts · 0 dB RF Loss'}
+                      ? 'موقع الاختبار: كثبان سيلين وخور العديد — سرعة الرياح: 45 عقدة — صفر فقد في إشارة الراديو (<0.1 dB)'
+                      : 'Testing Locus: Sealine & Inland Sea Dunes · 160 km/h Vibration Stability · Zero Insertion Loss (<0.1 dB)'}
                   </span>
                 </div>
 
                 <div className="kz-theater-chips">
                   <span className="kz-theater-chip">
-                    <Zap size={13} color="var(--kz-crimson)" />
-                    <span>45 Nm Powertrain</span>
+                    <Sparkles size={12} color="var(--kz-crimson)" />
+                    <span>6061-T6 Billet Alloy</span>
                   </span>
                   <span className="kz-theater-chip">
-                    <ShieldCheck size={13} color="var(--kz-crimson)" />
-                    <span>IP67 Hermetic Seal</span>
-                  </span>
-                  <span className="kz-theater-chip">
-                    <Sparkles size={13} color="var(--kz-crimson)" />
-                    <span>160 km/h Anti-Flutter</span>
+                    <Radio size={12} color="var(--kz-crimson)" />
+                    <span>433 MHz RF Actuator</span>
                   </span>
                 </div>
               </div>
