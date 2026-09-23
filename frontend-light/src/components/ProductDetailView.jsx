@@ -36,7 +36,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedBracket, setSelectedBracket] = useState(BRACKETS[0]);
-  const [includeBracket, setIncludeBracket] = useState(true);
+  const [includeBracket, setIncludeBracket] = useState(false);
   const [selectedMake, setSelectedMake] = useState('all');
   const [fitmentSearch, setFitmentSearch] = useState('');
   const [showStickyBar, setShowStickyBar] = useState(false);

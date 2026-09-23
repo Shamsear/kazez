@@ -3219,12 +3219,41 @@ html.lenis body {
    ════════════════════════════════════════════════════════════════════════════════ */
 
 .kz-bracket-configurator {
+  transition: all var(--kz-transition-normal);
+}
+
+.kz-bracket-configurator.collapsed {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.kz-bracket-configurator.expanded {
   background: var(--kz-surface);
   border: 1px solid var(--kz-border);
   border-radius: 20px;
-  padding: 20px;
+  padding: 18px;
   box-shadow: var(--kz-shadow-sm);
-  transition: all var(--kz-transition-normal);
+}
+
+.kz-bracket-configurator.expanded .kz-bracket-bundle-toggle {
+  margin-bottom: 18px;
+}
+
+.kz-bracket-config-content {
+  animation: kzFadeIn 0.25s ease-out;
+}
+
+@keyframes kzFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .kz-bracket-config-head {
