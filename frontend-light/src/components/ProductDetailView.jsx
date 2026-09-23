@@ -16,8 +16,7 @@ import {
   Truck,
   Check,
   Car,
-  Search,
-  Play
+  Search
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -33,7 +32,7 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const { isRtl } = useLanguage();
   useScrollReveal('.kz-pdp-container .kz-reveal', [initialSku]);
 
-  const [activeMedia, setActiveMedia] = useState(0); // 0..N for images, or 'video'
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedBracket, setSelectedBracket] = useState(BRACKETS[0]);
@@ -186,85 +185,54 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
               <div className="kz-double-bezel-inner">
                 <div
                   className="kz-pdp-main-stage"
-                  onClick={() => activeMedia !== 'video' && setLightboxOpen(true)}
-                  title={activeMedia === 'video' ? 'Field Performance Video' : 'Click to expand high-resolution view'}
-                  style={{ cursor: activeMedia === 'video' ? 'default' : 'pointer' }}
+                  onClick={() => setLightboxOpen(true)}
+                  title="Click to expand high-resolution view"
+                  style={{ cursor: 'pointer' }}
                 >
-                  {activeMedia !== 'video' ? (
-                    <>
-                      <button
-                        type="button"
-                        className="kz-pdp-zoom-btn"
-                        style={{
-                          position: 'absolute',
-                          top: '12px',
-                          right: '12px',
-                          background: 'var(--kz-surface-subtle)',
-                          border: '1px solid var(--kz-border)',
-                          borderRadius: '50%',
-                          width: '34px',
-                          height: '34px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'var(--kz-text-muted)',
-                          cursor: 'pointer',
-                          zIndex: 2
-                        }}
-                        aria-label="Zoom image"
-                      >
-                        <Maximize2 size={15} />
-                      </button>
+                  <button
+                    type="button"
+                    className="kz-pdp-zoom-btn"
+                    style={{
+                      position: 'absolute',
+                      top: '12px',
+                      right: '12px',
+                      background: 'var(--kz-surface-subtle)',
+                      border: '1px solid var(--kz-border)',
+                      borderRadius: '50%',
+                      width: '34px',
+                      height: '34px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--kz-text-muted)',
+                      cursor: 'pointer',
+                      zIndex: 2
+                    }}
+                    aria-label="Zoom image"
+                  >
+                    <Maximize2 size={15} />
+                  </button>
 
-                      <img
-                        src={images[activeMedia] || images[0]}
-                        alt={`${currentProduct.name} - View ${typeof activeMedia === 'number' ? activeMedia + 1 : 1}`}
-                        className="kz-pdp-main-img"
-                      />
-                    </>
-                  ) : (
-                    <div className="kz-pdp-video-stage-wrap">
-                      <video
-                        src="/assets/video/kazez-video-2.mp4"
-                        controls
-                        autoPlay
-                        loop
-                        playsInline
-                        className="kz-pdp-embedded-video"
-                      />
-                    </div>
-                  )}
+                  <img
+                    src={images[activeImageIndex] || images[0]}
+                    alt={`${currentProduct.name} - View ${activeImageIndex + 1}`}
+                    className="kz-pdp-main-img"
+                  />
                 </div>
 
-                {/* Thumbnails (Photos + Video Slide) */}
+                {/* Thumbnails (Photos) */}
                 <div className="kz-pdp-thumb-strip">
                   {images.map((img, idx) => (
                     <button
                       key={idx}
                       type="button"
-                      className={`kz-pdp-thumb-card ${activeMedia === idx ? 'active' : ''}`}
-                      onClick={() => setActiveMedia(idx)}
+                      className={`kz-pdp-thumb-card ${activeImageIndex === idx ? 'active' : ''}`}
+                      onClick={() => setActiveImageIndex(idx)}
                       aria-label={`Photo view ${idx + 1}`}
                     >
                       <img src={img} alt={`Thumbnail ${idx + 1}`} />
                     </button>
                   ))}
-
-                  {/* 5th Video Thumbnail Slide */}
-                  <button
-                    type="button"
-                    className={`kz-pdp-thumb-card kz-thumb-video-card ${activeMedia === 'video' ? 'active' : ''}`}
-                    onClick={() => setActiveMedia('video')}
-                    title="Watch Field Performance Video"
-                    aria-label="Play Field Video Slide"
-                  >
-                    <div className="kz-thumb-video-poster">
-                      <img src={images[0]} alt="Field Video Thumbnail" />
-                      <span className="kz-thumb-play-badge">
-                        <Play size={11} fill="currentColor" />
-                      </span>
-                    </div>
-                  </button>
                 </div>
               </div>
             </div>
