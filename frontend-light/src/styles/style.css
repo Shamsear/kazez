@@ -3321,10 +3321,31 @@ html.lenis body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 8px;
-  max-height: 230px;
+  max-height: 185px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
   padding: 6px 6px 8px 6px;
   box-sizing: border-box;
+}
+
+.kz-model-cards-grid::-webkit-scrollbar {
+  width: 5px;
+}
+
+.kz-model-cards-grid::-webkit-scrollbar-track {
+  background: var(--kz-surface-subtle);
+  border-radius: 4px;
+}
+
+.kz-model-cards-grid::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.kz-model-cards-grid::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
 
 .kz-model-card {
