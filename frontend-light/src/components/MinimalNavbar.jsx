@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, ChevronDown, Check } from 'lucide-react';
+import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -81,19 +82,16 @@ export const MinimalNavbar = ({ activeView, setActiveView }) => {
           </div>
         </button>
 
-        {/* Desktop Nav Links */}
-        <div className="kz-nav-links">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`kz-nav-item-btn ${activeView === item.id ? 'active' : ''}`}
-              onClick={() => handleNavClick(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+        {/* Desktop Nav Links with ForgeUI AnimatedTabs */}
+        <AnimatedTabs
+          tabs={navItems}
+          activeTab={activeView}
+          onChange={(item) => handleNavClick(item.id)}
+          variant="navbar"
+          layoutIdPrefix="kz-minimal-nav-pill"
+          className="kz-nav-links"
+          tabClassName="kz-nav-item-btn"
+        />
 
         {/* Right Actions: Currency, Language & Cart */}
         <div className="kz-nav-actions">

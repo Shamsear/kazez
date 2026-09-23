@@ -23,6 +23,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PRODUCTS } from '../data/products';
 import { BRACKETS } from '../data/brackets';
+import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { PriceTag } from './PriceTag';
 import { VehicleBracketConfigurator } from './VehicleBracketConfigurator';
 
@@ -257,28 +258,41 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
               {currentProduct.description}
             </p>
 
-            {/* Edition Switcher */}
+            {/* Edition Switcher with ForgeUI AnimatedTabs */}
             <div style={{ marginBottom: '10px', fontSize: '0.82rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--kz-text-muted)' }}>
               {isRtl ? 'اختر الطلاء الهندسي للمحرك' : 'Select Motor Finish'}
             </div>
-            <div className="kz-edition-toggle-bar" style={{ marginBottom: '24px' }}>
-              <button
-                type="button"
-                className={`kz-edition-toggle-btn kz-toggle-black ${currentProduct.sku === 'KAZEZ' ? 'active' : ''}`}
-                onClick={() => onSelectOtherEdition('KAZEZ')}
-              >
-                <span className="kz-toggle-edition-name">{isRtl ? 'الإصدار الأسود الشبح' : 'Black Edition'}</span>
-                <span className="kz-toggle-edition-sub">Hard-Anodized Stealth Chrome</span>
-              </button>
-
-              <button
-                type="button"
-                className={`kz-edition-toggle-btn kz-toggle-silver ${currentProduct.sku === 'KAZEZ-SLVR' ? 'active' : ''}`}
-                onClick={() => onSelectOtherEdition('KAZEZ-SLVR')}
-              >
-                <span className="kz-toggle-edition-name">{isRtl ? 'الإصدار الفضي الكلاسيكي' : 'Silver Edition'}</span>
-                <span className="kz-toggle-edition-sub">Mirror Electroplated Chrome</span>
-              </button>
+            <div style={{ marginBottom: '24px' }}>
+              <AnimatedTabs
+                tabs={[
+                  {
+                    id: 'KAZEZ',
+                    label: isRtl ? 'الإصدار الأسود الشبح' : 'Black Edition',
+                    sub: 'Hard-Anodized Stealth Chrome',
+                    theme: 'kz-toggle-black',
+                    indicatorClass: 'kz-indicator-black'
+                  },
+                  {
+                    id: 'KAZEZ-SLVR',
+                    label: isRtl ? 'الإصدار الفضي الكلاسيكي' : 'Silver Edition',
+                    sub: 'Mirror Electroplated Chrome',
+                    theme: 'kz-toggle-silver',
+                    indicatorClass: 'kz-indicator-silver'
+                  }
+                ]}
+                activeTab={currentProduct.sku}
+                onChange={(tab) => onSelectOtherEdition(tab.id)}
+                variant="edition"
+                layoutIdPrefix="kz-pdp-edition-pill"
+                className="kz-edition-toggle-bar"
+                tabClassName="kz-edition-toggle-btn"
+                renderTab={(tab) => (
+                  <>
+                    <span className="kz-toggle-edition-name">{tab.label}</span>
+                    <span className="kz-toggle-edition-sub">{tab.sub}</span>
+                  </>
+                )}
+              />
             </div>
 
             {/* Vehicle & Mount Bracket Selector with Weight/Height/Thickness Specs */}
