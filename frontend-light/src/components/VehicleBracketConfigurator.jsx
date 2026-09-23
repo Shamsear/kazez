@@ -99,7 +99,7 @@ export const VehicleBracketConfigurator = ({
         <label className="kz-bracket-step-label">
           <span>{isRtl ? '2. اختر الموديل وفئة الهيكل:' : '2. Select Model & Body Code:'}</span>
         </label>
-        <div className="kz-model-cards-grid" data-lenis-prevent>
+        <div className="kz-model-cards-grid">
           {availableBrackets.map((bracket) => {
             const isSelected = currentBracket.id === bracket.id;
             return (

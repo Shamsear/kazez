@@ -33,7 +33,9 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const { isRtl } = useLanguage();
   useScrollReveal('.kz-pdp-container .kz-reveal', [initialSku]);
 
+  const [activeMedia, setActiveMedia] = useState(0); // 0..N for images, or 'video'
   const [quantity, setQuantity] = useState(1);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedBracket, setSelectedBracket] = useState(BRACKETS[0]);
   const [includeBracket, setIncludeBracket] = useState(true);
   const [selectedMake, setSelectedMake] = useState('all');
@@ -178,24 +180,91 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
 
         {/* Main PDP Grid */}
         <div className={`kz-pdp-grid ${isSilver ? 'kz-pdp-edition-silver' : 'kz-pdp-edition-black'}`} ref={gridRef}>
-          {/* Left Column: Direct High-Definition Video Stage */}
+          {/* Left Column: Visual Stage & Gallery */}
           <div className="kz-pdp-gallery-wrap kz-reveal kz-delay-1" ref={galleryRef}>
-            <div className="kz-double-bezel kz-pdp-video-bezel">
-              <div className="kz-double-bezel-inner kz-pdp-video-bezel-inner">
-                <div className="kz-pdp-video-stage">
-                  <video
-                    src="/assets/video/kazez-video-2.mp4"
-                    controls
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="kz-pdp-direct-video"
-                  />
-                  <div className="kz-pdp-video-badge">
-                    <span className="kz-rec-pulse" />
-                    <span>{isRtl ? 'فيديو الأداء الميداني // قطر' : 'FIELD PERFORMANCE VIDEO // QATAR'}</span>
-                  </div>
+            <div className="kz-double-bezel">
+              <div className="kz-double-bezel-inner">
+                <div
+                  className="kz-pdp-main-stage"
+                  onClick={() => activeMedia !== 'video' && setLightboxOpen(true)}
+                  title={activeMedia === 'video' ? 'Field Performance Video' : 'Click to expand high-resolution view'}
+                  style={{ cursor: activeMedia === 'video' ? 'default' : 'pointer' }}
+                >
+                  {activeMedia !== 'video' ? (
+                    <>
+                      <button
+                        type="button"
+                        className="kz-pdp-zoom-btn"
+                        style={{
+                          position: 'absolute',
+                          top: '12px',
+                          right: '12px',
+                          background: 'var(--kz-surface-subtle)',
+                          border: '1px solid var(--kz-border)',
+                          borderRadius: '50%',
+                          width: '34px',
+                          height: '34px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--kz-text-muted)',
+                          cursor: 'pointer',
+                          zIndex: 2
+                        }}
+                        aria-label="Zoom image"
+                      >
+                        <Maximize2 size={15} />
+                      </button>
+
+                      <img
+                        src={images[activeMedia] || images[0]}
+                        alt={`${currentProduct.name} - View ${typeof activeMedia === 'number' ? activeMedia + 1 : 1}`}
+                        className="kz-pdp-main-img"
+                      />
+                    </>
+                  ) : (
+                    <div className="kz-pdp-video-stage-wrap">
+                      <video
+                        src="/assets/video/kazez-video-2.mp4"
+                        controls
+                        autoPlay
+                        loop
+                        playsInline
+                        className="kz-pdp-embedded-video"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Thumbnails (Photos + Video Slide) */}
+                <div className="kz-pdp-thumb-strip">
+                  {images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`kz-pdp-thumb-card ${activeMedia === idx ? 'active' : ''}`}
+                      onClick={() => setActiveMedia(idx)}
+                      aria-label={`Photo view ${idx + 1}`}
+                    >
+                      <img src={img} alt={`Thumbnail ${idx + 1}`} />
+                    </button>
+                  ))}
+
+                  {/* 5th Video Thumbnail Slide */}
+                  <button
+                    type="button"
+                    className={`kz-pdp-thumb-card kz-thumb-video-card ${activeMedia === 'video' ? 'active' : ''}`}
+                    onClick={() => setActiveMedia('video')}
+                    title="Watch Field Performance Video"
+                    aria-label="Play Field Video Slide"
+                  >
+                    <div className="kz-thumb-video-poster">
+                      <img src={images[0]} alt="Field Video Thumbnail" />
+                      <span className="kz-thumb-play-badge">
+                        <Play size={11} fill="currentColor" />
+                      </span>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -548,6 +617,58 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {lightboxOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(255, 255, 255, 0.96)',
+            backdropFilter: 'blur(16px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+          }}
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            style={{
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              background: 'var(--kz-surface-subtle)',
+              border: '1px solid var(--kz-border)',
+              borderRadius: '50%',
+              width: '44px',
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer'
+            }}
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close image viewer"
+          >
+            <X size={20} />
+          </button>
+
+          <img
+            src={images[activeImageIndex] || images[0]}
+            alt="Expanded view"
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '85vh',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 30px 50px rgba(0, 0, 0, 0.12))'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
