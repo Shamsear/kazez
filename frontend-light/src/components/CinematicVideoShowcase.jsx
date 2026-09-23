@@ -9,7 +9,8 @@ import {
   Zap, 
   ShieldCheck, 
   Sparkles,
-  Compass
+  Compass,
+  Film
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -19,6 +20,7 @@ export const CinematicVideoShowcase = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState('21:9'); // '21:9' or '16:9'
 
   useEffect(() => {
     if (videoRef.current) {
@@ -43,6 +45,10 @@ export const CinematicVideoShowcase = () => {
     if (!videoRef.current) return;
     videoRef.current.muted = !videoRef.current.muted;
     setIsMuted(videoRef.current.muted);
+  };
+
+  const toggleAspectRatio = () => {
+    setAspectRatio(prev => prev === '21:9' ? '16:9' : '21:9');
   };
 
   const handleFullscreen = () => {
@@ -72,127 +78,143 @@ export const CinematicVideoShowcase = () => {
               : 'Witness the 45 Nm planetary powertrain and hermetic IP67 seal in action across Qatar’s extreme desert terrain.'}
           </p>
         </div>
+      </div>
 
-        {/* Full-Width Double-Bezel Architectural Widescreen Theater */}
-        <div className="kz-reveal kz-delay-1">
-          <div 
-            className="kz-double-bezel kz-video-theater-bezel"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="kz-double-bezel-inner kz-video-theater-inner">
-              <div className="kz-video-theater-stage">
-                {/* Widescreen Video Element */}
-                <video
-                  ref={videoRef}
-                  src="/assets/video/kazez-video-2.mp4"
-                  loop
-                  muted={isMuted}
-                  playsInline
-                  autoPlay
-                  className="kz-theater-video-element"
-                  onClick={togglePlay}
-                />
+      {/* Full-Bleed Edge-to-Edge Architectural Widescreen Theater */}
+      <div className="kz-cinematic-bleed-wrap kz-reveal kz-delay-1">
+        <div 
+          className="kz-double-bezel kz-video-theater-bezel"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className="kz-double-bezel-inner kz-video-theater-inner">
+            <div className={`kz-video-theater-stage ratio-${aspectRatio.replace(':', '-')}`}>
+              {/* Widescreen Video Element */}
+              <video
+                ref={videoRef}
+                src="/assets/video/kazez-video-2.mp4"
+                loop
+                muted={isMuted}
+                playsInline
+                autoPlay
+                className="kz-theater-video-element"
+                onClick={togglePlay}
+              />
 
-                {/* Floating Top Telemetry HUD */}
-                <div className="kz-theater-top-hud">
-                  <div className="kz-theater-top-badge">
-                    <span className="kz-rec-pulse" />
-                    <span className="kz-theater-tag-text">
-                      {isRtl ? 'توثيق ميداني حي // سيلين - قطر' : 'LIVE FIELD CAPTURE // SEALINE DUNES'}
-                    </span>
-                  </div>
-
-                  <div className="kz-theater-top-chips">
-                    <span className="kz-hud-chip">
-                      <Zap size={12} color="#EF4444" />
-                      <span>45 Nm Powertrain</span>
-                    </span>
-                    <span className="kz-hud-chip">
-                      <ShieldCheck size={12} color="#10B981" />
-                      <span>IP67 Hermetic</span>
-                    </span>
-                  </div>
+              {/* Floating Top Telemetry HUD */}
+              <div className="kz-theater-top-hud">
+                <div className="kz-theater-top-badge">
+                  <span className="kz-rec-pulse" />
+                  <span className="kz-theater-tag-text">
+                    {isRtl ? 'توثيق ميداني حي // سيلين - قطر' : 'LIVE FIELD CAPTURE // SEALINE DUNES'}
+                  </span>
                 </div>
 
-                {/* Floating Liquid Glass Control Bar */}
-                <div className={`kz-theater-controls-bar ${isHovered || !isPlaying ? 'visible' : ''}`}>
-                  <div className="kz-theater-controls-left">
-                    <button
-                      type="button"
-                      className="kz-theater-btn"
-                      onClick={togglePlay}
-                      aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
-                      title={isPlaying ? 'Pause' : 'Play'}
-                    >
-                      {isPlaying ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
-                      <span className="kz-btn-text-hide-sm">{isPlaying ? (isRtl ? 'إيقاف' : 'Pause') : (isRtl ? 'تشغيل' : 'Play')}</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className={`kz-theater-btn ${!isMuted ? 'active-audio' : ''}`}
-                      onClick={toggleMute}
-                      aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                      title={isMuted ? 'Unmute Sound' : 'Mute'}
-                    >
-                      {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                      <span className="kz-audio-label">
-                        {isMuted ? (isRtl ? 'تشغيل الصوت' : 'Unmute Audio') : (isRtl ? 'كتم الصوت' : 'Mute Audio')}
-                      </span>
-                    </button>
-                  </div>
-
-                  <div className="kz-theater-controls-right">
-                    <button
-                      type="button"
-                      className="kz-theater-btn"
-                      onClick={handleFullscreen}
-                      aria-label="Fullscreen"
-                      title="Fullscreen"
-                    >
-                      <Maximize size={15} />
-                      <span className="kz-btn-text-hide-sm">{isRtl ? 'ملء الشاشة' : 'Fullscreen'}</span>
-                    </button>
-                  </div>
+                <div className="kz-theater-top-chips">
+                  <span className="kz-hud-chip">
+                    <Zap size={12} color="#EF4444" />
+                    <span>45 Nm Powertrain</span>
+                  </span>
+                  <span className="kz-hud-chip">
+                    <ShieldCheck size={12} color="#10B981" />
+                    <span>IP67 Hermetic</span>
+                  </span>
+                  <span className="kz-hud-chip kz-hud-ratio-chip">
+                    <Film size={11} color="#38BDF8" />
+                    <span>{aspectRatio === '21:9' ? '21:9 Anamorphic' : '16:9 Standard'}</span>
+                  </span>
                 </div>
-
-                {/* Big Center Play Button Overlay if Paused */}
-                {!isPlaying && (
-                  <button 
-                    type="button" 
-                    className="kz-theater-play-overlay" 
-                    onClick={togglePlay}
-                    aria-label="Play Video"
-                  >
-                    <div className="kz-theater-play-pill">
-                      <Play size={28} fill="currentColor" />
-                    </div>
-                  </button>
-                )}
               </div>
 
-              {/* Bottom Telemetry Caption Bar */}
-              <div className="kz-theater-footer-strip">
-                <div className="kz-theater-caption">
-                  <Compass size={15} color="var(--kz-crimson)" />
-                  <span>
-                    {isRtl
-                      ? 'موقع الاختبار: كثبان سيلين وخور العديد — سرعة الرياح: 45 عقدة — صفر فقد في إشارة الراديو (<0.1 dB)'
-                      : 'Testing Locus: Sealine & Inland Sea Dunes · 160 km/h Vibration Stability · Zero Insertion Loss (<0.1 dB)'}
-                  </span>
+              {/* Floating Liquid Glass Control Bar */}
+              <div className={`kz-theater-controls-bar ${isHovered || !isPlaying ? 'visible' : ''}`}>
+                <div className="kz-theater-controls-left">
+                  <button
+                    type="button"
+                    className="kz-theater-btn"
+                    onClick={togglePlay}
+                    aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
+                    title={isPlaying ? 'Pause' : 'Play'}
+                  >
+                    {isPlaying ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
+                    <span className="kz-btn-text-hide-sm">{isPlaying ? (isRtl ? 'إيقاف' : 'Pause') : (isRtl ? 'تشغيل' : 'Play')}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`kz-theater-btn ${!isMuted ? 'active-audio' : ''}`}
+                    onClick={toggleMute}
+                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+                    title={isMuted ? 'Unmute Sound' : 'Mute'}
+                  >
+                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                    <span className="kz-audio-label">
+                      {isMuted ? (isRtl ? 'تشغيل الصوت' : 'Unmute Audio') : (isRtl ? 'كتم الصوت' : 'Mute Audio')}
+                    </span>
+                  </button>
                 </div>
 
-                <div className="kz-theater-chips">
-                  <span className="kz-theater-chip">
-                    <Sparkles size={12} color="var(--kz-crimson)" />
-                    <span>6061-T6 Billet Alloy</span>
-                  </span>
-                  <span className="kz-theater-chip">
-                    <Radio size={12} color="var(--kz-crimson)" />
-                    <span>433 MHz RF Actuator</span>
-                  </span>
+                <div className="kz-theater-controls-right">
+                  {/* Dynamic Aspect Ratio Switcher */}
+                  <button
+                    type="button"
+                    className="kz-theater-btn kz-ratio-toggle-btn"
+                    onClick={toggleAspectRatio}
+                    aria-label="Switch Aspect Ratio"
+                    title={aspectRatio === '21:9' ? 'Switch to 16:9' : 'Switch to 21:9 Ultra-Wide'}
+                  >
+                    <Film size={14} />
+                    <span>{aspectRatio}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="kz-theater-btn"
+                    onClick={handleFullscreen}
+                    aria-label="Fullscreen"
+                    title="Fullscreen"
+                  >
+                    <Maximize size={15} />
+                    <span className="kz-btn-text-hide-sm">{isRtl ? 'ملء الشاشة' : 'Fullscreen'}</span>
+                  </button>
                 </div>
+              </div>
+
+              {/* Big Center Play Button Overlay if Paused */}
+              {!isPlaying && (
+                <button 
+                  type="button" 
+                  className="kz-theater-play-overlay" 
+                  onClick={togglePlay}
+                  aria-label="Play Video"
+                >
+                  <div className="kz-theater-play-pill">
+                    <Play size={28} fill="currentColor" />
+                  </div>
+                </button>
+              )}
+            </div>
+
+            {/* Bottom Telemetry Caption Bar */}
+            <div className="kz-theater-footer-strip">
+              <div className="kz-theater-caption">
+                <Compass size={15} color="var(--kz-crimson)" />
+                <span>
+                  {isRtl
+                    ? 'موقع الاختبار: كثبان سيلين وخور العديد — سرعة الرياح: 45 عقدة — صفر فقد في إشارة الراديو (<0.1 dB)'
+                    : 'Testing Locus: Sealine & Inland Sea Dunes · 160 km/h Vibration Stability · Zero Insertion Loss (<0.1 dB)'}
+                </span>
+              </div>
+
+              <div className="kz-theater-chips">
+                <span className="kz-theater-chip">
+                  <Sparkles size={12} color="var(--kz-crimson)" />
+                  <span>6061-T6 Billet Alloy</span>
+                </span>
+                <span className="kz-theater-chip">
+                  <Radio size={12} color="var(--kz-crimson)" />
+                  <span>433 MHz RF Actuator</span>
+                </span>
               </div>
             </div>
           </div>
