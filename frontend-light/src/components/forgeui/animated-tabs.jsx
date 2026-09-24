@@ -1,5 +1,5 @@
 import React, { useState, useId } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const AnimatedTabs = ({
   tabs = [],
@@ -11,11 +11,15 @@ export const AnimatedTabs = ({
   tabClassName = '',
   activeTabClassName = '',
   indicatorClassName = '',
+  hoverIndicatorClassName = '',
   layoutIdPrefix,
+  enableHover = true,
   renderTab
 }) => {
   const generatedId = useId();
-  const layoutId = layoutIdPrefix || `animated-tabs-indicator-${generatedId}`;
+  const safeId = (layoutIdPrefix || `animated-tabs-${generatedId}`).replace(/[:]/g, '-');
+  const activeLayoutId = `${safeId}-active`;
+  const hoverLayoutId = `${safeId}-hover`;
 
   // Normalize tabs to support strings or custom objects
   const normalizedTabs = tabs.map((tab, idx) => {
@@ -28,6 +32,7 @@ export const AnimatedTabs = ({
       sub: tab.sub,
       icon: tab.icon,
       theme: tab.theme || '',
+      indicatorClass: tab.indicatorClass || '',
       original: tab,
       index: idx,
       ...tab
@@ -38,6 +43,8 @@ export const AnimatedTabs = ({
     if (defaultValue !== undefined) return defaultValue;
     return normalizedTabs[0]?.id || '';
   });
+
+  const [hoveredTab, setHoveredTab] = useState(null);
 
   const currentTabId = activeTab !== undefined ? activeTab : selectedTab;
 
@@ -53,10 +60,12 @@ export const AnimatedTabs = ({
   return (
     <div
       role="tablist"
+      onMouseLeave={() => setHoveredTab(null)}
       className={`forge-animated-tabs forge-tabs-${variant} ${className}`}
     >
       {normalizedTabs.map((tab) => {
         const isActive = tab.id === currentTabId;
+        const isHovered = hoveredTab === tab.id;
         const themeClass = tab.theme || '';
 
         return (
@@ -67,23 +76,43 @@ export const AnimatedTabs = ({
             aria-selected={isActive}
             tabIndex={isActive ? 0 : -1}
             onClick={() => handleSelect(tab)}
+            onMouseEnter={() => setHoveredTab(tab.id)}
             className={`forge-tab-item ${isActive ? 'active' : ''} ${themeClass} ${tabClassName} ${
               isActive ? activeTabClassName : ''
             }`}
           >
-            {/* Smooth animated sliding indicator */}
+            {/* Active Pill Indicator */}
             {isActive && (
               <motion.div
-                layoutId={layoutId}
+                layoutId={activeLayoutId}
                 className={`forge-tab-active-indicator ${indicatorClassName} ${tab.indicatorClass || ''}`}
                 transition={{
                   type: 'spring',
-                  stiffness: 420,
-                  damping: 32,
-                  mass: 0.7
+                  stiffness: 480,
+                  damping: 36,
+                  mass: 0.6
                 }}
               />
             )}
+
+            {/* Hover Sliding Highlight Indicator */}
+            <AnimatePresence>
+              {enableHover && !isActive && isHovered && (
+                <motion.div
+                  layoutId={hoverLayoutId}
+                  className={`forge-tab-hover-indicator ${hoverIndicatorClassName}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 450,
+                    damping: 32,
+                    mass: 0.5
+                  }}
+                />
+              )}
+            </AnimatePresence>
 
             <span className="forge-tab-content">
               {renderTab ? (
@@ -119,4 +148,3 @@ export function AnimatedTabsExample() {
 }
 
 export default AnimatedTabs;
-
