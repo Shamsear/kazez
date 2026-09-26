@@ -140,6 +140,23 @@ html.lenis body {
 /* -----------------------------------------------------------------------------
    CUBE-MOTION & RENDERING PERFORMANCE OPTIMIZATION
    ----------------------------------------------------------------------------- */
+.kz-page-transition-wrap {
+  animation: kz-page-reveal 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+  width: 100%;
+}
+
+@keyframes kz-page-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .kz-reveal {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -154,6 +171,11 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .kz-page-transition-wrap {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .kz-reveal {
     opacity: 1 !important;
     transform: none !important;
@@ -3589,11 +3611,20 @@ html.lenis body {
 
 .kz-bracket-config-heading {
   font-family: var(--kz-font-display);
-  font-size: 0.96rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--kz-text-primary);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.25;
+}
+
+.kz-bracket-config-sub {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--kz-text-secondary);
+  margin: 0;
+  max-width: 580px;
 }
 
 .kz-bracket-oem-badge {
@@ -4794,28 +4825,27 @@ html.lenis body {
 
 .kz-cinematic-section.kz-cinematic-blended {
   background: var(--kz-canvas);
-  padding: 24px 0 20px;
+  padding: 24px 0 32px;
   position: relative;
-  overflow: visible;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .kz-cinematic-section.kz-cinematic-blended {
-    padding: 16px 0 16px;
+    padding: 16px 0 20px;
   }
 }
 
-/* Double-Bezel Outer Shell with dark architectural framing & ambient floor glow */
+/* Double-Bezel Outer Shell */
 .kz-cinema-bezel-outer {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.95) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 36px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 32px;
   padding: 8px;
-  box-shadow: 0 32px 80px -20px rgba(15, 23, 42, 0.28), 0 0 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.10), 0 2px 10px rgba(15, 23, 42, 0.04);
   box-sizing: border-box;
   transition: transform 300ms ease, box-shadow 300ms ease;
   position: relative;
@@ -4823,7 +4853,7 @@ html.lenis body {
 
 @media (max-width: 640px) {
   .kz-cinema-bezel-outer {
-    border-radius: 24px;
+    border-radius: 22px;
     padding: 5px;
   }
 }
@@ -4831,7 +4861,7 @@ html.lenis body {
 /* Inner Stage Enclosure */
 .kz-cinema-stage-inner {
   position: relative;
-  border-radius: 28px;
+  border-radius: 26px;
   overflow: hidden;
   min-height: 520px;
   height: 60vh;
@@ -5105,12 +5135,13 @@ html.lenis body {
 
 .kz-bracket-advisory-card {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--kz-border, #E2E8F0);
   border-radius: 20px;
-  padding: 22px 20px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  padding: 24px 22px;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.05);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .kz-bracket-advisory-card::before {
@@ -5120,21 +5151,21 @@ html.lenis body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #F59E0B, #DC2626, #F59E0B);
+  background: linear-gradient(90deg, #D97706 0%, var(--kz-crimson, #991B1B) 50%, #D97706 100%);
 }
 
-/* Head */
+/* Advisory Header */
 .kz-advisory-head {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .kz-advisory-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.28);
+  padding: 4px 12px;
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.24);
   border-radius: 9999px;
   font-family: var(--kz-font-mono, monospace);
   font-size: 0.70rem;
@@ -5150,25 +5181,25 @@ html.lenis body {
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #0F172A;
-  margin: 0 0 4px 0;
+  color: var(--kz-text-primary, #0F172A);
+  margin: 0 0 6px 0;
   line-height: 1.25;
 }
 
 .kz-advisory-sub {
-  font-size: 0.86rem;
-  color: #64748B;
+  font-size: 0.88rem;
+  color: var(--kz-text-secondary, #475569);
   margin: 0;
   line-height: 1.5;
 }
 
 /* Schematic Box: Motor + Bracket = Needed */
 .kz-advisory-schematic {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
+  background: var(--kz-surface-subtle, #F8FAFC);
+  border: 1px solid var(--kz-border, #E2E8F0);
   border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
 }
 
 .kz-schematic-flow {
@@ -5181,21 +5212,23 @@ html.lenis body {
 .kz-schematic-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
+  min-width: 0;
 }
 
 .kz-schematic-img-box {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 10px;
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--kz-border, #E2E8F0);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px;
   flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .kz-schematic-img-box img {
@@ -5208,20 +5241,27 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
 .kz-schematic-label {
   font-family: var(--kz-font-display, inherit);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: #0F172A;
+  color: var(--kz-text-primary, #0F172A);
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kz-schematic-tag {
-  font-size: 0.72rem;
-  color: #64748B;
+  font-size: 0.74rem;
+  color: var(--kz-text-muted, #64748B);
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kz-schematic-operator {
@@ -5233,16 +5273,14 @@ html.lenis body {
 }
 
 .kz-schematic-plus {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #0F172A;
   color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 800;
 }
 
 .kz-schematic-needed-tag {
@@ -5252,7 +5290,7 @@ html.lenis body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #D97706;
-  background: rgba(245, 158, 11, 0.12);
+  background: rgba(217, 119, 6, 0.12);
   padding: 1px 6px;
   border-radius: 6px;
 }
@@ -5262,14 +5300,14 @@ html.lenis body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 12px;
-  padding: 7px 12px;
+  margin-top: 14px;
+  padding: 8px 14px;
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--kz-border, #E2E8F0);
   border-radius: 8px;
-  font-size: 0.78rem;
+  font-size: 0.80rem;
   font-weight: 700;
-  color: #0F172A;
+  color: var(--kz-text-primary, #0F172A);
   text-align: center;
 }
 
@@ -5277,19 +5315,25 @@ html.lenis body {
 .kz-advisory-steps-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+  .kz-advisory-steps-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .kz-advisory-step-card {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 14px;
+  background: var(--kz-surface-subtle, #F8FAFC);
+  border: 1px solid var(--kz-border, #E2E8F0);
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   position: relative;
   transition: all 180ms ease;
 }
@@ -5297,7 +5341,13 @@ html.lenis body {
 .kz-advisory-step-card:hover {
   background: #FFFFFF;
   border-color: #CBD5E1;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+}
+
+.kz-step-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .kz-step-num-pill {
@@ -5312,20 +5362,21 @@ html.lenis body {
   font-family: var(--kz-font-mono, monospace);
   font-size: 0.72rem;
   font-weight: 800;
+  flex-shrink: 0;
 }
 
 .kz-step-card-title {
   font-family: var(--kz-font-display, inherit);
-  font-size: 0.88rem;
+  font-size: 0.90rem;
   font-weight: 700;
-  color: #0F172A;
+  color: var(--kz-text-primary, #0F172A);
   margin: 0;
   line-height: 1.3;
 }
 
 .kz-step-card-desc {
-  font-size: 0.78rem;
-  color: #475569;
+  font-size: 0.80rem;
+  color: var(--kz-text-secondary, #475569);
   line-height: 1.5;
   margin: 0;
   flex-grow: 1;
@@ -5335,18 +5386,19 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 8px;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   background: #FFFFFF;
   border: 1px solid #CBD5E1;
-  color: #0F172A;
+  color: var(--kz-text-primary, #0F172A);
   cursor: pointer;
   text-decoration: none;
   transition: all 150ms ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .kz-step-card-btn:hover {
@@ -5372,10 +5424,11 @@ html.lenis body {
   background: #0F172A;
   color: #FFFFFF;
   border-radius: 14px;
-  padding: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12);
 }
 
 .kz-office-header {
@@ -5383,16 +5436,16 @@ html.lenis body {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 10px;
+  padding-bottom: 12px;
 }
 
 .kz-office-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.84rem;
+  gap: 8px;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #F8FAFC;
 }
@@ -5408,7 +5461,7 @@ html.lenis body {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 0.80rem;
+  font-size: 0.82rem;
   line-height: 1.45;
   color: #CBD5E1;
 }
@@ -5429,11 +5482,12 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
   color: #F59E0B;
   text-decoration: none;
   transition: opacity 150ms ease;
+  width: fit-content;
 }
 
 .kz-office-map-link:hover {
@@ -5446,9 +5500,9 @@ html.lenis body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  padding-top: 10px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -5456,7 +5510,7 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.80rem;
   font-weight: 700;
   color: #94A3B8;
 }
@@ -5474,8 +5528,8 @@ html.lenis body {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
-  padding: 3px 4px 3px 10px;
-  gap: 6px;
+  padding: 4px 6px 4px 12px;
+  gap: 8px;
   transition: background 150ms ease;
 }
 
@@ -5487,7 +5541,7 @@ html.lenis body {
   color: #FFFFFF;
   text-decoration: none;
   font-family: var(--kz-font-mono, monospace);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -5497,11 +5551,11 @@ html.lenis body {
 }
 
 .kz-phone-wa {
-  font-size: 0.68rem;
+  font-size: 0.70rem;
   font-weight: 800;
   background: #10B981;
   color: #FFFFFF;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 9999px;
   text-decoration: none;
   transition: transform 150ms ease;

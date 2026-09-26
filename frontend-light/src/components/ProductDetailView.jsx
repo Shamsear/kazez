@@ -35,6 +35,10 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   useScrollReveal('.kz-pdp-container .kz-reveal', [initialSku]);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [initialSku]);
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedBracket, setSelectedBracket] = useState(BRACKETS[0]);

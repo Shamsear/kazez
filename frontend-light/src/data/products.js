@@ -17,8 +17,9 @@ export const PRODUCTS = [
     shortDescription: "High-performance motorized antenna actuator engineered specifically for harsh GCC desert terrain, sandstorm conditions, and corrugated high-speed highway driving.",
     description: "Forged from aviation-grade 6061-T6 aluminum alloys with multi-stage black chrome electroplating. Features internal planetary gear reduction delivering 45 Nm of holding torque to secure heavy VHF/UHF whips at speeds up to 160 km/h with zero flutter. Completely sealed to IP67 standards against fine desert dust, moisture, and extreme thermal cycling.",
     images: [
-      "/assets/images/products/motor-black.webp",
-      "/assets/images/products/motor-silver.webp"
+      "/assets/images/motor-black.webp",
+      "/assets/images/motor-black-angle.webp",
+      "/assets/images/motor-black-installed.webp"
     ],
     specs: [
       { label: "Material Housing", value: "6061-T6 Forged Billet Alloy" },
@@ -57,8 +58,9 @@ export const PRODUCTS = [
     shortDescription: "Mirror-polished chrome antenna motor delivering unmatched optical brilliance while resisting coastal Gulf humidity, desert salt-spray, and scorching UV radiation.",
     description: "Triple-electroplated in high-purity decorative and sacrificial chrome layers. Designed for luxury SUVs (Land Cruiser, Lexus LX, Patrol) desiring a distinguished OEM-plus aesthetic without sacrificing heavy-duty off-road capability. Internal high-torque DC motor provides silky-smooth 90-degree deployment in under 2.8 seconds.",
     images: [
-      "/assets/images/products/motor-silver.webp",
-      "/assets/images/products/motor-black.webp"
+      "/assets/images/motor-silver.webp",
+      "/assets/images/motor-silver-angle.webp",
+      "/assets/images/motor-silver-rear.webp"
     ],
     specs: [
       { label: "Material Housing", value: "6061-T6 Forged Billet Alloy" },

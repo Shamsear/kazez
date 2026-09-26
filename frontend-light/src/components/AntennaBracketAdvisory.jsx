@@ -8,10 +8,11 @@ import {
   Car, 
   Compass, 
   ArrowRight, 
-  ExternalLink,
-  MessageCircle,
-  Sparkles,
-  ShieldCheck
+  ExternalLink, 
+  MessageSquare,
+  ShieldCheck,
+  Building2,
+  PhoneCall
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -36,11 +37,11 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
   };
 
   return (
-    <section className="kz-bracket-advisory-card kz-reveal" aria-label="Installation Prerequisite Notice">
+    <div className="kz-bracket-advisory-card kz-reveal" aria-label="Installation Prerequisite Notice">
       {/* Top Advisory Banner */}
       <div className="kz-advisory-head">
         <div className="kz-advisory-badge">
-          <AlertTriangle size={13} strokeWidth={2.2} />
+          <AlertTriangle size={13} strokeWidth={2.4} />
           <span>{isRtl ? 'متطلب أساسي للتركيب' : 'Installation Prerequisite'}</span>
         </div>
         <h3 className="kz-advisory-title">
@@ -66,7 +67,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
                 {isRtl ? 'محرك الهوائي' : 'Kazez Antenna Motor'}
               </span>
               <span className="kz-schematic-tag">
-                {currentProduct?.edition || (isRtl ? 'محرك كزاز' : 'Motor Actuator')}
+                {currentProduct?.edition || (isRtl ? 'محرك كزاز' : 'Black Edition')}
               </span>
             </div>
           </div>
@@ -74,7 +75,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
           {/* Plus Indicator */}
           <div className="kz-schematic-operator">
             <span className="kz-schematic-plus">
-              <Plus size={16} strokeWidth={3} />
+              <Plus size={14} strokeWidth={3} />
             </span>
             <span className="kz-schematic-needed-tag">
               {isRtl ? 'مطلوب' : 'Needed'}
@@ -112,10 +113,12 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
       <div className="kz-advisory-steps-grid">
         {/* Step 01: Check Availability */}
         <div className="kz-advisory-step-card">
-          <div className="kz-step-num-pill">01</div>
-          <h4 className="kz-step-card-title">
-            {isRtl ? 'فحص توفر قاعدة تثبيت الهوائي' : 'Check Antenna Bracket Availability'}
-          </h4>
+          <div className="kz-step-card-top">
+            <div className="kz-step-num-pill">01</div>
+            <h4 className="kz-step-card-title">
+              {isRtl ? 'فحص توفر قاعدة تثبيت الهوائي' : 'Check Antenna Bracket Availability'}
+            </h4>
+          </div>
           <p className="kz-step-card-desc">
             {isRtl
               ? 'لهذا المحرك، يلزمك شراء قاعدة تثبيت مخصصة بحسب طراز سيارتك. يرجى التحقق من توفر القاعدة لطراز سيارتك لدى فروعنا وموزعينا أو عبر خيارات التوافق أعلاه.'
@@ -126,18 +129,20 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
             className="kz-step-card-btn"
             onClick={scrollToConfigurator}
           >
-            <Car size={13} />
-            <span>{isRtl ? 'اختر سيارتك من القائمة أعلاه' : 'Check 14 Supported Models'}</span>
+            <Car size={14} />
+            <span>{isRtl ? 'استعراض ١٤ قاعدة معتمدة' : 'Check 14 Supported Models'}</span>
             <ArrowRight size={13} />
           </button>
         </div>
 
         {/* Step 02: Custom Bracket */}
         <div className="kz-advisory-step-card">
-          <div className="kz-step-num-pill">02</div>
-          <h4 className="kz-step-card-title">
-            {isRtl ? 'تصنيع قاعدة مخصصة لسيارتك' : 'Custom Bracket For Your Car'}
-          </h4>
+          <div className="kz-step-card-top">
+            <div className="kz-step-num-pill">02</div>
+            <h4 className="kz-step-card-title">
+              {isRtl ? 'تصنيع قاعدة مخصصة لسيارتك' : 'Custom Bracket For Your Car'}
+            </h4>
+          </div>
           <p className="kz-step-card-desc">
             {isRtl
               ? 'في حال عدم توفر قاعدة تثبيت جاهزة لسيارتك، يرجى زيارة مقرنا الرئيسي وطلب قاعدة مخصصة. سنقوم بتصميم وتصنيع قاعدة جديدة خصيصاً لمركبتك.'
@@ -149,8 +154,8 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
             rel="noopener noreferrer"
             className="kz-step-card-btn custom-accent"
           >
-            <MessageCircle size={13} />
-            <span>{isRtl ? 'طلب تفصيل قاعدة مخصصة' : 'Order Custom Bracket via WhatsApp'}</span>
+            <MessageSquare size={14} />
+            <span>{isRtl ? 'طلب تفصيل قاعدة عبر واتساب' : 'Order Custom Bracket via WhatsApp'}</span>
             <ExternalLink size={12} />
           </a>
         </div>
@@ -160,7 +165,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
       <div className="kz-advisory-office-deck">
         <div className="kz-office-header">
           <div className="kz-office-badge">
-            <ShieldCheck size={13} />
+            <Building2 size={14} color="#F59E0B" />
             <span>{isRtl ? 'المقر الرئيسي ومركز الأبحاث' : 'Thabt Head Office & Research Center'}</span>
           </div>
           <div className="kz-office-company">
@@ -171,14 +176,14 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
         {/* Address */}
         <div className="kz-office-address-row">
           <div className="kz-office-icon-wrap">
-            <MapPin size={16} />
+            <MapPin size={15} />
           </div>
           <div className="kz-office-address-text">
             <span>Building 185, Unit 37, Street 100, Zone 56, Doha, Qatar</span>
             <a 
               href="https://maps.google.com/?q=Building+185+Street+100+Zone+56+Doha+Qatar" 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="noopener noreferrer" 
               className="kz-office-map-link"
             >
               <Compass size={12} />
@@ -190,8 +195,8 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
         {/* Call Us Section */}
         <div className="kz-office-phones-block">
           <div className="kz-phones-label">
-            <Phone size={13} />
-            <span>{isRtl ? 'اتصل بنا / الدعم الهاتفي المباشر:' : 'Call Us:'}</span>
+            <PhoneCall size={13} color="#94A3B8" />
+            <span>{isRtl ? 'اتصل بنا:' : 'Call Us:'}</span>
           </div>
           <div className="kz-phones-grid">
             {/* Phone 1 */}
@@ -204,7 +209,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="kz-phone-wa"
-                title="WhatsApp"
+                title="Chat on WhatsApp"
               >
                 WA ↗
               </a>
@@ -220,7 +225,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="kz-phone-wa"
-                title="WhatsApp"
+                title="Chat on WhatsApp"
               >
                 WA ↗
               </a>
@@ -228,7 +233,7 @@ export const AntennaBracketAdvisory = ({ currentProduct, onBrowseBrackets }) => 
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

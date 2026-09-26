@@ -137,74 +137,76 @@ export const App = () => {
       {/* Floating Minimal Navbar */}
       <MinimalNavbar activeView={activeView} setActiveView={navigateTo} />
 
-      {/* Main View Router */}
+      {/* Main View Router with Smooth Animated Transitions */}
       <main id="main-content">
         <ErrorBoundary>
-          {activeView === 'home' && (
-            <>
-              <EditorialHero
-                onSelectEdition={(slug) => navigateTo(slug)}
-                onExploreEditions={() => {
-                  const el = document.getElementById('kz-editions');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  else navigateTo('kazez-black');
+          <div key={activeView} className="kz-page-transition-wrap">
+            {activeView === 'home' && (
+              <>
+                <EditorialHero
+                  onSelectEdition={(slug) => navigateTo(slug)}
+                  onExploreEditions={() => {
+                    const el = document.getElementById('kz-editions');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    else navigateTo('kazez-black');
+                  }}
+                />
+                <TelemetryTicker />
+                <CinematicVideoShowcase />
+                <EditionShowcase onSelectEdition={(slug) => navigateTo(slug)} />
+                <ReelShowcase />
+                <BracketExplorer onSelectBracketForCart={(b) => openCart()} />
+              </>
+            )}
+
+            {activeView === 'kazez-black' && (
+              <ProductDetailView
+                initialSku="KAZEZ"
+                onBack={() => navigateTo('home')}
+                onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
+                onInstantCheckout={(prod, qty) => {
+                  addToCart(prod, qty, false);
+                  closeCart();
+                  navigateTo('checkout');
                 }}
               />
-              <TelemetryTicker />
-              <CinematicVideoShowcase />
-              <EditionShowcase onSelectEdition={(slug) => navigateTo(slug)} />
-              <ReelShowcase />
-              <BracketExplorer onSelectBracketForCart={(b) => openCart()} />
-            </>
-          )}
+            )}
 
-          {activeView === 'kazez-black' && (
-            <ProductDetailView
-              initialSku="KAZEZ"
-              onBack={() => navigateTo('home')}
-              onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
-              onInstantCheckout={(prod, qty) => {
-                addToCart(prod, qty, false);
-                closeCart();
-                navigateTo('checkout');
-              }}
-            />
-          )}
+            {activeView === 'kazez-silver' && (
+              <ProductDetailView
+                initialSku="KAZEZ-SLVR"
+                onBack={() => navigateTo('home')}
+                onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
+                onInstantCheckout={(prod, qty) => {
+                  addToCart(prod, qty, false);
+                  closeCart();
+                  navigateTo('checkout');
+                }}
+              />
+            )}
 
-          {activeView === 'kazez-silver' && (
-            <ProductDetailView
-              initialSku="KAZEZ-SLVR"
-              onBack={() => navigateTo('home')}
-              onSelectOtherEdition={(sku) => navigateTo(sku === 'KAZEZ-SLVR' ? 'kazez-silver' : 'kazez-black')}
-              onInstantCheckout={(prod, qty) => {
-                addToCart(prod, qty, false);
-                closeCart();
-                navigateTo('checkout');
-              }}
-            />
-          )}
+            {activeView === 'engineering' && (
+              <EngineeringLabView onSelectEdition={(slug) => navigateTo(slug)} />
+            )}
 
-          {activeView === 'engineering' && (
-            <EngineeringLabView onSelectEdition={(slug) => navigateTo(slug)} />
-          )}
+            {activeView === 'contact' && (
+              <ShowroomContact />
+            )}
 
-          {activeView === 'contact' && (
-            <ShowroomContact />
-          )}
+            {activeView === 'checkout' && (
+              <MinimalCheckout
+                onReturnHome={() => navigateTo('home')}
+                onOrderComplete={handleOrderComplete}
+              />
+            )}
 
-          {activeView === 'checkout' && (
-            <MinimalCheckout
-              onReturnHome={() => navigateTo('home')}
-              onOrderComplete={handleOrderComplete}
-            />
-          )}
-
-          {activeView === 'order-success' && (
-            <OrderSuccessReceipt
-              order={completedOrder}
-              onReturnHome={handleReturnHome}
-            />
-          )}
+            {activeView === 'order-success' && (
+              <OrderSuccessReceipt
+                order={completedOrder}
+                onReturnHome={handleReturnHome}
+              />
+            )}
+          </div>
         </ErrorBoundary>
       </main>
 

@@ -97,15 +97,29 @@ export const VehicleBracketConfigurator = ({
       {includeBracket && (
         <div className="kz-bracket-config-content">
           {/* Header */}
+          {/* Header matching Home 4x4 Mount Explorer */}
           <div className="kz-bracket-config-head">
             <div className="kz-bracket-config-title-wrap">
-              <div className="kz-badge-accent">
-                <Car size={13} />
-                <span>{isRtl ? 'مطابقة الهيكل والمركبة' : 'Chassis & Fitment Matcher'}</span>
+              <div className="kz-bracket-eyebrow">
+                <span className="kz-bracket-eyebrow-icon-box">
+                  <Car size={13} strokeWidth={2} />
+                </span>
+                <span className="kz-bracket-eyebrow-text">
+                  {isRtl ? 'هندسة قواعد سيارات الدفع الرباعي' : 'GCC 4x4 Mount Engineering'}
+                </span>
+                <span className="kz-bracket-eyebrow-divider" />
+                <span className="kz-bracket-eyebrow-sub">
+                  {isRtl ? '١٤ قاعدة أصلية معتمدة' : '14 Factory Fits'}
+                </span>
               </div>
               <h4 className="kz-bracket-config-heading">
-                {isRtl ? 'اختر سيارتك لاستعراض قاعدة التثبيت الدقيقة' : 'Select Vehicle & Inspect Mount Specs'}
+                {isRtl ? 'قواعد التثبيت المخصصة لكل سيارة' : 'Precision Vehicle Mount Brackets'}
               </h4>
+              <p className="kz-bracket-config-sub">
+                {isRtl 
+                  ? 'تشكيلة هندسية متكاملة من 14 قاعدة مصممة بأبعاد المصنع الدقيقة لجميع سيارات الدفع الرباعي دون أي ثقب للهيكل.'
+                  : 'Engineered for 100% factory bolt-on fitment. Laser-cut high-tensile alloy with zero drilling required.'}
+              </p>
             </div>
             <div className="kz-bracket-oem-badge">
               <ShieldCheck size={14} color="#10B981" />
