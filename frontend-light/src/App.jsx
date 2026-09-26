@@ -5,6 +5,7 @@ import { TelemetryTicker } from './components/TelemetryTicker';
 import { CinematicVideoShowcase } from './components/CinematicVideoShowcase';
 import { EditionShowcase } from './components/EditionShowcase';
 import { BracketExplorer } from './components/BracketExplorer';
+import { ReelShowcase } from './components/ReelShowcase';
 import { ProductDetailView } from './components/ProductDetailView';
 import { EngineeringLabView } from './components/EngineeringLabView';
 import { ShowroomContact } from './components/ShowroomContact';
@@ -152,6 +153,7 @@ export const App = () => {
               <TelemetryTicker />
               <CinematicVideoShowcase />
               <EditionShowcase onSelectEdition={(slug) => navigateTo(slug)} />
+              <ReelShowcase />
               <BracketExplorer onSelectBracketForCart={(b) => openCart()} />
             </>
           )}

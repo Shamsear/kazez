@@ -12,14 +12,13 @@ export const PRODUCTS = [
     rating: 4.5,
     reviewsCount: 42,
     stock: 32,
-    badge: "Most Popular in Qatar",
+    badge: "Stealth Anodized",
+    badgeAr: "أنودة تكتيكية سوداء",
     shortDescription: "High-performance motorized antenna actuator engineered specifically for harsh GCC desert terrain, sandstorm conditions, and corrugated high-speed highway driving.",
     description: "Forged from aviation-grade 6061-T6 aluminum alloys with multi-stage black chrome electroplating. Features internal planetary gear reduction delivering 45 Nm of holding torque to secure heavy VHF/UHF whips at speeds up to 160 km/h with zero flutter. Completely sealed to IP67 standards against fine desert dust, moisture, and extreme thermal cycling.",
     images: [
-      "/assets/images/motor-black.webp",
-      "/assets/images/motor-black-angle.webp",
-      "/assets/images/motor-black-installed.webp",
-      "/assets/images/story-construction.webp"
+      "/assets/images/products/motor-black.webp",
+      "/assets/images/products/motor-silver.webp"
     ],
     specs: [
       { label: "Material Housing", value: "6061-T6 Forged Billet Alloy" },
@@ -53,14 +52,13 @@ export const PRODUCTS = [
     rating: 4.8,
     reviewsCount: 36,
     stock: 18,
-    badge: "Heritage Classic Finish",
+    badge: "Mirror Chrome",
+    badgeAr: "كروم فضي عاكس",
     shortDescription: "Mirror-polished chrome antenna motor delivering unmatched optical brilliance while resisting coastal Gulf humidity, desert salt-spray, and scorching UV radiation.",
     description: "Triple-electroplated in high-purity decorative and sacrificial chrome layers. Designed for luxury SUVs (Land Cruiser, Lexus LX, Patrol) desiring a distinguished OEM-plus aesthetic without sacrificing heavy-duty off-road capability. Internal high-torque DC motor provides silky-smooth 90-degree deployment in under 2.8 seconds.",
     images: [
-      "/assets/images/motor-silver.webp",
-      "/assets/images/motor-silver-angle.webp",
-      "/assets/images/motor-silver-rear.webp",
-      "/assets/images/story-performance.webp"
+      "/assets/images/products/motor-silver.webp",
+      "/assets/images/products/motor-black.webp"
     ],
     specs: [
       { label: "Material Housing", value: "6061-T6 Forged Billet Alloy" },

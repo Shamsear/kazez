@@ -17,6 +17,7 @@ import {
   X
 } from 'lucide-react';
 import { BRACKETS, VEHICLE_MAKES } from '../data/brackets';
+import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { PriceTag } from './PriceTag';
@@ -28,6 +29,39 @@ export const BracketExplorer = ({ onSelectBracketForCart }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeModalBracket, setActiveModalBracket] = useState(null);
   const [addedBracketId, setAddedBracketId] = useState(null);
+
+  const makeCounts = useMemo(() => {
+    const counts = { 'All Makes': BRACKETS.length };
+    VEHICLE_MAKES.forEach((m) => {
+      if (m !== 'All Makes') {
+        counts[m] = BRACKETS.filter((b) => b.make === m).length;
+      }
+    });
+    return counts;
+  }, []);
+
+  const getMakeLabel = (make) => {
+    if (!isRtl) return make;
+    const arabicMakes = {
+      'All Makes': 'الكل',
+      'Toyota': 'تويوتا',
+      'Nissan': 'نيسان',
+      'Lexus': 'لكزس',
+      'GWM': 'GWM',
+      'Jetour': 'جيتور',
+      'BYD': 'BYD',
+      'Universal': 'شامل'
+    };
+    return arabicMakes[make] || make;
+  };
+
+  const bracketTabs = useMemo(() => {
+    return VEHICLE_MAKES.map((make) => ({
+      id: make,
+      label: getMakeLabel(make),
+      count: makeCounts[make] || 0
+    }));
+  }, [makeCounts, isRtl]);
 
   const filteredBrackets = useMemo(() => {
     return BRACKETS.filter((b) => {
@@ -66,60 +100,102 @@ export const BracketExplorer = ({ onSelectBracketForCart }) => {
     <section className="kz-section kz-bracket-explorer-section" id="kz-brackets">
       <div className="kz-container">
         {/* Section Header */}
-        <div className="kz-section-head kz-reveal">
-          <div className="kz-badge-accent">
-            <Car size={13} />
-            <span>{isRtl ? 'قواعد تثبيت سيارات الخليج' : 'GCC 4x4 Mount Engineering'}</span>
+        <div className="kz-section-head kz-bracket-header kz-reveal">
+          <div className="kz-bracket-eyebrow">
+            <span className="kz-bracket-eyebrow-icon-box">
+              <Car size={13} strokeWidth={2} />
+            </span>
+            <span className="kz-bracket-eyebrow-text">
+              {isRtl ? 'هندسة قواعد سيارات الدفع الرباعي' : 'GCC 4x4 Mount Engineering'}
+            </span>
+            <span className="kz-bracket-eyebrow-divider" />
+            <span className="kz-bracket-eyebrow-sub">
+              {isRtl ? '١٤ قاعدة أصلية معتمدة' : '14 Factory Fits'}
+            </span>
           </div>
-          <h2 className="kz-section-title">
+
+          <h2 className="kz-section-title kz-bracket-title">
             {isRtl ? 'قواعد التثبيت المخصصة لكل سيارة' : 'Precision Vehicle Mount Brackets'}
           </h2>
-          <p className="kz-section-sub">
+
+          <p className="kz-section-sub kz-bracket-subtitle">
             {isRtl 
               ? 'تشكيلة هندسية متكاملة من 14 قاعدة مصممة بأبعاد المصنع الدقيقة لجميع سيارات الدفع الرباعي دون أي ثقب للهيكل.'
               : 'Engineered for 100% factory bolt-on fitment. Laser-cut high-tensile alloy with zero drilling required.'}
           </p>
         </div>
 
-        {/* Filter & Search Bar */}
-        <div className="kz-bracket-filter-bar kz-reveal kz-delay-1">
-          {/* Make Filter Pills */}
-          <div className="kz-bracket-pills-wrap">
-            {VEHICLE_MAKES.map((make) => {
-              const isSelected = selectedMake === make;
-              return (
-                <button
-                  key={make}
-                  type="button"
-                  className={`kz-bracket-filter-pill ${isSelected ? 'active' : ''}`}
-                  onClick={() => setSelectedMake(make)}
-                >
-                  <span>{make === 'All Makes' ? (isRtl ? 'جميع الصانعين' : 'All Makes') : make}</span>
-                  {isSelected && <span className="kz-pill-count">{filteredBrackets.length}</span>}
-                </button>
-              );
-            })}
+        {/* Filter & Search Bar Deck */}
+        <div className="kz-bracket-filter-bar kz-bracket-controls-deck kz-reveal kz-delay-1">
+          {/* Make Filter Segmented Capsule with AnimatedTabs */}
+          <div className="kz-bracket-pills-wrap kz-bracket-tabs-track-wrap">
+            <AnimatedTabs
+              tabs={bracketTabs}
+              activeTab={selectedMake}
+              onChange={(tab, idx, id) => setSelectedMake(id || tab.id || tab)}
+              variant="bracket"
+              layoutIdPrefix="kz-bracket-tabs-pill"
+              className="kz-bracket-tabs-track"
+              tabClassName="kz-bracket-tab-btn"
+              renderTab={(tab, isActive) => (
+                <>
+                  <span className="kz-tab-label">{tab.label}</span>
+                  <span className={`kz-pill-count kz-tab-count ${isActive ? 'active' : ''}`}>
+                    {tab.count}
+                  </span>
+                </>
+              )}
+            />
           </div>
 
-          {/* Search Input */}
-          <div className="kz-bracket-search-box">
-            <Search size={15} color="var(--kz-text-muted)" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={isRtl ? 'ابحث بالموديل أو القاعدة (LC300, Patrol, LX600)...' : 'Search model (LC300, Patrol, LX600)...'}
-            />
-            {searchQuery && (
-              <button 
-                type="button" 
-                className="kz-search-clear-btn" 
-                onClick={() => setSearchQuery('')}
-              >
-                ✕
-              </button>
-            )}
+          {/* Search Box */}
+          <div className="kz-bracket-search-container">
+            <div className="kz-bracket-search-box">
+              <Search size={14} className="kz-search-icon" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={isRtl ? 'ابحث بالموديل أو القاعدة (LC300, Patrol, LX600)...' : 'Search model (LC300, Patrol, LX600)...'}
+                aria-label="Search bracket models"
+              />
+              {searchQuery && (
+                <button 
+                  type="button" 
+                  className="kz-search-clear-btn" 
+                  onClick={() => setSearchQuery('')}
+                  aria-label="Clear search query"
+                >
+                  <X size={11} strokeWidth={2.5} />
+                </button>
+              )}
+            </div>
           </div>
+        </div>
+
+        {/* Live Filter Telemetry Status Bar */}
+        <div className="kz-bracket-status-bar kz-reveal kz-delay-1">
+          <div className="kz-bracket-status-info">
+            <span className="kz-status-dot" />
+            <span className="kz-status-text">
+              {isRtl ? (
+                <>عرض <strong>{filteredBrackets.length}</strong> قاعدة تثبيت {selectedMake !== 'All Makes' ? `لمركبات ${getMakeLabel(selectedMake)}` : 'لكافة طرازات الدفع الرباعي'} · تطابق مصنعي 100%</>
+              ) : (
+                <>Showing <strong>{filteredBrackets.length}</strong> {filteredBrackets.length === 1 ? 'mount bracket' : 'precision brackets'} {selectedMake !== 'All Makes' ? `for ${selectedMake}` : 'across all platforms'} · 100% OEM Bolt-On</>
+              )}
+            </span>
+          </div>
+
+          {(selectedMake !== 'All Makes' || searchQuery) && (
+            <button
+              type="button"
+              className="kz-bracket-reset-inline-btn"
+              onClick={() => { setSelectedMake('All Makes'); setSearchQuery(''); }}
+            >
+              <span>{isRtl ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}</span>
+              <X size={12} strokeWidth={2} />
+            </button>
+          )}
         </div>
 
         {/* Brackets Grid */}

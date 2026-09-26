@@ -26,6 +26,7 @@ import { BRACKETS } from '../data/brackets';
 import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { PriceTag } from './PriceTag';
 import { VehicleBracketConfigurator } from './VehicleBracketConfigurator';
+import { AntennaBracketAdvisory } from './AntennaBracketAdvisory';
 
 export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEdition, onInstantCheckout }) => {
   const currentProduct = PRODUCTS.find((p) => p.sku === initialSku) || PRODUCTS[0];
@@ -355,6 +356,18 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
                 <span>{isRtl ? 'الشراء الفوري' : 'Instant Checkout'}</span>
                 <ArrowRight size={16} />
               </button>
+            </div>
+
+            {/* Critical Prerequisite: Antenna Bracket Required Advisory */}
+            <div style={{ marginTop: '24px', marginBottom: '28px' }}>
+              <AntennaBracketAdvisory 
+                currentProduct={currentProduct}
+                onBrowseBrackets={() => {
+                  setIncludeBracket(true);
+                  const el = document.querySelector('.kz-bracket-bundle-toggle');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+              />
             </div>
 
             {/* Accordions */}

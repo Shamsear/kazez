@@ -71,7 +71,8 @@ export const translations = {
       chipBillet: "6061-T6 Billet",
       chipGear: "45 Nm Gear",
       chipSealed: "IP67 Sealed",
-      addToCart: "Add to Cart"
+      addToCart: "Add to Cart",
+      stockStatus: "In Stock · Doha Express"
     },
 
     // Product Detail Page (PDP)
@@ -372,7 +373,8 @@ export const translations = {
       chipBillet: "ألمنيوم 6061-T6",
       chipGear: "عزم 45 ن.م",
       chipSealed: "عزل IP67",
-      addToCart: "أضف إلى السلة"
+      addToCart: "أضف إلى السلة",
+      stockStatus: "متوفر · شحن فوري بالدوحة"
     },
 
     // Product Detail Page (PDP)

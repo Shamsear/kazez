@@ -68,6 +68,20 @@
   --kz-radius-xl: 28px;
   --kz-radius-pill: 9999px;
 
+  /* ── Responsive Scale Tokens ──
+     These are updated at each breakpoint to cascade through every component.
+     --kz-space-scale : multiplier for padding / gaps  (1 = default)
+     --kz-type-scale  : root font-size in px — all rem values scale with it  */
+  --kz-space-xs:  4px;
+  --kz-space-sm:  8px;
+  --kz-space-md: 16px;
+  --kz-space-lg: 24px;
+  --kz-space-xl: 40px;
+  --kz-space-2xl: 64px;
+  --kz-card-pad: 20px;
+  --kz-section-gap: 48px;
+
+
   /* Ultra-Diffuse Ambient Shadows (Neutral Elevation Only - Zero Colored Chromatic Halos) */
   --kz-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
   --kz-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
@@ -232,4 +246,59 @@ p, .kz-hero-sub, .kz-pdp-desc, .kz-story-desc, .kz-card-desc {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--kz-text-primary);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════
+   GLOBAL RESPONSIVE TOKEN SCALING
+   CSS variable updates cascade through every component that uses them.
+   NOTE: No html font-size changes — px/rem mismatch breaks structural heights.
+   ════════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Small Laptops: 900–1599px wide AND max 920px tall ── */
+@media (min-width: 900px) and (max-width: 1599px) and (max-height: 920px) {
+  :root {
+    --kz-space-xs:  3px;
+    --kz-space-sm:  6px;
+    --kz-space-md: 12px;
+    --kz-space-lg: 18px;
+    --kz-space-xl: 28px;
+    --kz-space-2xl: 44px;
+    --kz-card-pad: 14px;
+    --kz-section-gap: 32px;
+    --kz-max-width: 1300px;
+    --kz-radius-lg: 16px;
+    --kz-radius-xl: 22px;
+  }
+}
+
+/* ── Large Screens: 1600px+ ── */
+@media (min-width: 1600px) {
+  :root {
+    --kz-space-xs:  5px;
+    --kz-space-sm: 10px;
+    --kz-space-md: 20px;
+    --kz-space-lg: 32px;
+    --kz-space-xl: 52px;
+    --kz-space-2xl: 80px;
+    --kz-card-pad: 28px;
+    --kz-section-gap: 64px;
+    --kz-max-width: 1560px;
+    --kz-radius-lg: 22px;
+    --kz-radius-xl: 32px;
+  }
+}
+
+/* ── Ultra-Wide: 2200px+ ── */
+@media (min-width: 2200px) {
+  :root {
+    --kz-space-xs:  6px;
+    --kz-space-sm: 12px;
+    --kz-space-md: 24px;
+    --kz-space-lg: 40px;
+    --kz-space-xl: 64px;
+    --kz-space-2xl: 100px;
+    --kz-card-pad: 36px;
+    --kz-section-gap: 80px;
+    --kz-max-width: 1920px;
+  }
 }

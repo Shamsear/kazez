@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, ShoppingBag, ShieldCheck, Zap, Layers, Star, Check } from 'lucide-react';
+import { ArrowRight, ShoppingBag, ShieldCheck, Zap, Layers, Check } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
@@ -40,28 +40,28 @@ export const EditionShowcase = ({ onSelectEdition }) => {
               <div key={prod.id} className={`kz-double-bezel kz-reveal kz-delay-${idx + 1} ${isSilverCard ? 'kz-card-silver' : 'kz-card-black'}`}>
                 <div className="kz-double-bezel-inner" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                   {/* Card Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                  <div className="kz-edition-card-topbar">
                     <span
                       className={isSilverCard ? 'kz-badge-silver' : 'kz-badge-black'}
                       style={{
-                        border: '1px solid',
                         padding: '4px 12px',
                         borderRadius: 'var(--kz-radius-pill)',
                         fontFamily: 'var(--kz-font-mono)',
                         fontSize: '0.78rem',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         textTransform: 'uppercase'
                       }}
                     >
-                      {prod.badge}
+                      {isRtl ? (prod.badgeAr || prod.badge) : prod.badge}
                     </span>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.82rem', fontWeight: 600, color: '#D97706' }}>
-                    <Star size={14} fill="#D97706" />
-                    <span>{prod.rating}</span>
-                    <span style={{ color: 'var(--kz-text-muted)', fontSize: '0.78rem' }}>({prod.reviewsCount})</span>
+                    <div className="kz-edition-stock-status">
+                      <span className="kz-stock-live-dot" aria-hidden="true" />
+                      <span className="kz-stock-text">
+                        {t.editions?.stockStatus || (isRtl ? 'متوفر · شحن فوري بالدوحة' : 'In Stock · Doha Express')}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
                 {/* Image Stage */}
                 <div

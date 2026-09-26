@@ -1,221 +1,75 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Play, 
-  Pause, 
-  Volume2, 
-  VolumeX, 
-  Maximize, 
-  Radio, 
-  Zap, 
-  ShieldCheck, 
-  Sparkles,
-  Compass,
-  Film
-} from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
+import { Radio } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const CinematicVideoShowcase = () => {
   const { isRtl } = useLanguage();
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
-  const [aspectRatio, setAspectRatio] = useState('21:9'); // '21:9' or '16:9'
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        setIsPlaying(false);
-      });
+      videoRef.current.play().catch(() => {});
     }
   }, []);
 
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !videoRef.current.muted;
-    setIsMuted(videoRef.current.muted);
-  };
-
-  const toggleAspectRatio = () => {
-    setAspectRatio(prev => prev === '21:9' ? '16:9' : '21:9');
-  };
-
-  const handleFullscreen = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.requestFullscreen) {
-      videoRef.current.requestFullscreen();
-    } else if (videoRef.current.webkitRequestFullscreen) {
-      videoRef.current.webkitRequestFullscreen();
-    }
-  };
-
   return (
-    <section className="kz-section kz-cinematic-section" id="kz-field-film">
+    <section 
+      className="kz-cinematic-section kz-cinematic-blended" 
+      id="kz-field-film"
+      aria-label={isRtl ? 'التوثيق الميداني الصحراوي' : 'Field Validation Desert Dune Testing'}
+    >
       <div className="kz-container">
-        {/* Section Header */}
-        <div className="kz-section-head kz-reveal">
-          <div className="kz-badge-accent">
-            <Radio size={13} />
-            <span>{isRtl ? 'الأداء الميداني والصحراوي' : 'Field Validation Telemetry'}</span>
-          </div>
-          <h2 className="kz-section-title">
-            {isRtl ? 'الهندسة أثناء الحركة: اختبارات الكثبان والراليات' : 'Engineering in Motion: Desert Dune Testing'}
-          </h2>
-          <p className="kz-section-sub">
-            {isRtl 
-              ? 'شاهد مشغل هوائي كازيز أثناء القيادة فوق كثبان سيلين وخور العديد — عزم تثبيت 45 ن.م وصفر اهتزاز على سرعات 160 كم/س.'
-              : 'Witness the 45 Nm planetary powertrain and hermetic IP67 seal in action across Qatar’s extreme desert terrain.'}
-          </p>
-        </div>
-      </div>
+        {/* Double-Bezel Architectural Hardware Frame */}
+        <div className="kz-cinema-bezel-outer kz-reveal">
+          <div className="kz-cinema-stage-inner">
+            {/* Ambient Background Video Runner */}
+            <video
+              ref={videoRef}
+              src="/assets/video/kazez-video-2.mp4"
+              loop
+              muted
+              playsInline
+              autoPlay
+              className="kz-cinematic-bg-video"
+            />
 
-      {/* Full-Bleed Edge-to-Edge Architectural Widescreen Theater */}
-      <div className="kz-cinematic-bleed-wrap kz-reveal kz-delay-1">
-        <div 
-          className="kz-double-bezel kz-video-theater-bezel"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className="kz-double-bezel-inner kz-video-theater-inner">
-            <div className={`kz-video-theater-stage ratio-${aspectRatio.replace(':', '-')}`}>
-              {/* Widescreen Video Element */}
-              <video
-                ref={videoRef}
-                src="/assets/video/kazez-video-2.mp4"
-                loop
-                muted={isMuted}
-                playsInline
-                autoPlay
-                className="kz-theater-video-element"
-                onClick={togglePlay}
-              />
+            {/* Cinematic Scrim Gradient Overlays */}
+            <div className="kz-cinematic-overlay-scrim" />
+            <div className="kz-cinematic-vignette" />
 
-              {/* Floating Top Telemetry HUD */}
-              <div className="kz-theater-top-hud">
-                <div className="kz-theater-top-badge">
-                  <span className="kz-rec-pulse" />
-                  <span className="kz-theater-tag-text">
-                    {isRtl ? 'توثيق ميداني حي // سيلين - قطر' : 'LIVE FIELD CAPTURE // SEALINE DUNES'}
-                  </span>
-                </div>
-
-                <div className="kz-theater-top-chips">
-                  <span className="kz-hud-chip">
-                    <Zap size={12} color="#EF4444" />
-                    <span>45 Nm Powertrain</span>
-                  </span>
-                  <span className="kz-hud-chip">
-                    <ShieldCheck size={12} color="#10B981" />
-                    <span>IP67 Hermetic</span>
-                  </span>
-                  <span className="kz-hud-chip kz-hud-ratio-chip">
-                    <Film size={11} color="#38BDF8" />
-                    <span>{aspectRatio === '21:9' ? '21:9 Anamorphic' : '16:9 Standard'}</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Floating Liquid Glass Control Bar */}
-              <div className={`kz-theater-controls-bar ${isHovered || !isPlaying ? 'visible' : ''}`}>
-                <div className="kz-theater-controls-left">
-                  <button
-                    type="button"
-                    className="kz-theater-btn"
-                    onClick={togglePlay}
-                    aria-label={isPlaying ? 'Pause Video' : 'Play Video'}
-                    title={isPlaying ? 'Pause' : 'Play'}
-                  >
-                    {isPlaying ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
-                    <span className="kz-btn-text-hide-sm">{isPlaying ? (isRtl ? 'إيقاف' : 'Pause') : (isRtl ? 'تشغيل' : 'Play')}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className={`kz-theater-btn ${!isMuted ? 'active-audio' : ''}`}
-                    onClick={toggleMute}
-                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                    title={isMuted ? 'Unmute Sound' : 'Mute'}
-                  >
-                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                    <span className="kz-audio-label">
-                      {isMuted ? (isRtl ? 'تشغيل الصوت' : 'Unmute Audio') : (isRtl ? 'كتم الصوت' : 'Mute Audio')}
-                    </span>
-                  </button>
-                </div>
-
-                <div className="kz-theater-controls-right">
-                  {/* Dynamic Aspect Ratio Switcher */}
-                  <button
-                    type="button"
-                    className="kz-theater-btn kz-ratio-toggle-btn"
-                    onClick={toggleAspectRatio}
-                    aria-label="Switch Aspect Ratio"
-                    title={aspectRatio === '21:9' ? 'Switch to 16:9' : 'Switch to 21:9 Ultra-Wide'}
-                  >
-                    <Film size={14} />
-                    <span>{aspectRatio}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="kz-theater-btn"
-                    onClick={handleFullscreen}
-                    aria-label="Fullscreen"
-                    title="Fullscreen"
-                  >
-                    <Maximize size={15} />
-                    <span className="kz-btn-text-hide-sm">{isRtl ? 'ملء الشاشة' : 'Fullscreen'}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Big Center Play Button Overlay if Paused */}
-              {!isPlaying && (
-                <button 
-                  type="button" 
-                  className="kz-theater-play-overlay" 
-                  onClick={togglePlay}
-                  aria-label="Play Video"
-                >
-                  <div className="kz-theater-play-pill">
-                    <Play size={28} fill="currentColor" />
-                  </div>
-                </button>
-              )}
+            {/* Top Corner Telemetry Watermark */}
+            <div className="kz-cinema-watermark-top">
+              <span className="kz-cinema-pulse-dot" />
+              <span className="kz-cinema-watermark-text">
+                {isRtl ? 'توثيق حي // كثبان سيلين' : 'LIVE CAPTURE // SEALINE DUNES'}
+              </span>
             </div>
 
-            {/* Bottom Telemetry Caption Bar */}
-            <div className="kz-theater-footer-strip">
-              <div className="kz-theater-caption">
-                <Compass size={15} color="var(--kz-crimson)" />
-                <span>
-                  {isRtl
-                    ? 'موقع الاختبار: كثبان سيلين وخور العديد — سرعة الرياح: 45 عقدة — صفر فقد في إشارة الراديو (<0.1 dB)'
-                    : 'Testing Locus: Sealine & Inland Sea Dunes · 160 km/h Vibration Stability · Zero Insertion Loss (<0.1 dB)'}
-                </span>
+            {/* Center Editorial Headline */}
+            <div className="kz-cinematic-runner-content">
+              <div className="kz-cinematic-runner-inner">
+                <div className="kz-cinematic-badge">
+                  <Radio size={13} className="kz-pulse-subtle" />
+                  <span>{isRtl ? 'الأداء الميداني والصحراوي' : 'Field Validation Telemetry'}</span>
+                </div>
+                <h2 className="kz-cinematic-title">
+                  {isRtl ? 'الهندسة أثناء الحركة: اختبارات الكثبان والراليات' : 'Engineering in Motion: Desert Dune Testing'}
+                </h2>
+                <p className="kz-cinematic-sub">
+                  {isRtl 
+                    ? 'شاهد مشغل هوائي كازيز أثناء القيادة فوق كثبان سيلين وخور العديد — عزم تثبيت 45 ن.م وصفر اهتزاز على سرعات 160 كم/س.'
+                    : 'Witness the 45 Nm planetary powertrain and hermetic IP67 seal in action across Qatar’s extreme desert terrain.'}
+                </p>
               </div>
+            </div>
 
-              <div className="kz-theater-chips">
-                <span className="kz-theater-chip">
-                  <Sparkles size={12} color="var(--kz-crimson)" />
-                  <span>6061-T6 Billet Alloy</span>
-                </span>
-                <span className="kz-theater-chip">
-                  <Radio size={12} color="var(--kz-crimson)" />
-                  <span>433 MHz RF Actuator</span>
-                </span>
-              </div>
+            {/* Bottom Subtle Telemetry Spec Watermark */}
+            <div className="kz-cinema-watermark-bottom">
+              <span>{isRtl ? 'عزم كوكبي 45 نيوتن متر' : '45 Nm Planetary Powertrain'}</span>
+              <span className="kz-watermark-sep">·</span>
+              <span>{isRtl ? 'عزل صحراوي IP67' : 'IP67 Desert Seal'}</span>
+              <span className="kz-watermark-sep">·</span>
+              <span>{isRtl ? 'سبيكة ألمنيوم 6061-T6' : '6061-T6 Billet Alloy'}</span>
             </div>
           </div>
         </div>
