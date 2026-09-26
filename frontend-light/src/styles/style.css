@@ -4037,7 +4037,7 @@ html.lenis body {
 
 .kz-bracket-explorer-section {
   background: var(--kz-canvas);
-  border-top: 1px solid var(--kz-border-subtle);
+  border-top: none;
   padding: 44px 0 56px;
   position: relative;
 }
@@ -4794,30 +4794,31 @@ html.lenis body {
 
 .kz-cinematic-section.kz-cinematic-blended {
   background: var(--kz-canvas);
-  padding: 32px 0 40px;
+  padding: 24px 0 20px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .kz-cinematic-section.kz-cinematic-blended {
-    padding: 20px 0 28px;
+    padding: 16px 0 16px;
   }
 }
 
-/* Double-Bezel Outer Shell */
+/* Double-Bezel Outer Shell with dark architectural framing & ambient floor glow */
 .kz-cinema-bezel-outer {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 36px;
   padding: 8px;
-  box-shadow: 0 28px 70px -16px rgba(15, 23, 42, 0.12), 0 2px 10px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 32px 80px -20px rgba(15, 23, 42, 0.28), 0 0 40px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   transition: transform 300ms ease, box-shadow 300ms ease;
+  position: relative;
 }
 
 @media (max-width: 640px) {
