@@ -1,5 +1,6 @@
-﻿import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import NumberFlow from '@number-flow/react';
 
 export const ReelShowcase = () => {
   const { isRtl } = useLanguage();
@@ -151,7 +152,7 @@ export const ReelShowcase = () => {
             {/* Spec grid */}
             <div className="kz-reel-spec-card">
               <div className="kz-reel-spec-item">
-                <span className="kz-reel-spec-val">45 Nm</span>
+                <span className="kz-reel-spec-val"><NumberFlow value={45} /> Nm</span>
                 <span className="kz-reel-spec-label">{isRtl ? 'العزم الكوكبي' : 'Holding Torque'}</span>
               </div>
               <div className="kz-reel-spec-divider" />
@@ -161,12 +162,12 @@ export const ReelShowcase = () => {
               </div>
               <div className="kz-reel-spec-divider" />
               <div className="kz-reel-spec-item">
-                <span className="kz-reel-spec-val">433</span>
+                <span className="kz-reel-spec-val"><NumberFlow value={433} /></span>
                 <span className="kz-reel-spec-label">{isRtl ? 'ميغاهرتز RF' : 'MHz RF Remote'}</span>
               </div>
               <div className="kz-reel-spec-divider" />
               <div className="kz-reel-spec-item">
-                <span className="kz-reel-spec-val">160</span>
+                <span className="kz-reel-spec-val"><NumberFlow value={160} /></span>
                 <span className="kz-reel-spec-label">{isRtl ? 'كم/س ثبات' : 'km/h Stable'}</span>
               </div>
             </div>

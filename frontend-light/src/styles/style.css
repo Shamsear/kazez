@@ -34,7 +34,7 @@ main#main-content {
 
 .kz-container {
   width: 100%;
-  max-width: var(--kz-max-width);
+  max-width: var(--kz-max-width, 1440px);
   margin-left: auto;
   margin-right: auto;
   padding-left: 16px;
@@ -59,6 +59,23 @@ main#main-content {
   .kz-container {
     padding-left: 48px;
     padding-right: 48px;
+    max-width: 1540px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .kz-container {
+    padding-left: 64px;
+    padding-right: 64px;
+    max-width: 1840px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .kz-container {
+    padding-left: 80px;
+    padding-right: 80px;
+    max-width: 2180px;
   }
 }
 
@@ -1664,16 +1681,55 @@ html.lenis body {
   color: var(--kz-text-muted);
 }
 
+/* NumberFlow Seamless Integration */
+number-flow {
+  display: inline-flex;
+  vertical-align: baseline;
+  font-variant-numeric: tabular-nums;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.kz-price-val number-flow {
+  display: inline-flex;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
 /* -----------------------------------------------------------------------------
    PRODUCT DETAIL VIEW (Studio PDP & Sticky Buy Bar)
    ----------------------------------------------------------------------------- */
 .kz-pdp-container {
-  padding-top: calc(var(--kz-nav-height) + 32px);
-  padding-bottom: 48px;
+  padding-top: calc(var(--kz-nav-height) + 28px);
+  padding-bottom: 64px;
+  width: 100%;
+}
+
+.kz-pdp-container .kz-container {
+  width: 100%;
+  max-width: var(--kz-max-width, 1540px);
+}
+
+@media (min-width: 1600px) {
+  .kz-pdp-container .kz-container {
+    max-width: 1840px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+@media (min-width: 2200px) {
+  .kz-pdp-container .kz-container {
+    max-width: 2180px;
+    padding-left: 72px;
+    padding-right: 72px;
+  }
 }
 
 .kz-pdp-back-bar {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .kz-pdp-grid {
@@ -1685,8 +1741,22 @@ html.lenis body {
 
 @media (min-width: 992px) {
   .kz-pdp-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    gap: clamp(32px, 4vw, 56px);
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 4vw, 72px);
+  }
+}
+
+@media (min-width: 1600px) {
+  .kz-pdp-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(56px, 5vw, 88px);
+  }
+}
+
+@media (min-width: 2200px) {
+  .kz-pdp-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
   }
 }
 
@@ -1697,94 +1767,88 @@ html.lenis body {
 @media (min-width: 992px) {
   .kz-pdp-gallery-wrap {
     position: sticky;
-    top: calc(var(--kz-nav-height) + 26px);
-    max-height: calc(100dvh - var(--kz-nav-height) - 44px);
+    top: calc(var(--kz-nav-height) + 24px);
     display: flex;
     flex-direction: column;
-    min-height: 0;
   }
 
   .kz-pdp-gallery-wrap .kz-double-bezel {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    padding: 5px;
+    padding: 6px;
   }
 
   .kz-pdp-gallery-wrap .kz-double-bezel-inner {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    padding: clamp(10px, 1.5vh, 16px);
+    padding: clamp(14px, 2vw, 24px);
   }
 }
 
 .kz-pdp-main-stage {
   width: 100%;
-  height: clamp(220px, calc(100dvh - var(--kz-nav-height) - 180px), 520px);
-  max-height: calc(100dvh - var(--kz-nav-height) - 180px);
-  background: #FFFFFF;
+  aspect-ratio: 1 / 1;
+  min-height: 400px;
+  background: radial-gradient(circle at center, #FFFFFF 0%, #F8FAFC 100%);
   border: 1px solid var(--kz-border);
   border-radius: var(--kz-radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(12px, 2vh, 28px);
-  box-shadow: var(--kz-shadow-sm);
+  padding: clamp(24px, 4vw, 56px);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.02);
   position: relative;
   cursor: zoom-in;
   overflow: hidden;
-  flex: 1 1 auto;
-  min-height: 0;
 }
 
 .kz-pdp-main-img {
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 92%;
+  max-height: 92%;
   object-fit: contain;
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.07));
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.10));
   transition: transform 300ms var(--kz-ease-spring);
   pointer-events: none;
 }
 
 .kz-pdp-main-stage:hover .kz-pdp-main-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .kz-pdp-thumb-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(6px, 1vw, 10px);
-  margin-top: clamp(8px, 1.2vh, 14px);
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
 }
 
 .kz-pdp-thumb-card {
-  height: clamp(44px, 6vh, 64px);
+  width: clamp(60px, 6vw, 76px);
+  height: clamp(60px, 6vw, 76px);
   background: #FFFFFF;
-  border: 1px solid var(--kz-border);
-  border-radius: var(--kz-radius-sm);
-  padding: 4px;
+  border: 1.5px solid var(--kz-border);
+  border-radius: var(--kz-radius-md);
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: border-color var(--kz-transition-fast), box-shadow var(--kz-transition-fast), transform var(--kz-transition-fast);
+  transition: all 180ms ease;
+  flex-shrink: 0;
+}
+
+.kz-pdp-thumb-card:hover {
+  border-color: #94A3B8;
+  transform: translateY(-2px);
+}
+
+.kz-pdp-thumb-card.active {
+  border-color: var(--kz-text-primary);
+  box-shadow: 0 0 0 2px var(--kz-text-primary);
 }
 
 .kz-pdp-thumb-card img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.kz-pdp-thumb-card.active {
-  border-color: var(--kz-text-primary);
-  box-shadow: 0 0 0 2px var(--kz-text-primary);
 }
 
 /* Compact viewport height adaptation (e.g. laptops with devtools, split screen, 492px-650px height) */
@@ -2158,56 +2222,92 @@ html.lenis body {
 
 .kz-specs-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kz-specs-table tbody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
 }
 
 .kz-specs-table tr {
-  border-bottom: 1px solid var(--kz-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--kz-surface-subtle);
+  border: 1px solid var(--kz-border);
+  border-radius: 12px;
+  padding: 11px 16px;
+  transition: all 180ms ease;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 12px;
 }
 
-.kz-specs-table tr:last-child {
-  border-bottom: none;
+.kz-specs-table tr:hover {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
 .kz-specs-table td {
-  padding: 12px 0;
+  padding: 0;
+  border: none;
 }
 
 .kz-specs-table td:first-child {
-  color: var(--kz-text-muted);
-  width: 45%;
-  font-size: 0.88rem;
+  color: var(--kz-text-secondary);
+  font-size: 0.86rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
 }
 
 .kz-specs-table td:last-child {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--kz-text-primary);
   font-family: var(--kz-font-mono);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
+  background: #FFFFFF;
+  border: 1px solid var(--kz-border);
+  padding: 5px 12px;
+  border-radius: 8px;
+  text-align: right;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 540px) {
-  .kz-specs-table tr {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    gap: 3px;
+  .kz-specs-table {
+    gap: 6px;
   }
-  .kz-specs-table td {
-    padding: 0 !important;
-    width: 100% !important;
+  .kz-specs-table tbody {
+    gap: 6px;
+  }
+  .kz-specs-table tr {
+    padding: 10px 12px;
+    border-radius: 10px;
+    gap: 8px;
   }
   .kz-specs-table td:first-child {
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    width: 100% !important;
+    font-size: 0.8rem;
   }
   .kz-specs-table td:last-child {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--kz-text-primary);
-    width: 100% !important;
+    font-size: 0.82rem;
+    padding: 4px 9px;
+    border-radius: 6px;
+    max-width: 55%;
+    word-break: break-word;
   }
 }
 
@@ -2241,13 +2341,13 @@ html.lenis body {
 
 .kz-sticky-bar-container {
   width: 100%;
-  max-width: var(--kz-max-width);
+  max-width: var(--kz-max-width, 1440px);
   margin-left: auto;
   margin-right: auto;
   padding-left: 16px;
   padding-right: 16px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   pointer-events: none !important;
 }
 
@@ -2267,34 +2367,33 @@ html.lenis body {
 
 [dir="rtl"] .kz-sticky-bar-container,
 .kz-rtl .kz-sticky-bar-container {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .kz-sticky-buy-bar {
   pointer-events: none !important;
   visibility: hidden;
   width: 100%;
-  margin: 0;
-  background: rgba(255, 255, 255, 0.98);
+  max-width: 620px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--kz-border);
-  border-radius: 20px; /* Device screen corner curve */
-  box-shadow: 0 16px 42px -6px rgba(15, 23, 42, 0.16), 0 2px 8px -1px rgba(15, 23, 42, 0.04);
+  border-radius: var(--kz-radius-pill);
+  box-shadow: 0 18px 46px -8px rgba(15, 23, 42, 0.16), 0 2px 8px -1px rgba(15, 23, 42, 0.04);
   padding: 8px 10px 8px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   transform: translateY(120%);
   opacity: 0;
   transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
               opacity 240ms ease,
               visibility 240ms ease,
-              width 420ms cubic-bezier(0.16, 1, 0.3, 1),
-              max-width 420ms cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 320ms ease;
-  will-change: transform, opacity, width;
+  will-change: transform, opacity;
 }
 
 [dir="rtl"] .kz-sticky-buy-bar,
@@ -2310,16 +2409,21 @@ html.lenis body {
 }
 
 @media (min-width: 992px) {
-  /* Scoped initial state: Anchored to left, occupying column width */
   .kz-sticky-buy-bar {
-    width: calc((100% - clamp(32px, 4vw, 56px)) * 1.15 / 2.15);
-    max-width: 620px;
+    width: auto;
+    min-width: 520px;
+    max-width: 680px;
+    padding: 10px 14px 10px 18px;
+    gap: 20px;
   }
+}
 
-  /* Full-width state: Expands smoothly to the right across the full container without centering jump */
-  .kz-sticky-bar-wrapper.kz-sticky-bar-full-width .kz-sticky-buy-bar {
-    width: 100%;
-    max-width: 100%;
+@media (min-width: 1600px) {
+  .kz-sticky-buy-bar {
+    min-width: 560px;
+    max-width: 740px;
+    padding: 12px 16px 12px 22px;
+    gap: 24px;
   }
 }
 
@@ -2938,23 +3042,30 @@ html.lenis body {
   background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
   background-size: 28px 28px;
   background-position: center top;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* Live Metrics Ticker Bar */
 .kz-engineering-metrics-bar {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   background: #FFFFFF;
   border: 1px solid var(--kz-border);
   border-radius: 18px;
   padding: 14px 20px;
   box-shadow: var(--kz-shadow-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
   .kz-engineering-metrics-bar {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     padding: 12px 14px;
   }
@@ -2962,7 +3073,7 @@ html.lenis body {
 
 @media (max-width: 480px) {
   .kz-engineering-metrics-bar {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     padding: 10px 10px;
     border-radius: 14px;
@@ -2975,6 +3086,12 @@ html.lenis body {
   gap: 10px;
   padding: 4px 6px;
   min-width: 0;
+  overflow: hidden;
+}
+
+.kz-engineering-metric-cell > div:last-child {
+  min-width: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 480px) {
@@ -3002,6 +3119,9 @@ html.lenis body {
   font-weight: 800;
   color: var(--kz-text-primary);
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kz-metric-cell-lbl {
@@ -3014,6 +3134,12 @@ html.lenis body {
 }
 
 /* Simulation Rig Card */
+.kz-engineering-sim-card {
+  padding: clamp(16px, 3.5vw, 32px);
+  box-sizing: border-box;
+  width: 100%;
+}
+
 .kz-sim-header {
   display: flex;
   align-items: center;
@@ -3021,6 +3147,8 @@ html.lenis body {
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .kz-sim-status-pill {
@@ -3032,6 +3160,20 @@ html.lenis body {
   align-items: center;
   gap: 8px;
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .kz-sim-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .kz-sim-status-pill {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* CAD Telemetry Visualizer Stage */
@@ -3044,6 +3186,9 @@ html.lenis body {
   position: relative;
   overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px -4px rgba(15, 23, 42, 0.12);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
@@ -3055,17 +3200,28 @@ html.lenis body {
 
 .kz-cad-hud-top {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   margin-bottom: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .kz-cad-hud-top {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .kz-cad-hud-top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
 }
 
@@ -3074,11 +3230,12 @@ html.lenis body {
   flex-direction: column;
   gap: 2px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .kz-cad-hud-lbl {
   font-family: var(--kz-font-mono);
-  font-size: 0.65rem;
+  font-size: clamp(0.58rem, 1.8vw, 0.65rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.05em;
@@ -3089,30 +3246,44 @@ html.lenis body {
 
 .kz-cad-hud-val {
   font-family: var(--kz-font-mono);
-  font-size: 0.84rem;
+  font-size: clamp(0.72rem, 2.2vw, 0.84rem);
   font-weight: 800;
   color: #F8FAFC;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kz-cad-svg-container {
   width: 100%;
+  max-width: 100%;
   height: 190px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 @media (max-width: 600px) {
   .kz-cad-svg-container {
-    height: 155px;
+    height: 145px;
+  }
+}
+
+@media (max-width: 400px) {
+  .kz-cad-svg-container {
+    height: 125px;
   }
 }
 
 .kz-cad-svg {
   width: 100%;
+  max-width: 100%;
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
+  display: block;
 }
 
 .kz-cad-streamline {
@@ -3141,17 +3312,31 @@ html.lenis body {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-family: var(--kz-font-mono);
   font-size: 0.68rem;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.04em;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+@media (max-width: 540px) {
+  .kz-cad-hud-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 0.62rem;
+  }
 }
 
 .kz-slider-track-wrap {
   margin-bottom: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .kz-engineering-slider {
@@ -3163,6 +3348,7 @@ html.lenis body {
   background: #E2E8F0;
   outline: none;
   transition: all 180ms ease;
+  box-sizing: border-box;
 }
 
 .kz-engineering-slider:hover {
@@ -3175,6 +3361,8 @@ html.lenis body {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .kz-speed-preset-btn {
@@ -3188,6 +3376,7 @@ html.lenis body {
   color: var(--kz-text-secondary);
   cursor: pointer;
   transition: all 180ms ease;
+  box-sizing: border-box;
 }
 
 @media (max-width: 540px) {
@@ -3199,6 +3388,12 @@ html.lenis body {
     text-align: center;
     padding: 7px 6px;
     font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .kz-speed-preset-btn {
+    flex: 1 1 100%;
   }
 }
 
@@ -3215,56 +3410,25 @@ html.lenis body {
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16);
 }
 
-/* 4 Pillars Grid */
-.kz-engineering-pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 64px;
-}
-
-@media (max-width: 768px) {
-  .kz-engineering-pillars-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-}
-
-.kz-engineering-pillar-card {
-  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 300ms ease,
-              border-color 300ms ease;
-}
-
-.kz-engineering-pillar-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--kz-shadow-md);
-  border-color: #94A3B8;
-}
-
-.kz-pillar-tag {
-  font-family: var(--kz-font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--kz-text-muted);
-  background: var(--kz-surface-subtle);
-  border: 1px solid var(--kz-border);
-  padding: 2px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-}
-
 /* Lab Gauges Grid (Rock-Solid 4-Column Responsive Grid) */
 .kz-lab-gauges-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 420px) {
+  .kz-lab-gauges-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
 
 @media (min-width: 992px) {
   .kz-lab-gauges-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
   }
 }
@@ -3273,16 +3437,17 @@ html.lenis body {
   background: var(--kz-canvas);
   border: 1px solid var(--kz-border);
   border-radius: 14px;
-  padding: 14px 10px;
+  padding: clamp(10px, 2.5vw, 14px) 10px;
   text-align: center;
   transition: transform 200ms ease, border-color 200ms ease;
   min-width: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
   .kz-lab-gauge-card {
-    padding: 10px 6px;
+    padding: 10px 8px;
     border-radius: 10px;
   }
 }
@@ -3347,12 +3512,64 @@ html.lenis body {
   text-overflow: ellipsis;
 }
 
+/* 4 Pillars Grid */
+.kz-engineering-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 64px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .kz-engineering-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+}
+
+.kz-engineering-pillar-card {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 300ms ease,
+              border-color 300ms ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kz-engineering-pillar-card .kz-double-bezel-inner {
+  padding: clamp(16px, 3.5vw, 28px);
+  box-sizing: border-box;
+}
+
+.kz-engineering-pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--kz-shadow-md);
+  border-color: #94A3B8;
+}
+
+.kz-pillar-tag {
+  font-family: var(--kz-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--kz-text-muted);
+  background: var(--kz-surface-subtle);
+  border: 1px solid var(--kz-border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
 /* Visual Story Panels */
 .kz-engineering-stories-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
   margin-bottom: 56px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -3364,6 +3581,14 @@ html.lenis body {
 
 .kz-story-card {
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kz-story-card .kz-double-bezel-inner {
+  padding: 0 !important;
+  overflow: hidden;
 }
 
 .kz-story-card:hover {
@@ -3411,16 +3636,23 @@ html.lenis body {
   left: 12px;
 }
 
+.kz-story-card-body {
+  padding: clamp(16px, 3.5vw, 26px);
+  box-sizing: border-box;
+}
+
 .kz-lab-cta-card {
   background: var(--kz-surface-subtle);
   border: 1px solid var(--kz-border);
   border-radius: 20px;
-  padding: clamp(20px, 4vw, 36px);
+  padding: clamp(18px, 4vw, 36px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .kz-lab-cta-actions {
@@ -3428,6 +3660,7 @@ html.lenis body {
   gap: 10px;
   flex-wrap: wrap;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 650px) {
@@ -3437,9 +3670,17 @@ html.lenis body {
 }
 
 .kz-lab-cta-actions .kz-btn {
-  flex: 1;
+  flex: 1 1 100%;
   justify-content: center;
   border-radius: 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .kz-lab-cta-actions .kz-btn {
+    flex: 1;
+  }
 }
 
 /* Contact / Showroom Grid & Topics */
@@ -3922,39 +4163,57 @@ html.lenis body {
 /* 6-Grid Technical Specs */
 .kz-bracket-specs-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
   margin-bottom: 16px;
   background: var(--kz-surface-subtle);
-  border: 1px solid var(--kz-border-subtle);
-  border-radius: 12px;
-  padding: 10px;
+  border: 1px solid var(--kz-border);
+  border-radius: 14px;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .kz-bracket-specs-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
   .kz-bracket-specs-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
   }
 }
 
 .kz-bracket-spec-item {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 6px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--kz-border);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+  transition: all 180ms ease;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.kz-bracket-spec-item:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
 }
 
 .kz-bracket-spec-icon {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  background: #FFFFFF;
+  background: var(--kz-surface-subtle);
   border: 1px solid var(--kz-border);
   display: flex;
   align-items: center;
@@ -3967,21 +4226,26 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  gap: 2px;
 }
 
 .kz-bracket-spec-key {
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   color: var(--kz-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kz-bracket-spec-val {
-  font-size: 0.78rem;
+  font-family: var(--kz-font-mono);
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--kz-text-primary);
-  line-height: 1.3;
+  line-height: 1.25;
   word-break: break-word;
 }
 
@@ -6195,75 +6459,24 @@ html.lenis body {
   .kz-footer              { padding-top: 28px; padding-bottom: 28px; }
   .kz-footer-minimal      { padding-top: 24px; padding-bottom: 20px; }
   .kz-footer-grid         { gap: 32px; }
-  .kz-bracket-explorer-section .kz-section-head { margin-bottom: 16px; }
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   2. LARGE SCREEN — FHD 1920×1080 and above (min-width: 1600px)
-   ───────────────────────────────────────────────────────────────────────────── */
-@media (min-width: 1600px) {
-
-  /* Layout — max-width driven by --kz-max-width token in tokens.css */
-  .kz-container           { padding-left: 64px; padding-right: 64px; }
-  .kz-section             { padding-top: clamp(56px, 6vw, 80px); padding-bottom: clamp(56px, 6vw, 80px); }
-
-  /* Hero */
-  .kz-hero-section        { padding-top: calc(var(--kz-nav-height) + 52px); padding-bottom: 52px; }
-  .kz-hero-grid           { gap: 80px; }
-  .kz-hero-h1             { font-size: clamp(3.2rem, 5vw, 5.2rem); margin-bottom: 24px; }
-  .kz-hero-lede           { font-size: 1.15rem; margin-bottom: 32px; max-width: 56ch; }
-  .kz-hero-chips          { margin-bottom: 32px; gap: 10px; }
-  .kz-hero-stage          { aspect-ratio: 4/3; }
-  .kz-hero-thumbs         { gap: 14px; margin-top: 18px; }
-  .kz-hero-edition-switcher { margin-top: 18px; }
-  .kz-hero-edition-btn    { height: 48px; font-size: 0.9rem; }
-
-  /* Telemetry */
-  .kz-ticker-wrap         { padding: 14px 0; }
-  .kz-telemetry-card-item { padding: 14px 18px; gap: 14px; }
-  .kz-telemetry-icon-wrap { width: 42px; height: 42px; border-radius: 13px; }
-  .kz-telemetry-val       { font-size: 1.05rem; }
-  .kz-telemetry-lbl       { font-size: 0.78rem; }
-
-  /* Section headers */
-  .kz-section-h2          { font-size: clamp(2.4rem, 4vw, 3.6rem); margin-bottom: 14px; }
-  .kz-section-header      { margin-bottom: 40px; }
-  .kz-section-sub         { font-size: 1.1rem; }
-
-  /* Editions */
-  .kz-editions-grid       { gap: 36px; }
-  .kz-edition-img-stage   { aspect-ratio: 16/10; padding: 32px; margin-bottom: 28px; }
-
-  /* Cinematic video */
-  .kz-cinema-stage-inner  { border-radius: 24px; }
-  .kz-cinematic-title     { font-size: clamp(2rem, 4vw, 3.2rem) !important; }
-  .kz-cinematic-sub       { font-size: 1.05rem !important; }
-
-  /* Reel */
-  .kz-reel-phone-frame    { width: clamp(260px, 22vw, 360px); }
-  .kz-reel-photo-card img { height: 150px; }
-  .kz-reel-photo-stack    { width: 220px; }
-  .kz-reel-side-panel     { width: 220px; }
-  .kz-reel-spec-card      { min-width: 150px; }
-  .kz-reel-title          { font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 12px; }
-  .kz-reel-stage          { gap: 52px; }
-  .kz-reel-header         { margin-bottom: 48px; }
-  .kz-reel-spec-val       { font-size: 1.1rem; }
-  .kz-reel-spec-label     { font-size: 0.65rem; }
-  .kz-reel-spec-item      { padding: 18px 20px; }
-
-  /* Bracket explorer */
+  .kz-bracket-explorer-sect  /* Bracket explorer */
   .kz-bracket-explorer-section .kz-section-head { margin-bottom: 32px; }
 
   /* Product Detail */
-  .kz-pdp-container       { padding-top: calc(var(--kz-nav-height) + 52px); padding-bottom: 52px; max-width: 1560px; }
-  .kz-pdp-grid            { gap: 80px; }
-  .kz-pdp-title           { font-size: clamp(2rem, 3.5vw, 3.2rem); margin-bottom: 14px; }
-  .kz-pdp-gallery-wrap    { top: calc(var(--kz-nav-height) + 32px); max-height: calc(100dvh - var(--kz-nav-height) - 64px); }
-  .kz-pdp-main-stage      { height: clamp(340px, calc(100dvh - var(--kz-nav-height) - 200px), 660px); max-height: 660px; }
+  .kz-pdp-container       { padding-top: calc(var(--kz-nav-height) + 40px); padding-bottom: 56px; }
+  .kz-pdp-container .kz-container { max-width: 1840px; padding-left: 64px; padding-right: 64px; }
+  .kz-pdp-grid            { grid-template-columns: 1fr 1fr; gap: clamp(48px, 4.5vw, 80px); }
+  .kz-pdp-title           { font-size: clamp(2.4rem, 3.4vw, 3.8rem); margin-bottom: 16px; }
+  .kz-pdp-gallery-wrap    { top: calc(var(--kz-nav-height) + 28px); }
+  .kz-pdp-main-stage      { aspect-ratio: 1 / 1; min-height: 480px; padding: 48px; border-radius: 24px; }
+  .kz-pdp-main-img        { max-width: 95%; max-height: 95%; }
   .kz-pdp-thumb-strip     { margin-top: 18px; gap: 14px; }
-  .kz-pdp-thumb-card      { height: 72px; }
-  .kz-pdp-price-amount    { font-size: clamp(2rem, 3vw, 2.8rem); }
+  .kz-pdp-thumb-card      { width: 88px; height: 88px; border-radius: 14px; }
+  .kz-pdp-price-amount    { font-size: 2.8rem; }
+  .kz-pdp-actions-row .kz-btn { padding: 15px 28px; font-size: 1.05rem; }
+  .kz-qty-stepper         { height: 52px; }
+  .kz-qty-btn             { width: 44px; height: 44px; font-size: 1.15rem; }
+  .kz-qty-value           { width: 48px; font-size: 1.05rem; }
 
   /* Engineering Lab */
   .kz-engineering-view         { padding-top: calc(var(--kz-nav-height) + 52px); padding-bottom: 52px; }
@@ -6279,7 +6492,7 @@ html.lenis body {
   .kz-contact-topic-btn   { padding: 16px 20px; font-size: 0.95rem; }
 
   /* Checkout */
-  .kz-checkout-view       { padding-top: calc(var(--kz-nav-height) + 48px); padding-bottom: 48px; max-width: 1400px; margin: 0 auto; }
+  .kz-checkout-view       { padding-top: calc(var(--kz-nav-height) + 48px); padding-bottom: 48px; max-width: 1500px; margin: 0 auto; }
   .kz-checkout-grid       { gap: 48px; }
 
   /* Order Success */
@@ -6297,8 +6510,8 @@ html.lenis body {
    ───────────────────────────────────────────────────────────────────────────── */
 @media (min-width: 2200px) {
 
-  /* Layout — max-width driven by --kz-max-width token */
-  .kz-container           { padding-left: 80px; padding-right: 80px; }
+  /* Layout — Expand container to fill wide 2560px viewport */
+  .kz-container           { max-width: 2180px; padding-left: 72px; padding-right: 72px; }
 
   /* Typography */
   .kz-hero-h1             { font-size: clamp(4rem, 5.5vw, 6.4rem); }
@@ -6313,182 +6526,20 @@ html.lenis body {
 
   /* Editions */
   .kz-editions-grid       { gap: 48px; }
-}
-/* =============================================================================
-   LARGE SCREEN MODE — FHD 1920x1080 and above
-   Targets: min-width 1600px (width-only, no height guard)
-   Strategy: widen container, scale up typography & spacing, expand key sections
-   ============================================================================= */
-@media (min-width: 1600px) {
 
-  /* Container max-width handled by --kz-max-width token in tokens.css */
-  .kz-container {
-    padding-left: 64px;
-    padding-right: 64px;
-  }
-
-  /* More generous section rhythm */
-  .kz-section {
-    padding-top: clamp(56px, 6vw, 80px);
-    padding-bottom: clamp(56px, 6vw, 80px);
-  }
-
-  /* Hero */
-  .kz-hero-section {
-    padding-top: calc(var(--kz-nav-height) + 52px);
-    padding-bottom: 52px;
-  }
-  .kz-hero-grid { gap: 80px; }
-  .kz-hero-h1 {
-    font-size: clamp(3.2rem, 5vw, 5.2rem);
-    margin-bottom: 24px;
-  }
-  .kz-hero-lede {
-    font-size: 1.15rem;
-    margin-bottom: 32px;
-    max-width: 56ch;
-  }
-  .kz-hero-chips { margin-bottom: 32px; gap: 10px; }
-  .kz-hero-stage { aspect-ratio: 4/3; }
-  .kz-hero-thumbs { gap: 14px; margin-top: 18px; }
-  .kz-hero-edition-switcher { margin-top: 18px; }
-  .kz-hero-edition-btn { height: 48px; font-size: 0.9rem; }
-
-  /* Telemetry ticker */
-  .kz-ticker-wrap { padding: 14px 0; }
-  .kz-telemetry-card-item { padding: 14px 18px; gap: 14px; }
-  .kz-telemetry-icon-wrap { width: 42px; height: 42px; border-radius: 13px; }
-  .kz-telemetry-val { font-size: 1.05rem; }
-  .kz-telemetry-lbl { font-size: 0.78rem; }
-
-  /* Section headers */
-  .kz-section-h2 {
-    font-size: clamp(2.4rem, 4vw, 3.6rem);
-    margin-bottom: 14px;
-  }
-  .kz-section-header { margin-bottom: 40px; }
-  .kz-section-sub { font-size: 1.1rem; }
-
-  /* Edition cards */
-  .kz-editions-grid { gap: 36px; }
-  .kz-edition-img-stage {
-    aspect-ratio: 16/10;
-    padding: 32px;
-    margin-bottom: 28px;
-  }
-
-  /* Cinematic video */
-  .kz-cinema-stage-inner { border-radius: 24px; }
-  .kz-cinematic-title { font-size: clamp(2rem, 4vw, 3.2rem) !important; }
-  .kz-cinematic-sub { font-size: 1.05rem !important; }
-
-  /* Reel showcase */
-  .kz-reel-phone-frame { width: clamp(260px, 22vw, 360px); }
-  .kz-reel-photo-card img { height: 150px; }
-  .kz-reel-photo-stack { width: 220px; }
-  .kz-reel-side-panel { width: 220px; }
-  .kz-reel-spec-card { min-width: 150px; }
-  .kz-reel-title { font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 12px; }
-  .kz-reel-stage { gap: 52px; }
-  .kz-reel-header { margin-bottom: 48px; }
-  .kz-reel-spec-val { font-size: 1.1rem; }
-  .kz-reel-spec-label { font-size: 0.65rem; }
-  .kz-reel-spec-item { padding: 18px 20px; }
-
-  /* Bracket explorer */
-  .kz-bracket-explorer-section .kz-section-head { margin-bottom: 32px; }
-}
-
-/* =============================================================================
-   ULTRA-WIDE MODE — QHD / 2K / 2560x1440 and above
-   Targets: min-width 2200px
-   ============================================================================= */
-@media (min-width: 2200px) {
-
-  .kz-container {
-    max-width: 1920px;
-    padding-left: 80px;
-    padding-right: 80px;
-  }
-
-  .kz-hero-h1 { font-size: clamp(4rem, 5.5vw, 6.4rem); }
-  .kz-section-h2 { font-size: clamp(3rem, 4.5vw, 4.4rem); }
-  .kz-reel-phone-frame { width: clamp(300px, 18vw, 420px); }
-  .kz-reel-photo-stack { width: 280px; }
-  .kz-reel-side-panel { width: 280px; }
-  .kz-reel-photo-card img { height: 180px; }
-  .kz-reel-stage { gap: 72px; }
-  .kz-editions-grid { gap: 48px; }
-}
-
-/* =============================================================================
-   ALL PAGES — LARGE SCREEN ENHANCEMENTS (min-width: 1600px)
-   Covers: ProductDetailView, EngineeringLab, Contact, Checkout, Footer
-   ============================================================================= */
-@media (min-width: 1600px) {
-
-  /* ── Product Detail Page (Black & Silver editions) ── */
-  .kz-pdp-container {
-    padding-top: calc(var(--kz-nav-height) + 52px);
-    padding-bottom: 52px;
-    max-width: 1560px;
-  }
-  .kz-pdp-grid { gap: 80px; }
-  .kz-pdp-title {
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    margin-bottom: 14px;
-  }
-  .kz-pdp-gallery-wrap {
-    top: calc(var(--kz-nav-height) + 32px);
-    max-height: calc(100dvh - var(--kz-nav-height) - 64px);
-  }
-  .kz-pdp-main-stage {
-    height: clamp(340px, calc(100dvh - var(--kz-nav-height) - 200px), 660px);
-    max-height: 660px;
-  }
-  .kz-pdp-thumb-strip { margin-top: 18px; gap: 14px; }
-  .kz-pdp-thumb-card { height: 72px; }
-  .kz-pdp-price-amount { font-size: clamp(2rem, 3vw, 2.8rem); }
-
-  /* ── Engineering Lab ── */
-  .kz-engineering-view {
-    padding-top: calc(var(--kz-nav-height) + 52px);
-    padding-bottom: 52px;
-  }
-  .kz-engineering-metrics-bar { gap: 24px; margin-bottom: 40px; }
-  .kz-engineering-metric-cell { padding: 20px 24px; }
-  .kz-engineering-pillars-grid { gap: 28px; }
-  .kz-engineering-pillar-card { padding: 28px; }
-  .kz-engineering-slider { height: 480px; }
-
-  /* ── Contact / Showroom ── */
-  .kz-contact-grid { gap: 64px; }
-  .kz-contact-topics-grid { gap: 16px; }
-  .kz-contact-topic-btn { padding: 16px 20px; font-size: 0.95rem; }
-
-  /* ── Checkout ── */
-  .kz-checkout-view {
-    padding-top: calc(var(--kz-nav-height) + 48px);
-    padding-bottom: 48px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .kz-checkout-grid { gap: 48px; }
-
-  /* ── Order Success / Receipt ── */
-  .kz-receipt-card {
-    max-width: 760px;
-    padding: 48px;
-  }
-  .kz-receipt-details-grid { gap: 24px; }
-
-  /* ── Footer ── */
-  .kz-footer-minimal {
-    padding-top: 48px;
-    padding-bottom: 36px;
-  }
-  .kz-footer-grid { gap: 64px; }
-  .kz-footer-link-btn { font-size: 0.88rem; }
+  /* Product Detail (Ultrawide 2560px) */
+  .kz-pdp-container .kz-container { max-width: 2180px; padding-left: 72px; padding-right: 72px; }
+  .kz-pdp-grid            { grid-template-columns: 1fr 1fr; gap: 96px; }
+  .kz-pdp-title           { font-size: clamp(3rem, 3.8vw, 4.4rem); margin-bottom: 20px; }
+  .kz-pdp-main-stage      { aspect-ratio: 1 / 1; min-height: 560px; padding: 64px; border-radius: 28px; }
+  .kz-pdp-main-img        { max-width: 95%; max-height: 95%; filter: drop-shadow(0 28px 52px rgba(0, 0, 0, 0.12)); }
+  .kz-pdp-thumb-strip     { margin-top: 22px; gap: 16px; }
+  .kz-pdp-thumb-card      { width: 104px; height: 104px; border-radius: 16px; padding: 8px; }
+  .kz-pdp-price-amount    { font-size: 3.4rem; }
+  .kz-pdp-actions-row .kz-btn { padding: 18px 36px; font-size: 1.15rem; border-radius: var(--kz-radius-md); }
+  .kz-qty-stepper         { height: 60px; }
+  .kz-qty-btn             { width: 52px; height: 52px; font-size: 1.25rem; }
+  .kz-qty-value           { width: 56px; font-size: 1.15rem; }
 }
 
 /* =============================================================================

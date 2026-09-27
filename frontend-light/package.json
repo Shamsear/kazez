@@ -9,6 +9,7 @@
     "preview": "vite preview --port 5174"
   },
   "dependencies": {
+    "@number-flow/react": "^0.6.2",
     "canvas-confetti": "^1.9.4",
     "cube-motion": "^0.1.0",
     "framer-motion": "^13.4.1",

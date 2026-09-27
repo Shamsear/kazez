@@ -27,6 +27,7 @@ import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { PriceTag } from './PriceTag';
 import { VehicleBracketConfigurator } from './VehicleBracketConfigurator';
 import { AntennaBracketAdvisory } from './AntennaBracketAdvisory';
+import NumberFlow from '@number-flow/react';
 
 export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEdition, onInstantCheckout }) => {
   const currentProduct = PRODUCTS.find((p) => p.sku === initialSku) || PRODUCTS[0];
@@ -321,7 +322,9 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
                 >
                   -
                 </button>
-                <span className="kz-qty-value">{quantity}</span>
+                <span className="kz-qty-value">
+                  <NumberFlow value={quantity} />
+                </span>
                 <button
                   type="button"
                   className="kz-qty-btn"

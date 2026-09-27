@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { PriceTag } from './PriceTag';
+import NumberFlow from '@number-flow/react';
 
 export const EditionShowcase = ({ onSelectEdition }) => {
   const { t, isRtl } = useLanguage();
@@ -83,7 +84,7 @@ export const EditionShowcase = ({ onSelectEdition }) => {
                 {/* Specs Micro-Strip */}
                 <div className="kz-edition-specs-strip">
                   <div className="kz-edition-spec-item">
-                    <div className="kz-edition-spec-val">45 Nm</div>
+                    <div className="kz-edition-spec-val"><NumberFlow value={45} /> Nm</div>
                     <div className="kz-edition-spec-lbl">{isRtl ? 'عزم التثبيت' : 'Holding Torque'}</div>
                   </div>
                   <div className="kz-edition-spec-item">
@@ -91,7 +92,7 @@ export const EditionShowcase = ({ onSelectEdition }) => {
                     <div className="kz-edition-spec-lbl">{isRtl ? 'عزل الغبار والماء' : 'Ingress Rating'}</div>
                   </div>
                   <div className="kz-edition-spec-item">
-                    <div className="kz-edition-spec-val">160 km/h</div>
+                    <div className="kz-edition-spec-val"><NumberFlow value={160} /> km/h</div>
                     <div className="kz-edition-spec-lbl">{isRtl ? 'ثبات السرعات' : 'Stability Rate'}</div>
                   </div>
                 </div>

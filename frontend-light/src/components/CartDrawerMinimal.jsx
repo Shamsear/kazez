@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { X, Trash2, ArrowRight, ShoppingBag, Truck, ShieldCheck, Plus, Sparkles, Check } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { PriceTag } from './PriceTag';
@@ -95,7 +96,7 @@ export const CartDrawerMinimal = ({ onProceedToCheckout }) => {
                 {isRtl ? 'حقيبة الطلبات' : 'Order Bag'}
               </p>
               <span style={{ fontFamily: 'var(--kz-font-mono)', fontSize: '0.78rem', color: 'var(--kz-text-muted)' }}>
-                {cartCount} {cartCount === 1 ? (isRtl ? 'قطعة' : 'unit') : (isRtl ? 'قطع' : 'units')}
+                <NumberFlow value={cartCount} /> {cartCount === 1 ? (isRtl ? 'قطعة' : 'unit') : (isRtl ? 'قطع' : 'units')}
               </span>
             </div>
           </div>
@@ -135,7 +136,7 @@ export const CartDrawerMinimal = ({ onProceedToCheckout }) => {
               </span>
             </div>
             <span style={{ fontFamily: 'var(--kz-font-mono)', fontSize: '0.72rem', fontWeight: 700, color: progressPercent >= 100 ? '#15803D' : 'var(--kz-text-muted)' }}>
-              {progressPercent}%
+              <NumberFlow value={progressPercent} />%
             </span>
           </div>
 
@@ -251,7 +252,7 @@ export const CartDrawerMinimal = ({ onProceedToCheckout }) => {
                             -
                           </button>
                           <span className="kz-qty-value" style={{ width: '28px', fontSize: '0.82rem' }}>
-                            {item.quantity}
+                            <NumberFlow value={item.quantity} />
                           </span>
                           <button
                             type="button"

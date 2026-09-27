@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import NumberFlow from '@number-flow/react';
 
 export const EngineeringLabView = ({ onSelectEdition }) => {
   const { isRtl } = useLanguage();
@@ -106,7 +107,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
             <span>{isRtl ? 'مختبر الهندسة والتطوير الميداني // الدوحة' : 'DOHA FIELD ENGINEERING LAB & TELEMETRY'}</span>
           </div>
 
-          <h1 className="kz-hero-h1" style={{ fontSize: 'clamp(2.3rem, 4.2vw, 3.5rem)', marginTop: '8px' }}>
+          <h1 className="kz-hero-h1" style={{ fontSize: 'clamp(1.85rem, 5vw, 3.5rem)', marginTop: '8px', wordBreak: 'break-word' }}>
             {isRtl ? 'الهندسة الصحراوية' : 'Engineering'}{' '}
             <span className="kz-serif-accent" style={{ color: 'var(--kz-crimson)' }}>
               {isRtl ? 'فائقة الدقة.' : 'Architecture.'}
@@ -142,7 +143,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
 
         {/* Interactive Telemetry & Velocity Simulator */}
         <div className="kz-double-bezel kz-reveal kz-delay-1" style={{ marginBottom: '56px' }}>
-          <div className="kz-double-bezel-inner kz-engineering-sim-card" style={{ padding: '32px' }}>
+          <div className="kz-double-bezel-inner kz-engineering-sim-card">
             {/* Simulator Header */}
             <div className="kz-sim-header">
               <div>
@@ -174,7 +175,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
               <div className="kz-cad-hud-top">
                 <div className="kz-cad-hud-item">
                   <span className="kz-cad-hud-lbl">WIND VECTOR</span>
-                  <span className="kz-cad-hud-val">{testSpeed} KM/H</span>
+                  <span className="kz-cad-hud-val"><NumberFlow value={testSpeed} /> KM/H</span>
                 </div>
                 <div className="kz-cad-hud-item">
                   <span className="kz-cad-hud-lbl">HOLDING TORQUE</span>
@@ -183,12 +184,12 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 <div className="kz-cad-hud-item">
                   <span className="kz-cad-hud-lbl">DEFLECTION ANGLE</span>
                   <span className="kz-cad-hud-val" style={{ color: whipDeflection > 0.15 ? '#F59E0B' : '#38BDF8' }}>
-                    {whipDeflection}°
+                    <NumberFlow value={whipDeflection} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />°
                   </span>
                 </div>
                 <div className="kz-cad-hud-item">
                   <span className="kz-cad-hud-lbl">DYNAMIC FORCE</span>
-                  <span className="kz-cad-hud-val">{windForceN} N</span>
+                  <span className="kz-cad-hud-val"><NumberFlow value={windForceN} /> N</span>
                 </div>
               </div>
 
@@ -344,7 +345,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontFamily: 'var(--kz-font-mono)', fontSize: '1.8rem', fontWeight: 800, color: 'var(--kz-crimson)', lineHeight: 1 }}>
-                    {testSpeed}
+                    <NumberFlow value={testSpeed} />
                   </span>
                   <span style={{ fontFamily: 'var(--kz-font-mono)', fontSize: '0.88rem', fontWeight: 800, color: 'var(--kz-text-muted)' }}>
                     KM/H
@@ -403,7 +404,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                   {isRtl ? 'انحراف زاوية الهوائي' : 'Whip Deflection'}
                 </div>
                 <div className="kz-lab-gauge-num" style={{ color: testSpeed > 150 ? '#D97706' : 'var(--kz-text-primary)' }}>
-                  {whipDeflection}<span className="kz-gauge-unit">°</span>
+                  <NumberFlow value={whipDeflection} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /><span className="kz-gauge-unit">°</span>
                 </div>
                 <div className="kz-gauge-bar-track">
                   <div className="kz-gauge-bar-fill" style={{ width: `${Math.min(100, whipDeflection * 300)}%`, background: testSpeed > 150 ? '#D97706' : '#38BDF8' }} />
@@ -418,7 +419,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                   {isRtl ? 'مقاومة الحمل الديناميكي' : 'Wind Load Force'}
                 </div>
                 <div className="kz-lab-gauge-num">
-                  {windForceN} <span className="kz-gauge-unit">N</span>
+                  <NumberFlow value={windForceN} /> <span className="kz-gauge-unit">N</span>
                 </div>
                 <div className="kz-gauge-bar-track">
                   <div className="kz-gauge-bar-fill" style={{ width: `${(windForceN / 160) * 100}%`, background: 'var(--kz-crimson)' }} />
@@ -463,7 +464,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 key={p.num}
                 className={`kz-double-bezel kz-engineering-pillar-card kz-reveal kz-delay-${idx + 1}`}
               >
-                <div className="kz-double-bezel-inner" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '28px' }}>
+                <div className="kz-double-bezel-inner">
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                     <div
                       style={{
@@ -514,7 +515,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 />
                 <div className="kz-story-badge">METALLURGY // CNC BILLET</div>
               </div>
-              <div style={{ padding: '26px' }}>
+              <div className="kz-story-card-body">
                 <h3 style={{ fontFamily: 'var(--kz-font-display)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '8px' }}>
                   {isRtl ? 'دقة التصنيع والسبك' : 'Forged Structural Integrity'}
                 </h3>
@@ -537,7 +538,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 />
                 <div className="kz-story-badge">TELEMETRY // FIELD RIG</div>
               </div>
-              <div style={{ padding: '26px' }}>
+              <div className="kz-story-card-body">
                 <h3 style={{ fontFamily: 'var(--kz-font-display)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '8px' }}>
                   {isRtl ? 'اختبارات السرعة والاهتزاز' : 'Desert Velocity & Shock Rig'}
                 </h3>

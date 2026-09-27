@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { CheckCircle2, Printer, MessageSquare, ArrowRight, ShieldCheck, Truck, Package, Clock, Check } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { PriceTag } from './PriceTag';
+import NumberFlow from '@number-flow/react';
 
 export const OrderSuccessReceipt = ({ order, onReturnHome }) => {
   const { isRtl } = useLanguage();
@@ -174,7 +175,7 @@ export const OrderSuccessReceipt = ({ order, onReturnHome }) => {
                       <div style={{ fontSize: '0.78rem', color: 'var(--kz-text-muted)', marginTop: '2px' }}>{item.specs}</div>
                     </td>
                     <td style={{ padding: '14px 0', textAlign: 'center', fontFamily: 'var(--kz-font-mono)', fontWeight: 600 }}>
-                      {item.quantity}
+                      <NumberFlow value={item.quantity} />
                     </td>
                     <td style={{ padding: '14px 0', textAlign: isRtl ? 'left' : 'right', fontFamily: 'var(--kz-font-mono)', fontWeight: 700 }}>
                       <PriceTag amountInQar={item.price * item.quantity} />

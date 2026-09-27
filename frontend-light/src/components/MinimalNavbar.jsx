@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, ChevronDown, Check } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -154,7 +155,9 @@ export const MinimalNavbar = ({ activeView, setActiveView }) => {
           >
             <ShoppingBag size={18} />
             {cartCount > 0 && (
-              <span className="kz-cart-badge-count">{cartCount}</span>
+              <span className="kz-cart-badge-count">
+                <NumberFlow value={cartCount} />
+              </span>
             )}
           </button>
         </div>
