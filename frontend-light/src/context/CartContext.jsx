@@ -106,7 +106,6 @@ export const CartProvider = ({ children }) => {
         isPrefix: true,
         symbol: '$',
         amount: converted.toFixed(2),
-        numericAmount: Number(converted.toFixed(2)),
         currencyCode: 'USD'
       };
     }
@@ -114,7 +113,6 @@ export const CartProvider = ({ children }) => {
       isPrefix: false,
       symbol: curInfo.symbol,
       amount: Math.round(converted).toLocaleString(),
-      numericAmount: Math.round(converted),
       currencyCode: currency
     };
   };

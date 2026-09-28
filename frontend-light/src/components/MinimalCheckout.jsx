@@ -19,7 +19,6 @@ import {
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { PriceTag } from './PriceTag';
-import NumberFlow from '@number-flow/react';
 
 const GCC_COUNTRIES = [
   { code: 'QA', name: 'Qatar', arabicName: 'دولة قطر', dialCode: '+974', flag: '🇶🇦' },
@@ -586,7 +585,7 @@ export const MinimalCheckout = ({ onReturnHome, onOrderComplete }) => {
                     {isRtl ? 'ملخص الطلب' : 'Order Summary'}
                   </h3>
                   <span style={{ fontFamily: 'var(--kz-font-mono)', fontSize: '0.78rem', color: 'var(--kz-text-muted)' }}>
-                    <NumberFlow value={items.length > 0 ? items.reduce((acc, it) => acc + it.quantity, 0) : 1} /> ITEM(S)
+                    {items.length > 0 ? items.reduce((acc, it) => acc + it.quantity, 0) : 1} ITEM(S)
                   </span>
                 </div>
 
@@ -618,7 +617,7 @@ export const MinimalCheckout = ({ onReturnHome, onOrderComplete }) => {
                           {it.edition || it.name}
                         </div>
                         <div style={{ fontSize: '0.78rem', color: 'var(--kz-text-muted)' }}>
-                          Qty: <NumberFlow value={it.quantity} /> · {it.finish}
+                          Qty: {it.quantity} · {it.finish}
                         </div>
                       </div>
                       <div style={{ fontFamily: 'var(--kz-font-mono)', fontWeight: 700, fontSize: '0.92rem' }}>

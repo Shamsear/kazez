@@ -5,10 +5,7 @@ import { useCart } from '../context/CartContext';
 export const PriceTag = ({ amountInQar, className = '', showLabel = false }) => {
   const { getPriceParts } = useCart();
   const parts = getPriceParts(amountInQar);
-
-  const formatOptions = parts.currencyCode === 'USD' 
-    ? { minimumFractionDigits: 2, maximumFractionDigits: 2 }
-    : { maximumFractionDigits: 0 };
+  const numericAmount = typeof parts.amount === 'number' ? parts.amount : parseFloat(parts.amount) || 0;
 
   return (
     <span className={`kz-price ${className}`}>
@@ -16,19 +13,13 @@ export const PriceTag = ({ amountInQar, className = '', showLabel = false }) => 
         <>
           <span className="kz-currency kz-currency-prefix">{parts.symbol}</span>
           <span className="kz-price-val">
-            <NumberFlow 
-              value={parts.numericAmount ?? 0} 
-              format={formatOptions}
-            />
+            <NumberFlow value={numericAmount} />
           </span>
         </>
       ) : (
         <>
           <span className="kz-price-val">
-            <NumberFlow 
-              value={parts.numericAmount ?? 0} 
-              format={formatOptions}
-            />
+            <NumberFlow value={numericAmount} />
           </span>
           <span className="kz-currency kz-currency-suffix">{parts.symbol}</span>
         </>

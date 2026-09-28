@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { BRACKETS, VEHICLE_MAKES } from '../data/brackets';
 import AnimatedTabs from '@/components/forgeui/animated-tabs';
+import NumberFlow from '@number-flow/react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { PriceTag } from './PriceTag';
@@ -141,7 +142,7 @@ export const BracketExplorer = ({ onSelectBracketForCart }) => {
                 <>
                   <span className="kz-tab-label">{tab.label}</span>
                   <span className={`kz-pill-count kz-tab-count ${isActive ? 'active' : ''}`}>
-                    {tab.count}
+                    <NumberFlow value={tab.count} />
                   </span>
                 </>
               )}
@@ -179,9 +180,9 @@ export const BracketExplorer = ({ onSelectBracketForCart }) => {
             <span className="kz-status-dot" />
             <span className="kz-status-text">
               {isRtl ? (
-                <>عرض <strong>{filteredBrackets.length}</strong> قاعدة تثبيت {selectedMake !== 'All Makes' ? `لمركبات ${getMakeLabel(selectedMake)}` : 'لكافة طرازات الدفع الرباعي'} · تطابق مصنعي 100%</>
+                <>عرض <strong><NumberFlow value={filteredBrackets.length} /></strong> قاعدة تثبيت {selectedMake !== 'All Makes' ? `لمركبات ${getMakeLabel(selectedMake)}` : 'لكافة طرازات الدفع الرباعي'} · تطابق مصنعي 100%</>
               ) : (
-                <>Showing <strong>{filteredBrackets.length}</strong> {filteredBrackets.length === 1 ? 'mount bracket' : 'precision brackets'} {selectedMake !== 'All Makes' ? `for ${selectedMake}` : 'across all platforms'} · 100% OEM Bolt-On</>
+                <>Showing <strong><NumberFlow value={filteredBrackets.length} /></strong> {filteredBrackets.length === 1 ? 'mount bracket' : 'precision brackets'} {selectedMake !== 'All Makes' ? `for ${selectedMake}` : 'across all platforms'} · 100% OEM Bolt-On</>
               )}
             </span>
           </div>

@@ -18,9 +18,9 @@ import {
   ChevronRight,
   Maximize2
 } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import NumberFlow from '@number-flow/react';
 
 export const EngineeringLabView = ({ onSelectEdition }) => {
   const { isRtl } = useLanguage();
@@ -107,7 +107,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
             <span>{isRtl ? 'مختبر الهندسة والتطوير الميداني // الدوحة' : 'DOHA FIELD ENGINEERING LAB & TELEMETRY'}</span>
           </div>
 
-          <h1 className="kz-hero-h1" style={{ fontSize: 'clamp(1.85rem, 5vw, 3.5rem)', marginTop: '8px', wordBreak: 'break-word' }}>
+          <h1 className="kz-hero-h1" style={{ fontSize: 'clamp(2.3rem, 4.2vw, 3.5rem)', marginTop: '8px' }}>
             {isRtl ? 'الهندسة الصحراوية' : 'Engineering'}{' '}
             <span className="kz-serif-accent" style={{ color: 'var(--kz-crimson)' }}>
               {isRtl ? 'فائقة الدقة.' : 'Architecture.'}
@@ -143,7 +143,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
 
         {/* Interactive Telemetry & Velocity Simulator */}
         <div className="kz-double-bezel kz-reveal kz-delay-1" style={{ marginBottom: '56px' }}>
-          <div className="kz-double-bezel-inner kz-engineering-sim-card">
+          <div className="kz-double-bezel-inner kz-engineering-sim-card" style={{ padding: '32px' }}>
             {/* Simulator Header */}
             <div className="kz-sim-header">
               <div>
@@ -464,7 +464,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 key={p.num}
                 className={`kz-double-bezel kz-engineering-pillar-card kz-reveal kz-delay-${idx + 1}`}
               >
-                <div className="kz-double-bezel-inner">
+                <div className="kz-double-bezel-inner" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '28px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                     <div
                       style={{
@@ -515,7 +515,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 />
                 <div className="kz-story-badge">METALLURGY // CNC BILLET</div>
               </div>
-              <div className="kz-story-card-body">
+              <div style={{ padding: '26px' }}>
                 <h3 style={{ fontFamily: 'var(--kz-font-display)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '8px' }}>
                   {isRtl ? 'دقة التصنيع والسبك' : 'Forged Structural Integrity'}
                 </h3>
@@ -538,7 +538,7 @@ export const EngineeringLabView = ({ onSelectEdition }) => {
                 />
                 <div className="kz-story-badge">TELEMETRY // FIELD RIG</div>
               </div>
-              <div className="kz-story-card-body">
+              <div style={{ padding: '26px' }}>
                 <h3 style={{ fontFamily: 'var(--kz-font-display)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '8px' }}>
                   {isRtl ? 'اختبارات السرعة والاهتزاز' : 'Desert Velocity & Shock Rig'}
                 </h3>

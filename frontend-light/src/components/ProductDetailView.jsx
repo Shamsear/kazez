@@ -18,6 +18,7 @@ import {
   Car,
   Search
 } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -27,7 +28,6 @@ import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { PriceTag } from './PriceTag';
 import { VehicleBracketConfigurator } from './VehicleBracketConfigurator';
 import { AntennaBracketAdvisory } from './AntennaBracketAdvisory';
-import NumberFlow from '@number-flow/react';
 
 export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherEdition, onInstantCheckout }) => {
   const currentProduct = PRODUCTS.find((p) => p.sku === initialSku) || PRODUCTS[0];
@@ -47,7 +47,6 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   const [selectedMake, setSelectedMake] = useState('all');
   const [fitmentSearch, setFitmentSearch] = useState('');
   const [showStickyBar, setShowStickyBar] = useState(false);
-  const [isFullWidth, setIsFullWidth] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
 
   const [openAccordions, setOpenAccordions] = useState({
@@ -82,47 +81,72 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
   });
 
   const actionsRowRef = useRef(null);
-  const galleryRef = useRef(null);
-  const gridRef = useRef(null);
-  const isFullWidthRef = useRef(false);
 
   useEffect(() => {
-    let ticking = false;
+    let observer = null;
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (actionsRowRef.current) {
-            const rect = actionsRowRef.current.getBoundingClientRect();
-            // Show sticky bar when the primary actions row has scrolled above the top of the viewport
-            setShowStickyBar(rect.bottom < 0);
-          }
-
-          if (galleryRef.current) {
-            const galleryRect = galleryRef.current.getBoundingClientRect();
-            
-            // The gallery unpins and stops sticking when its bottom edge scrolls past the viewport bottom area
-            const floatEnded = galleryRect.bottom <= (window.innerHeight - 80);
-
-            if (floatEnded !== isFullWidthRef.current) {
-              isFullWidthRef.current = floatEnded;
-              setIsFullWidth(floatEnded);
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
+    const checkVisibility = () => {
+      if (actionsRowRef.current) {
+        const rect = actionsRowRef.current.getBoundingClientRect();
+        // As soon as the bottom of the Add to Bag buttons row scrolls above the top navbar (~64px), trigger sticky bar
+        setShowStickyBar(rect.bottom <= 72);
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    handleScroll();
+    // 1. Intersection Observer for immediate native trigger
+    if (typeof IntersectionObserver !== 'undefined' && actionsRowRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry) {
+            const rect = entry.boundingClientRect;
+            if (!entry.isIntersecting && rect.bottom <= 72) {
+              setShowStickyBar(true);
+            } else if (entry.isIntersecting || rect.bottom > 72) {
+              setShowStickyBar(false);
+            }
+          }
+        },
+        {
+          rootMargin: '-72px 0px 0px 0px',
+          threshold: [0, 0.1, 0.5, 1.0]
+        }
+      );
+      observer.observe(actionsRowRef.current);
+    }
+
+    // 2. Native scroll and resize listeners
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    window.addEventListener('resize', checkVisibility, { passive: true });
+
+    // 3. Lenis smooth scroll listener (handles Lenis virtual scrolling)
+    if (window.lenis) {
+      window.lenis.on('scroll', checkVisibility);
+    }
+
+    const lenisPollTimer = setInterval(() => {
+      if (window.lenis) {
+        window.lenis.on('scroll', checkVisibility);
+        clearInterval(lenisPollTimer);
+      }
+    }, 120);
+
+    const safetyTimeout = setTimeout(() => clearInterval(lenisPollTimer), 4000);
+
+    // Initial check
+    checkVisibility();
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      if (observer) observer.disconnect();
+      clearInterval(lenisPollTimer);
+      clearTimeout(safetyTimeout);
+      window.removeEventListener('scroll', checkVisibility);
+      window.removeEventListener('resize', checkVisibility);
+      if (window.lenis) {
+        window.lenis.off('scroll', checkVisibility);
+      }
     };
-  }, []);
+  }, [currentProduct]);
 
   const toggleAccordion = (key) => {
     setOpenAccordions((prev) => ({
@@ -185,9 +209,9 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
         </div>
 
         {/* Main PDP Grid */}
-        <div className={`kz-pdp-grid ${isSilver ? 'kz-pdp-edition-silver' : 'kz-pdp-edition-black'}`} ref={gridRef}>
+        <div className={`kz-pdp-grid ${isSilver ? 'kz-pdp-edition-silver' : 'kz-pdp-edition-black'}`}>
           {/* Left Column: Visual Stage & Gallery */}
-          <div className="kz-pdp-gallery-wrap kz-reveal kz-delay-1" ref={galleryRef}>
+          <div className="kz-pdp-gallery-wrap kz-reveal kz-delay-1">
             <div className="kz-double-bezel">
               <div className="kz-double-bezel-inner">
                 <div
@@ -578,8 +602,8 @@ export const ProductDetailView = ({ initialSku = 'KAZEZ', onBack, onSelectOtherE
         </div>
       </div>
 
-      {/* Floating Sticky Buy Bar (Smart Expand from Right Column to Full Width) */}
-      <div className={`kz-sticky-bar-wrapper ${showStickyBar ? 'visible' : ''} ${isFullWidth ? 'kz-sticky-bar-full-width' : ''}`}>
+      {/* Floating Right-Side Sticky Buy Bar */}
+      <div className={`kz-sticky-bar-wrapper ${showStickyBar ? 'visible' : ''}`}>
         <div className="kz-sticky-bar-container">
           <div className="kz-sticky-buy-bar">
             <div className="kz-sticky-buy-product">

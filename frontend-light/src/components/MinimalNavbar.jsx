@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingBag, ChevronDown, Check } from 'lucide-react';
 import NumberFlow from '@number-flow/react';
+import { ShoppingBag, ChevronDown, Check } from 'lucide-react';
 import AnimatedTabs from '@/components/forgeui/animated-tabs';
 import { useCart } from '../context/CartContext';
 import { useLanguage } from '../context/LanguageContext';
