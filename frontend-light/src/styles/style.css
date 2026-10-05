@@ -1668,6 +1668,7 @@ html.lenis body {
    PRODUCT DETAIL VIEW (Studio PDP & Sticky Buy Bar)
    ----------------------------------------------------------------------------- */
 .kz-pdp-container {
+  width: 100%;
   padding-top: calc(var(--kz-nav-height) + 32px);
   padding-bottom: 48px;
 }
@@ -2555,6 +2556,7 @@ html.lenis body {
    CHECKOUT PAGE
    ----------------------------------------------------------------------------- */
 .kz-checkout-view {
+  width: 100%;
   padding-top: calc(var(--kz-nav-height) + 40px);
   padding-bottom: 140px;
 }
@@ -6247,7 +6249,7 @@ html.lenis body {
   .kz-bracket-explorer-section .kz-section-head { margin-bottom: 32px; }
 
   /* Product Detail */
-  .kz-pdp-container       { padding-top: calc(var(--kz-nav-height) + 52px); padding-bottom: 52px; max-width: 1560px; }
+  .kz-pdp-container       { padding-top: calc(var(--kz-nav-height) + 52px); padding-bottom: 52px; width: 100%; }
   .kz-pdp-grid            { gap: 80px; }
   .kz-pdp-title           { font-size: clamp(2rem, 3.5vw, 3.2rem); margin-bottom: 14px; }
   .kz-pdp-gallery-wrap    { top: calc(var(--kz-nav-height) + 32px); max-height: calc(100dvh - var(--kz-nav-height) - 64px); }
@@ -6270,7 +6272,7 @@ html.lenis body {
   .kz-contact-topic-btn   { padding: 16px 20px; font-size: 0.95rem; }
 
   /* Checkout */
-  .kz-checkout-view       { padding-top: calc(var(--kz-nav-height) + 48px); padding-bottom: 48px; max-width: 1400px; margin: 0 auto; }
+  .kz-checkout-view       { padding-top: calc(var(--kz-nav-height) + 48px); padding-bottom: 48px; width: 100%; }
   .kz-checkout-grid       { gap: 48px; }
 
   /* Order Success */
@@ -6422,7 +6424,7 @@ html.lenis body {
   .kz-pdp-container {
     padding-top: calc(var(--kz-nav-height) + 52px);
     padding-bottom: 52px;
-    max-width: 1560px;
+    width: 100%;
   }
   .kz-pdp-grid { gap: 80px; }
   .kz-pdp-title {
@@ -6461,8 +6463,7 @@ html.lenis body {
   .kz-checkout-view {
     padding-top: calc(var(--kz-nav-height) + 48px);
     padding-bottom: 48px;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
   }
   .kz-checkout-grid { gap: 48px; }
 

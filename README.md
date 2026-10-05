@@ -8,6 +8,7 @@ High-torque motorized radio antenna actuators engineered for GCC desert terrain 
 
 ```
 kazez/
+├── frontend-minimal/  # Kazez Minimal Light Edition (Swiss-grid, zero-slop, fitment-first)
 ├── frontend-light/    # Kazez Architectural / Editorial Studio Edition
 ├── .gitignore
 └── README.md
@@ -31,7 +32,15 @@ kazez/
 
 ## 🛠️ Quick Start & Local Development
 
-### Running the Storefront
+### Running the New Minimal Storefront (`frontend-minimal/`)
+```bash
+cd frontend-minimal
+npm install
+npm run dev
+```
+*Access dev server at `http://localhost:5180/`.*
+
+### Running the Architectural Storefront (`frontend-light/`)
 ```bash
 cd frontend-light
 npm install
@@ -41,8 +50,11 @@ npm run dev
 
 ### Production Build
 ```bash
-cd frontend-light
-npm run build
+# Minimal Edition
+cd frontend-minimal && npm run build
+
+# Architectural Edition
+cd frontend-light && npm run build
 ```
 
 ---

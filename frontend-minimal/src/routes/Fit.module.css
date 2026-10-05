@@ -1,0 +1,306 @@
+/* Fit.module.css */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-6);
+}
+
+.steps {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-6);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--step-0);
+  font-weight: 500;
+  color: var(--ink-3);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.stepActive {
+  color: var(--ink);
+  border-bottom-color: var(--signal);
+  font-weight: 600;
+}
+
+.stepDone {
+  color: var(--ink);
+}
+
+.stepNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--band);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+.stepActive .stepNum {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.selectionSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.subnav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-bottom: var(--s-2);
+}
+
+.currentTag {
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s-4);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-5);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-align: start;
+  transition: border-color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardTitle {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Kit Layout */
+.kitLayout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+.bracketColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.bracketList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.bracketCard {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--t-fast);
+}
+
+.bracketCard:hover {
+  border-color: var(--ink-3);
+}
+
+.bracketSelected {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.bracketImg {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s-2);
+}
+
+.bracketImg img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bracketDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.bracketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.bracketPrice {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.bracketSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.specBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  background: var(--band);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+}
+
+.skuRow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: auto;
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.copyBtn:hover {
+  color: var(--ink);
+}
+
+.helpBox {
+  padding: var(--s-5);
+  background: var(--band);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+/* Action Card / Sticky Purchase */
+.actionColumn {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--s-5));
+}
+
+.actionCard {
+  padding: var(--s-6);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.calcSummary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.calcRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--step-0);
+  color: var(--ink-2);
+}
+
+.calcTotal {
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--ink);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  margin-bottom: var(--s-2);
+}
+
+.secondaryAction {
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-block: var(--s-2);
+}
+
+.secondaryAction:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 899px) {
+  .kitLayout {
+    grid-template-columns: 1fr;
+  }
+  .actionColumn {
+    position: static;
+  }
+  .bracketCard {
+    grid-template-columns: 1fr;
+  }
+  .bracketImg {
+    max-width: 160px;
+  }
+}

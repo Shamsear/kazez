@@ -1,0 +1,197 @@
+/* Order.module.css */
+
+.orderContainer {
+  max-width: 760px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  text-align: center;
+  align-items: center;
+}
+
+.checkIcon {
+  color: var(--ok);
+}
+
+.receiptCard {
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.receiptHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.orderNumLabel {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.orderNum {
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.customerDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-5);
+  padding-bottom: var(--s-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.blockLabel {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.statusBadge {
+  display: inline-block;
+  font-size: var(--step--1);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  margin-bottom: 4px;
+}
+
+.statusBadge[data-status='paid'] {
+  background: #EDF7EE;
+  color: var(--ok);
+}
+
+.statusBadge[data-status='due'] {
+  background: var(--band);
+  color: var(--ink);
+}
+
+.statusBadge[data-status='pending'] {
+  background: #FEF7E6;
+  color: #B45309;
+}
+
+.itemsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.orderItem {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: var(--s-4);
+  align-items: center;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.itemThumb {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemThumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.itemMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.calcBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.calcRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--step-0);
+  color: var(--ink-2);
+}
+
+.calcTotal {
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--ink);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.notFoundBox {
+  padding: var(--s-8) var(--s-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--s-4);
+}
+
+@media (max-width: 639px) {
+  .customerDetails {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actions :global(.btn) {
+    width: 100%;
+  }
+}

@@ -1,0 +1,59 @@
+.mark {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 6px;
+  min-height: 44px;
+  padding-block: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.word {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variation-settings: 'wdth' 125;
+}
+
+.whip {
+  width: 2px;
+  height: 20px;
+  margin-block-end: 1px;
+  background: var(--signal);
+  transform-origin: 50% 100%;
+  animation: settle 620ms var(--ease-out) both;
+}
+
+[dir='rtl'] .whip { animation-name: settle-rtl; }
+
+@keyframes settle {
+  0% { transform: rotate(0deg); }
+  35% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes settle-rtl {
+  0% { transform: rotate(0deg); }
+  35% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.fold {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: currentColor;
+  transform-origin: 50% 100%;
+  animation: swing 900ms var(--ease-out) infinite alternate;
+}
+
+@keyframes swing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whip { animation: none; }
+  .fold { animation: none; opacity: 0.6; }
+}

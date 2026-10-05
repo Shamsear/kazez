@@ -1,0 +1,28 @@
+.strip {
+  background: var(--band);
+  border-block: 1px solid var(--line);
+}
+.form {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 2fr 3fr auto;
+  align-items: end;
+  gap: var(--s-5);
+  padding-block: var(--s-5);
+}
+.label {
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  align-self: center;
+  padding-top: 22px;
+}
+.submit { min-width: 140px; }
+
+@media (max-width: 899px) {
+  .form { grid-template-columns: 1fr 1fr; }
+  .label { grid-column: 1 / -1; padding-top: 0; }
+  .submit { grid-column: 1 / -1; }
+}
+@media (max-width: 519px) {
+  .form { grid-template-columns: 1fr; }
+}

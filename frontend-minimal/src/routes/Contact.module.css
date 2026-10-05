@@ -1,0 +1,81 @@
+/* Contact.module.css */
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-7);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.infoCard,
+.tradeCard,
+.formCard {
+  padding: var(--s-6);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.tradeCard {
+  background: var(--band);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.infoIcon {
+  color: var(--signal);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.successBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  align-items: flex-start;
+  padding: var(--s-4);
+  background: var(--band);
+  border-radius: var(--radius);
+}
+
+.successIcon {
+  color: var(--ok);
+}
+
+@media (max-width: 899px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}

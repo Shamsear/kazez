@@ -1,0 +1,90 @@
+/* Quantity stepper */
+.qty {
+  display: inline-grid;
+  grid-template-columns: 40px 48px 40px;
+  align-items: center;
+  height: 44px;
+  width: fit-content;
+  justify-self: start;
+  background: var(--canvas);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  user-select: none;
+}
+.qty button {
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  transition: background-color var(--t-fast);
+}
+.qty button:first-child {
+  border-inline-end: 1px solid var(--line);
+}
+.qty button:last-child {
+  border-inline-start: 1px solid var(--line);
+}
+.qty button:hover:not(:disabled) {
+  background: var(--band);
+}
+.qty button:disabled {
+  color: var(--ink-3);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.qty output {
+  text-align: center;
+  font-weight: 600;
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  padding-inline: 4px;
+}
+
+/* Finish toggle */
+.finish { border: 0; padding: 0; display: grid; gap: var(--s-2); min-width: 0; }
+.finishRow { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+.finishOpt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 60px;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--t-fast);
+}
+.finishOpt:hover { border-color: var(--ink-3); }
+.finishOpt[data-checked='true'] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.finishOpt input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.finishOpt:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 3px; }
+.swatch { width: 20px; height: 20px; flex: none; border: 1px solid rgb(14 17 22 / 0.15); }
+.finishText { display: grid; line-height: 1.25; font-weight: 560; }
+.finishDetail { font-size: var(--step--1); font-weight: 400; color: var(--ink-2); }
+
+/* Spec sheet */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
+}
+.specGroup { display: grid; gap: var(--s-3); align-content: start; }
+.specTitle {
+  font-size: var(--step-0);
+  font-weight: 600;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--ink);
+}
+.specRow {
+  display: grid;
+  gap: 2px;
+  padding-block: var(--s-3);
+}
+.specRow dt { font-size: var(--step--1); color: var(--ink-2); }
+.specRow dd { font-size: var(--step-1); font-weight: 520; margin: 0; }
+
+@media (max-width: 899px) {
+  .specs { grid-template-columns: 1fr; gap: var(--s-5); }
+}
