@@ -603,40 +603,15 @@ export default function Checkout() {
             </div>
 
             {currency !== 'QAR' && (
-              <p className="small">{t.common.chargedInQar}</p>
+              <p className="small" style={{ color: 'var(--ink-2)', textAlign: 'center' }}>
+                {t.common.chargedInQar}
+              </p>
             )}
 
-            {currentStep < 3 && (
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                onClick={currentStep === 1 ? handleNextToDelivery : handleNextToPayment}
-              >
-                <span>
-                  {currentStep === 1 ? t.checkout.continueToDelivery : t.checkout.continueToPayment}
-                </span>
-                <ArrowRight size={16} className="flip" />
-              </button>
-            )}
-
-            {currentStep === 3 && (
-              <button
-                type="submit"
-                className="btn btn-primary btn-block"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Fold />
-                    <span>{t.checkout.placing}...</span>
-                  </>
-                ) : (
-                  <span>
-                    {t.checkout.place} • <Price qar={grandTotal} />
-                  </span>
-                )}
-              </button>
-            )}
+            <div className={s.summaryTrust}>
+              <ShieldCheck size={18} className={s.trustIcon} />
+              <span className="small">{t.home.heroBadge}</span>
+            </div>
           </div>
         </Rise>
       </form>
