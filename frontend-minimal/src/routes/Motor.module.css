@@ -213,8 +213,25 @@
 @media (max-width: 899px) {
   .pdpLayout {
     grid-template-columns: 1fr;
+    gap: var(--s-5);
   }
   .gallery {
     position: static;
+  }
+}
+
+@media (max-width: 539px) {
+  .thumbs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--s-2);
+  }
+  .thumb {
+    flex-shrink: 0;
+    width: 68px;
+    height: 68px;
+  }
+  .price {
+    font-size: var(--step-2);
   }
 }

@@ -65,3 +65,12 @@
 .empty { display: grid; gap: var(--s-3); align-content: start; justify-items: start; padding: var(--s-6) var(--s-5); }
 .emptyTitle { font-size: var(--step-2); font-weight: 600; }
 .empty :global(.btn) { margin-top: var(--s-3); }
+
+@media (max-width: 479px) {
+  .panel {
+    width: 100vw;
+  }
+  .foot {
+    padding-bottom: max(var(--s-5), env(safe-area-inset-bottom));
+  }
+}

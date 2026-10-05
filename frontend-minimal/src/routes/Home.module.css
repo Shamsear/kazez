@@ -275,6 +275,7 @@
   }
   .fold {
     grid-template-columns: 1fr;
+    gap: var(--s-5);
   }
   .pair {
     grid-template-columns: 1fr;
@@ -285,6 +286,27 @@
   }
   .specImg {
     display: none;
+  }
+}
+
+@media (max-width: 539px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--s-3);
+  }
+  .actions :global(.btn) {
+    width: 100%;
+  }
+  .states {
+    grid-template-columns: 1fr;
+  }
+  .makes {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--s-3);
+  }
+  .finishCard {
+    padding: var(--s-4);
   }
 }
 

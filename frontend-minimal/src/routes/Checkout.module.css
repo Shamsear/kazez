@@ -212,11 +212,25 @@
 @media (max-width: 899px) {
   .checkoutLayout {
     grid-template-columns: 1fr;
+    gap: var(--s-5);
   }
   .summaryColumn {
     position: static;
   }
   .fieldsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 539px) {
+  .sectionCard,
+  .summaryCard {
+    padding: var(--s-4);
+  }
+  .paymentOption {
+    padding: var(--s-3);
+  }
+  .cardSubGrid {
     grid-template-columns: 1fr;
   }
 }

@@ -293,6 +293,7 @@
 @media (max-width: 899px) {
   .kitLayout {
     grid-template-columns: 1fr;
+    gap: var(--s-5);
   }
   .actionColumn {
     position: static;
@@ -302,5 +303,30 @@
   }
   .bracketImg {
     max-width: 160px;
+  }
+  .steps {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+  .steps::-webkit-scrollbar {
+    display: none;
+  }
+  .step {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 539px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .actionCard {
+    padding: var(--s-4);
+  }
+  .card {
+    padding: var(--s-4);
   }
 }

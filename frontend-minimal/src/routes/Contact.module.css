@@ -77,5 +77,15 @@
 @media (max-width: 899px) {
   .contactGrid {
     grid-template-columns: 1fr;
+    gap: var(--s-5);
+  }
+}
+
+@media (max-width: 539px) {
+  .infoCard,
+  .tradeCard,
+  .formCard {
+    padding: var(--s-4);
+    gap: var(--s-4);
   }
 }
