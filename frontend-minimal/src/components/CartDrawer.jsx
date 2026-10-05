@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { X } from '@phosphor-icons/react';
+import { X, Trash } from '@phosphor-icons/react';
 import { useLocale } from '../i18n/LocaleContext.jsx';
 import { useShop } from '../state/ShopContext.jsx';
 import { Qty, Price } from './Bits.jsx';
@@ -74,7 +74,16 @@ export function CartDrawer() {
                     <p className="small mono" dir="ltr">{it.sku}</p>
                     <div className={s.row}>
                       <Qty value={it.qty} min={0} onChange={(q) => setQty(it.sku, q)} />
-                      <button type="button" className={s.remove} onClick={() => remove(it.sku)}>{t.common.remove}</button>
+                      <button
+                        type="button"
+                        className={s.remove}
+                        onClick={() => remove(it.sku)}
+                        aria-label={`${t.common.remove} ${pick(it.name)}`}
+                        title={t.common.remove}
+                      >
+                        <Trash size={15} />
+                        <span>{t.common.remove}</span>
+                      </button>
                     </div>
                   </div>
                   <Price qar={it.price * it.qty} className={`${s.price} num`} />
