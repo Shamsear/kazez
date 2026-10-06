@@ -22,7 +22,7 @@ kazez/
 - **Core Features**:
   - Precision Product Detail Page (PDP) with high-res zoom lightbox & technical accordions
   - Smart reversible sticky buy pill with dynamic viewport tracking
-  - Interactive Engineering Lab & Velocity Telemetry Rig
+  - Live Off-Road Velocity & Ingress Telemetry Rig
   - Doha Showroom & Concierge Contact Desk
   - 3-step GCC Express Checkout flow with instant order confirmation receipt
   - Bilingual Support (English / Arabic RTL) & Multi-Currency Converter (QAR, SAR, AED, USD)

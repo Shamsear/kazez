@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Shield, Sparkles, Cpu, MapPin } from 'lucide-react';
+import { Home, Shield, Sparkles, MapPin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const FloatingBottomNav = ({ activeView, setActiveView }) => {
@@ -38,12 +38,6 @@ export const FloatingBottomNav = ({ activeView, setActiveView }) => {
       label: t.nav.silverEdition || (isRtl ? 'الفضي الكروم' : 'Silver Edition'),
       shortLabel: isRtl ? 'الفضي' : 'Silver',
       icon: Sparkles
-    },
-    {
-      id: 'engineering',
-      label: t.nav.engineeringLab || (isRtl ? 'المختبر الهندسي' : 'Engineering'),
-      shortLabel: isRtl ? 'الهندسة' : 'Lab',
-      icon: Cpu
     },
     {
       id: 'contact',

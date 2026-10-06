@@ -59,7 +59,6 @@ export const MinimalNavbar = ({ activeView, setActiveView }) => {
     { id: 'home', label: t.nav.storefront || (isRtl ? 'الرئيسية' : 'Storefront') },
     { id: 'kazez-black', label: t.nav.blackEdition || (isRtl ? 'الإصدار الأسود' : 'Black Edition') },
     { id: 'kazez-silver', label: t.nav.silverEdition || (isRtl ? 'الإصدار الفضي' : 'Silver Edition') },
-    { id: 'engineering', label: t.nav.engineeringLab || (isRtl ? 'المختبر الهندسي' : 'Engineering Lab') },
     { id: 'contact', label: t.nav.showroom || (isRtl ? 'صالة العرض' : 'Showroom') }
   ];
 

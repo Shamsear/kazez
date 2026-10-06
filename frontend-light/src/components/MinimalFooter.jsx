@@ -109,11 +109,6 @@ export const MinimalFooter = ({ onNavigate }) => {
                   {isRtl ? 'الإصدار الفضي (Silver Edition)' : 'Silver Edition Actuator'}
                 </button>
               </li>
-              <li>
-                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('engineering')}>
-                  {isRtl ? 'مختبر المواصفات' : 'Engineering Lab'}
-                </button>
-              </li>
             </ul>
           </div>
 
@@ -122,22 +117,22 @@ export const MinimalFooter = ({ onNavigate }) => {
             <div className="kz-footer-col-title">{isRtl ? 'الهندسة والمعايير' : 'Architecture'}</div>
             <ul className="kz-footer-links">
               <li>
-                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('engineering')}>
+                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('kazez-black')}>
                   {isRtl ? 'عزم التثبيت 45 نيوتن متر' : '45 Nm Holding Torque'}
                 </button>
               </li>
               <li>
-                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('engineering')}>
+                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('kazez-black')}>
                   {isRtl ? 'عزل الغبار والماء IP67' : 'IP67 Hermetic Ingress'}
                 </button>
               </li>
               <li>
-                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('engineering')}>
+                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('kazez-black')}>
                   {isRtl ? 'سبائك ألومنيوم 6061-T6' : '6061-T6 Forged Billet'}
                 </button>
               </li>
               <li>
-                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('engineering')}>
+                <button type="button" className="kz-footer-link-btn" onClick={() => onNavigate('kazez-black')}>
                   {isRtl ? 'تحكم لاسلكي 433 ميغاهرتز' : '433 MHz RF Actuation'}
                 </button>
               </li>

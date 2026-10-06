@@ -7,7 +7,6 @@ import { EditionShowcase } from './components/EditionShowcase';
 import { BracketExplorer } from './components/BracketExplorer';
 import { ReelShowcase } from './components/ReelShowcase';
 import { ProductDetailView } from './components/ProductDetailView';
-import { EngineeringLabView } from './components/EngineeringLabView';
 import { ShowroomContact } from './components/ShowroomContact';
 import { CartDrawerMinimal } from './components/CartDrawerMinimal';
 import { MinimalCheckout } from './components/MinimalCheckout';
@@ -27,7 +26,7 @@ export const App = () => {
   const getInitialView = () => {
     const hash = window.location.hash.replace('#', '');
     if (hash === 'kz-editions') return 'home';
-    const validViews = ['home', 'kazez-black', 'kazez-silver', 'engineering', 'contact', 'checkout', 'order-success'];
+    const validViews = ['home', 'kazez-black', 'kazez-silver', 'contact', 'checkout', 'order-success'];
     return validViews.includes(hash) ? hash : 'home';
   };
 
@@ -98,7 +97,7 @@ export const App = () => {
           });
         }
         setActiveView('order-success');
-      } else if (['home', 'kazez-black', 'kazez-silver', 'engineering', 'contact', 'checkout'].includes(hash)) {
+      } else if (['home', 'kazez-black', 'kazez-silver', 'contact', 'checkout'].includes(hash)) {
         setActiveView(hash);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -183,10 +182,6 @@ export const App = () => {
                   navigateTo('checkout');
                 }}
               />
-            )}
-
-            {activeView === 'engineering' && (
-              <EngineeringLabView onSelectEdition={(slug) => navigateTo(slug)} />
             )}
 
             {activeView === 'contact' && (
